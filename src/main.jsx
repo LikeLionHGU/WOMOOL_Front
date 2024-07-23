@@ -5,11 +5,16 @@ import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import Logincb from "./pages/Logincb.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/logincb",
+    element: <Logincb />,
   },
 ]);
 
