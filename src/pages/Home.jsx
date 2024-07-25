@@ -8,8 +8,10 @@ import MainWoomoolText from "../assets/MainHome/Section1/main-woomol-text.svg";
 import MainPointDownImg from "../assets/MainHome/Section1/main-point-down.svg";
 import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.svg";
 import MainCupImg from "../assets/MainHome/Section2/Cup.jpg";
+import { useState } from "react";
 
 function Home() {
+  const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
   const jwtValue = useRecoilValue(authJwtAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
   return (
@@ -30,8 +32,13 @@ function Home() {
         </MainFeatureComp.main>
         <MainPointDown src={MainPointDownImg} />
         <MainHomeVid>
-          <MainHomeBackShade />
-          <video autoPlay muted loop>
+          <MainHomeBackShade className={videoLoadedComplete && "darker"} />
+          <video
+            autoPlay
+            muted
+            loop
+            onLoadedData={() => setVideoLoadedComplete(true)}
+          >
             <source src="assets/water-back-vid.webm" type="video/webm" />
           </video>
         </MainHomeVid>
@@ -66,6 +73,22 @@ const MainHomeBackShade = styled.div`
   height: 100%;
   margin: 0;
   padding: 0;
+
+  opacity: 0;
+
+  &.darker {
+    /* opacity: 1; */
+    animation: fadeIn 450ms forwards;
+    animation-delay: 450ms;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
 `;
 
 const MainHomeVid = styled.div`
