@@ -20,18 +20,31 @@ export default Header;
 const HeaderComp = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 37px 54px;
+  max-width: 652px;
+  margin: auto;
+  padding: 37px 16px;
 `;
 
-const HeaderImage = styled.img``;
+const HeaderImage = styled.img`
+  max-width: 68px;
+  padding-left: 25px;
+  width: 9.067vw;
+`;
 
 const HeaderMenus = styled.div`
-  border: 1px solid red;
+  font-family: "Times New Roman", sans-serif;
   display: flex;
 `;
 
 const HeaderMenuBtn = styled.div`
-  border: 1px solid yellow;
   padding: 15px 25px;
   font-size: 17px;
+
+  @media (max-width: 750px) {
+    font-size: 2.267vw;
+  }
+
+  @media (max-width: 574.46px) {
+    font-size: 13px;
+  }
 `;
