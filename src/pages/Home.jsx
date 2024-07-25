@@ -7,8 +7,9 @@ import { Container } from "../styles/Container";
 import MainWoomoolText from "../assets/MainHome/Section1/main-woomol-text.svg";
 import MainPointDownImg from "../assets/MainHome/Section1/main-point-down.svg";
 import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.svg";
-import MainCupImg from "../assets/MainHome/Section2/Cup.jpg";
+
 import { useEffect, useRef, useState } from "react";
+import MainHomeComp2 from "../components/Home/MainHomeComp2";
 
 function Home() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
@@ -24,6 +25,7 @@ function Home() {
   const [locationWhere, setLocationWhere] = useState(0);
 
   useEffect(() => {
+    // return; // 임시 stick 효과 비활성화.
     const handleScroll = (e) => {
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
@@ -32,14 +34,14 @@ function Home() {
       const container = containerRef.current;
       const mainHome1 = MainHomeSection1Ref.current;
       const mainHome2 = MainHomeSection2Ref.current;
-      console.log(mainHome1.offsetTop, mainHome1.offsetHeight);
-      console.log(mainHome2.offsetTop);
+      // console.log(mainHome1.offsetTop, mainHome1.offsetHeight);
+      // console.log(mainHome2.offsetTop);
       const clientHeight = window.screen.height;
       // const clientHeight = document.documentElement.clientHeight;
       const scrollLoc =
         document.documentElement.scrollTop || document.body.scrollTop;
-      console.log(scrollLoc, clientHeight, scrollLoc + clientHeight);
-      console.log("scroll", e);
+      // console.log(scrollLoc, clientHeight, scrollLoc + clientHeight);
+      // console.log("scroll", e);
 
       setPreviousScrollLoc(scrollLoc);
 
@@ -126,9 +128,7 @@ function Home() {
         </MainHomeVid>
       </MainHomeSection1>
       <MainHomeSection2 ref={MainHomeSection2Ref}>
-        <MainHomeTodayDrank>
-          <img src={MainCupImg} />
-        </MainHomeTodayDrank>
+        <MainHomeComp2 />
       </MainHomeSection2>
     </Container>
   );
@@ -166,7 +166,7 @@ const MainHomeBackShade = styled.div`
   &.darker {
     /* opacity: 1; */
     animation: fadeIn 450ms forwards;
-    animation-delay: 450ms;
+    animation-delay: 1500ms;
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -291,18 +291,4 @@ const MainPointDown = styled.img`
 const MainHomeSection2 = styled(ScrollSnap)`
   background-color: black;
   min-height: 200vh;
-`;
-
-const MainHomeTodayDrank = styled.div`
-  padding-top: 119px;
-  padding-bottom: 100px;
-
-  padding-left: 20.8%;
-  padding-right: 8%;
-
-  img {
-    width: 100%;
-    max-width: 534px;
-    /* padding: 8px; */
-  }
 `;
