@@ -9,7 +9,7 @@ function Header() {
       <HeaderImage src={headerLogo} />
       <HeaderMenus>
         <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
-        <HeaderMenuBtn>Login</HeaderMenuBtn>
+        <HeaderMenuBtn>LOGIN</HeaderMenuBtn>
       </HeaderMenus>
     </HeaderComp>
   );
