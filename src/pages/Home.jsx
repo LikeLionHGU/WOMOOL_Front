@@ -8,15 +8,97 @@ import MainWoomoolText from "../assets/MainHome/Section1/main-woomol-text.svg";
 import MainPointDownImg from "../assets/MainHome/Section1/main-point-down.svg";
 import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.svg";
 import MainCupImg from "../assets/MainHome/Section2/Cup.jpg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Home() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
   const jwtValue = useRecoilValue(authJwtAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
+
+  // Javascript Animation
+  const containerRef = useRef(null);
+  const MainHomeSection1Ref = useRef(null);
+  const MainHomeSection2Ref = useRef(null);
+  const [scrollTimeout, setScrollTimeout] = useState(null);
+  const [previousScrollLoc, setPreviousScrollLoc] = useState(0);
+  const [locationWhere, setLocationWhere] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      const container = containerRef.current;
+      const mainHome1 = MainHomeSection1Ref.current;
+      const mainHome2 = MainHomeSection2Ref.current;
+      console.log(mainHome1.offsetTop, mainHome1.offsetHeight);
+      console.log(mainHome2.offsetTop);
+      const clientHeight = window.screen.height;
+      // const clientHeight = document.documentElement.clientHeight;
+      const scrollLoc =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      console.log(scrollLoc, clientHeight, scrollLoc + clientHeight);
+      console.log("scroll", e);
+
+      setPreviousScrollLoc(scrollLoc);
+
+      setScrollTimeout(
+        setTimeout(
+          ((paramPrevScrollLoc) => {
+            const updown = scrollLoc < previousScrollLoc ? "up" : "down";
+            console.log("Fire scroll", updown, locationWhere, {
+              scrollLoc,
+              previousScrollLoc,
+              paramPrevScrollLoc,
+              mainHome2,
+            });
+
+            if (
+              locationWhere === 0 &&
+              updown == "down" &&
+              scrollLoc + clientHeight > mainHome2.offsetTop
+            ) {
+              console.log("Scrolling to mainHome2");
+              setLocationWhere(1);
+              document.documentElement.scrollTo({
+                top: mainHome2.offsetTop,
+                behavior: "smooth",
+              });
+            } else if (
+              locationWhere === 1 &&
+              updown == "up" &&
+              scrollLoc < mainHome2.offsetTop
+            ) {
+              console.log("Scrolling to mainHome1");
+              setLocationWhere(0);
+              document.documentElement.scrollTo({
+                top: mainHome1.offsetTop,
+                behavior: "smooth",
+              });
+            }
+          }).bind(null, scrollLoc),
+          1
+        ) // Delay to prevent excessive calls
+      );
+    };
+
+    // const container = containerRef.current;
+    document.addEventListener("scroll", handleScroll);
+    return () => document.removeEventListener("scroll", handleScroll);
+  }, [scrollTimeout]);
+
   return (
-    <Container>
-      <MainHomeSection1>
+    <Container
+      style={
+        {
+          // scrollSnapType: "y mandatory",
+          // height: "100vh",
+          // overflowY: "scroll",
+        }
+      }
+    >
+      <MainHomeSection1 ref={MainHomeSection1Ref}>
         <Header />
         <MainFeatureComp.main>
           <MainFeatureComp.subtext>
@@ -43,7 +125,7 @@ function Home() {
           </video>
         </MainHomeVid>
       </MainHomeSection1>
-      <MainHomeSection2>
+      <MainHomeSection2 ref={MainHomeSection2Ref}>
         <MainHomeTodayDrank>
           <img src={MainCupImg} />
         </MainHomeTodayDrank>
@@ -54,7 +136,11 @@ function Home() {
 
 export default Home;
 
-const MainHomeSection1 = styled.div`
+const ScrollSnap = styled.div`
+  scroll-snap-align: start;
+`;
+
+const MainHomeSection1 = styled(ScrollSnap)`
   position: relative;
   height: 100vh;
   min-height: 655px;
@@ -202,8 +288,9 @@ const MainPointDown = styled.img`
   }
 `;
 
-const MainHomeSection2 = styled.div`
+const MainHomeSection2 = styled(ScrollSnap)`
   background-color: black;
+  min-height: 200vh;
 `;
 
 const MainHomeTodayDrank = styled.div`
