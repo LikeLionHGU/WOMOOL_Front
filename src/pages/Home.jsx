@@ -20,9 +20,11 @@ function Home() {
           <MainFeatureComp.subtext>
             물 마시는 습관, 서로 공유하여 `우물`해요
           </MainFeatureComp.subtext>
-          <MainFeatureComp.img src={MainWoomoolText} />
+          <MainFeatureComp.img>
+            <img src={MainWoomoolText} />
+          </MainFeatureComp.img>
           <MainEnterTheRoom.main>
-            <MainEnterTheRoom.emptyspace />
+            {/* <MainEnterTheRoom.emptyspace /> */}
             <MainEnterTheRoom.img src={MainEntertheRoomImg} />
           </MainEnterTheRoom.main>
         </MainFeatureComp.main>
@@ -90,38 +92,59 @@ const MainHomeVid = styled.div`
 const MainFeatureComp = {
   main: styled.div`
     position: absolute;
-    top: 50%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 555px;
-    width: 74vw;
     margin: 0 auto;
     /* margin: 0 97px; */
-    padding: 16px;
-    padding-bottom: 64px;
+
+    /* padding: 16px; */
+    /* padding-bottom: 64px; */
     box-sizing: border-box;
+
+    & > div {
+      height: 33%;
+    }
   `,
   subtext: styled.div`
+    font-family: "Pretendard Variable", Pretendard, -apple-system,
+      BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+      "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-weight: medium;
     font-size: 24px;
-    margin-bottom: 44px;
-
+    display: flex;
+    align-items: end;
+    padding-bottom: 32px;
     @media (max-width: 750px) {
       font-size: 3.2vw;
     }
+
+    @media (max-width: 500px) {
+      font-size: 16px;
+    }
   `,
-  img: styled.img`
+  img: styled.div`
     width: 100%;
+    max-width: 555px;
+    width: 74vw;
   `,
 };
 
 const MainEnterTheRoom = {
   main: styled.div`
-    position: absolute;
-    bottom: 0;
-    transform: translateY(100%);
+    display: flex;
+    justify-content: center;
+    /* position: absolute; */
+    /* bottom: 0;
+    transform: translateY(100%); */
     /* margin-bottom: 64px; */
   `,
   emptyspace: styled.div`
