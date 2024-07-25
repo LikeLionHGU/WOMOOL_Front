@@ -4,9 +4,10 @@ import { authJwtAtom } from "../recoil/auth/atoms";
 import Header from "../components/Header";
 import { Container } from "../styles/Container";
 
-import MainWoomoolText from "../assets/main-woomol-text.svg";
-import MainPointDownImg from "../assets/main-point-down.svg";
-import MainEntertheRoomImg from "../assets/main-EntertheRoom.svg";
+import MainWoomoolText from "../assets/MainHome/Section1/main-woomol-text.svg";
+import MainPointDownImg from "../assets/MainHome/Section1/main-point-down.svg";
+import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.svg";
+import MainCupImg from "../assets/MainHome/Section2/Cup.jpg";
 
 function Home() {
   const jwtValue = useRecoilValue(authJwtAtom);
@@ -33,6 +34,11 @@ function Home() {
           </video>
         </MainHomeVid>
       </MainHomeSection1>
+      <MainHomeSection2>
+        <MainHomeTodayDrank>
+          <img src={MainCupImg} />
+        </MainHomeTodayDrank>
+      </MainHomeSection2>
     </Container>
   );
 }
@@ -146,5 +152,23 @@ const MainPointDown = styled.img`
     50% {
       transform: translateY(-10px);
     }
+  }
+`;
+
+const MainHomeSection2 = styled.div`
+  background-color: black;
+`;
+
+const MainHomeTodayDrank = styled.div`
+  padding-top: 119px;
+  padding-bottom: 100px;
+
+  padding-left: 20.8%;
+  padding-right: 8%;
+
+  img {
+    width: 100%;
+    max-width: 534px;
+    /* padding: 8px; */
   }
 `;
