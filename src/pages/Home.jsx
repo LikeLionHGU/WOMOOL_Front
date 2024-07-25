@@ -57,6 +57,7 @@ export default Home;
 const MainHomeSection1 = styled.div`
   position: relative;
   height: 100vh;
+  min-height: 655px;
   max-height: 1334px;
   overflow: hidden;
   padding: 0;
