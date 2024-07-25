@@ -23,6 +23,34 @@ function Home() {
   const [scrollTimeout, setScrollTimeout] = useState(null);
   const [previousScrollLoc, setPreviousScrollLoc] = useState(0);
   const [locationWhere, setLocationWhere] = useState(0);
+  const [scrollTarget, setScrollTarget] = useState(null);
+
+  useEffect(() => {
+    if (scrollTarget === null) return;
+    let prevValue = 0;
+    const interval = setInterval(() => {
+      const scrollLoc =
+        document.documentElement.scrollTop || document.body.scrollTop;
+
+      console.log({ prevValue, scrollLoc });
+
+      if (Math.abs(scrollTarget - scrollLoc) < 5) {
+        document.body.style.overflow = "";
+        setScrollTarget(null);
+        return;
+      }
+
+      if (prevValue === scrollLoc) {
+        console.log("DEAD", scrollTarget);
+        document.documentElement.scrollTo({
+          top: scrollTarget,
+          behavior: "smooth",
+        });
+      }
+      prevValue = scrollLoc;
+    }, 20);
+    return () => clearInterval(interval);
+  }, [scrollTarget]);
 
   useEffect(() => {
     // return; // 임시 stick 효과 비활성화.
@@ -59,14 +87,17 @@ function Home() {
             if (
               locationWhere === 0 &&
               updown == "down" &&
-              scrollLoc + clientHeight > mainHome2.offsetTop
+              scrollLoc + clientHeight > mainHome2.offsetTop &&
+              scrollLoc < mainHome2.offsetTop
             ) {
               console.log("Scrolling to mainHome2");
               setLocationWhere(1);
-              document.documentElement.scrollTo({
-                top: mainHome2.offsetTop,
-                behavior: "smooth",
-              });
+              setScrollTarget(mainHome2.offsetTop);
+              document.body.style.overflow = "hidden";
+              // document.documentElement.scrollTo({
+              //   top: mainHome2.offsetTop,
+              //   behavior: "smooth",
+              // });
             } else if (
               locationWhere === 1 &&
               updown == "up" &&
@@ -74,10 +105,12 @@ function Home() {
             ) {
               console.log("Scrolling to mainHome1");
               setLocationWhere(0);
-              document.documentElement.scrollTo({
-                top: mainHome1.offsetTop,
-                behavior: "smooth",
-              });
+              document.body.style.overflow = "hidden";
+              setScrollTarget(mainHome1.offsetTop);
+              // document.documentElement.scrollTo({
+              //   top: mainHome1.offsetTop,
+              //   behavior: "smooth",
+              // });
             }
           }).bind(null, scrollLoc),
           1
