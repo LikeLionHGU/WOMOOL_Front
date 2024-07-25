@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import headerLogo from "../assets/header-logo.svg";
 
 function Header() {
+  const headerRef = useRef(null);
+  useEffect(() => {
+    const scrollHandler = () => {
+      const scrollLoc =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      const element = headerRef.current;
+      if (scrollLoc > 0) {
+        element.classList.add("bg");
+      } else {
+        element.classList.remove("bg");
+      }
+    };
+    document.addEventListener("scroll", scrollHandler);
+
+    return () => document.removeEventListener("scroll", scrollHandler);
+  }, []);
+
   return (
-    <HeaderComp>
-      <HeaderImage src={headerLogo} />
-      <HeaderMenus>
-        <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
-        <HeaderMenuBtn>LOGIN</HeaderMenuBtn>
-      </HeaderMenus>
+    <HeaderComp ref={headerRef}>
+      <div>
+        <HeaderImage src={headerLogo} />
+        <HeaderMenus>
+          <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
+          <HeaderMenuBtn>LOGIN</HeaderMenuBtn>
+        </HeaderMenus>
+      </div>
     </HeaderComp>
   );
 }
@@ -18,11 +37,26 @@ function Header() {
 export default Header;
 
 const HeaderComp = styled.div`
-  display: flex;
-  justify-content: space-between;
-  max-width: 652px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 750px;
   margin: auto;
-  padding: 37px 16px;
+
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    max-width: 652px;
+    padding: 18px 16px;
+    margin: auto;
+  }
+
+  transition: background-color 80ms linear;
+  &.bg {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 200ms linear;
+  }
 `;
 
 const HeaderImage = styled.img`
