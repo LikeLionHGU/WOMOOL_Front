@@ -3,6 +3,7 @@ import { Container } from "../styles/Container";
 import { useRecoilValue } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 import styled from "styled-components";
+import { serverRootUrl } from "../constants";
 
 const presets = [
   {
@@ -82,7 +83,7 @@ function ApiTest() {
   };
 
   const sendApiRequest = () => {
-    fetch("http://localhost:8080" + targetEndPoint, {
+    fetch(serverRootUrl + targetEndPoint, {
       method: requestType,
       headers: {
         Authorization: `Bearer ${jwtValue}`,
@@ -98,6 +99,7 @@ function ApiTest() {
     <Container>
       <ApiTestC>
         <h1>Api TEST</h1>
+        <div>Server Root Url: {serverRootUrl}</div>
         <h3>JWT Token</h3>
         <input value={jwtValue} readOnly />
         <h3>Target Endpoint</h3>
