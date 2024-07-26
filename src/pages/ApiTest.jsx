@@ -99,7 +99,22 @@ function ApiTest() {
     <Container>
       <ApiTestC>
         <h1>Api TEST</h1>
-        <div>Server Root Url: {serverRootUrl}</div>
+        <div>
+          Server Root Url:{" "}
+          <a target="_blank" rel="noopener noreferrer" href={serverRootUrl}>
+            {serverRootUrl}
+          </a>
+        </div>
+        <div>
+          Login:{" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${serverRootUrl}/login`}
+          >
+            {serverRootUrl}/login
+          </a>
+        </div>
         <h3>JWT Token</h3>
         <input value={jwtValue} readOnly />
         <h3>Target Endpoint</h3>
