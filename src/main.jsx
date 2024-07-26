@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Logincb from "./pages/Logincb.jsx";
 import Home from "./pages/Home.jsx";
+import ApiTest from "./pages/ApiTest.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/logincb",
     element: <Logincb />,
+  },
+  {
+    path: "/apitest",
+    element: <ApiTest />,
   },
 ]);
 
