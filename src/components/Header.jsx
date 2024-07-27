@@ -44,6 +44,8 @@ const HeaderComp = styled.div`
   max-width: 750px;
   margin: auto;
 
+  z-index: 99999;
+
   & > div {
     display: flex;
     justify-content: space-between;
