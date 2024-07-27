@@ -43,8 +43,8 @@ function MainHomeComp2() {
           <Cup.bg
             style={{
               // width: 1100 - (scrollY.scrollTop - scrollY.mainTop) * 3,
-              "mask-image": `url(${CupMask})`,
-              "-webkit-mask-image": `url(${CupMask})`,
+              "mask-image": `url('${CupMask}')`,
+              "-webkit-mask-image": `url('${CupMask}')`,
               "mask-size": `${Math.max(
                 100,
                 100 + animationDurPx * (1 - scrollProcess / animationDurPx)
