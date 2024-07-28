@@ -47,10 +47,20 @@ function MainHomeComp2_1() {
   //   -cupBgRef.current?.getBoundingClientRect().top /
   //     cupBgRef?.current?.offsetTop
   // );
+  // console.log(
+  //   cupBgRef.current?.children[0].children[0].getBoundingClientRect().height
+  // );
 
   return (
     <div ref={mainRef}>
-      <MainHomeTodayDrank ref={cupBgRef}>
+      <MainHomeTodayDrank
+        ref={cupBgRef}
+        style={{
+          height:
+            cupBgRef.current?.children[0].children[0].getBoundingClientRect()
+              .height,
+        }}
+      >
         <Cup.main style={{}} data-aos="fade-up" data-aos-offset="500">
           <Cup.bg style={{}}>
             <img
@@ -90,7 +100,7 @@ const MainHomeTodayDrank = styled.div`
   overflow: hidden;
 
   /* overflow: hidden; */
-  height: 3000px;
+  /* height: 3000px; */
 
   img {
     width: 100%;

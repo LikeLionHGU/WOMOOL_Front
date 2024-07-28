@@ -12,6 +12,7 @@ import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.s
 
 import MainHomeComp2 from "../components/Home/MainHomeComp2";
 import MainHomeComp2_1 from "../components/Home/MainHomeComp2_1";
+import MainHomeComp3 from "../components/Home/MainHomeComp3";
 
 function Home() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
@@ -167,6 +168,7 @@ function Home() {
       </MainHomeSection1>
       <MainHomeSection2 ref={MainHomeSection2Ref}>
         {main === "1" ? <MainHomeComp2_1 /> : <MainHomeComp2 />}
+        <MainHomeComp3 />
       </MainHomeSection2>
     </Container>
   );
