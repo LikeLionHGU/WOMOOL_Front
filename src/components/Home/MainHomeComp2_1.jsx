@@ -5,7 +5,7 @@ import MainCupImg from "../../assets/MainHome/Section2/Cup.jpg";
 import CupBackgroundImg from "../../assets/MainHome/Section2/CupBg.jpg";
 import styled from "styled-components";
 
-function MainHomeComp2() {
+function MainHomeComp2_1() {
   const mainRef = useRef();
   const [scrollY, setScrollY] = useState({
     scrollTop: 0,
@@ -67,7 +67,7 @@ function MainHomeComp2() {
   );
 }
 
-export default MainHomeComp2;
+export default MainHomeComp2_1;
 
 const MainHomeTodayDrank = styled.div`
   /* padding-top: 90px; */
