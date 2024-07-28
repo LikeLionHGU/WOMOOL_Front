@@ -41,7 +41,7 @@ function Home() {
       // disableMutationObserver: true,
       // throttleDelay: 60,
     });
-  }, []);
+  });
 
   useEffect(() => {
     if (scrollTarget === null) return;
