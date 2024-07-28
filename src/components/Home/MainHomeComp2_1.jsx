@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import AOS from "aos";
-import "aos/dist/aos.css"; // You can also use <link> for styles
-
 import MainCupImg from "../../assets/MainHome/Section2/Cup.jpg";
 // import CupMask from "../../assets/MainHome/Section2/CupMask.svg";
 import CupBackgroundImg from "../../assets/MainHome/Section2/CupBg.jpg";
@@ -12,13 +9,11 @@ import { removeNonNumeric } from "../../tools/tool";
 function MainHomeComp2_1() {
   const mainRef = useRef();
   const cupBgRef = useRef();
-  useEffect(() => {
-    AOS.init();
-  }, []);
   const [scrollY, setScrollY] = useState({
     scrollTop: 0,
     mainTop: 0,
   });
+
   const handleScroll = () => {
     const mainDiv = mainRef.current;
     if (!mainDiv) return;
