@@ -2,17 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { authJwtAtom } from "../recoil/auth/atoms";
-import Header from "../components/Header";
-import { Container } from "../styles/Container";
+import AOS from "aos";
+
+import "aos/dist/aos.css";
 
 import MainWoomoolText from "../assets/MainHome/Section1/main-woomol-text.svg";
 import MainPointDownImg from "../assets/MainHome/Section1/main-point-down.svg";
 import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.svg";
 
+import { authJwtAtom } from "../recoil/auth/atoms";
+import Header from "../components/Header";
+import { Container } from "../styles/Container";
 import MainHomeComp2 from "../components/Home/MainHomeComp2";
 import MainHomeComp2_1 from "../components/Home/MainHomeComp2_1";
 import MainHomeComp3 from "../components/Home/MainHomeComp3";
+import MainHomeComp4 from "../components/Home/MainHomeComp4";
 
 function Home() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
@@ -30,6 +34,14 @@ function Home() {
   const [previousScrollLoc, setPreviousScrollLoc] = useState(0);
   const [locationWhere, setLocationWhere] = useState(0);
   const [scrollTarget, setScrollTarget] = useState(null);
+
+  // Setup AOS
+  useEffect(() => {
+    AOS.init({
+      // disableMutationObserver: true,
+      // throttleDelay: 60,
+    });
+  }, []);
 
   useEffect(() => {
     if (scrollTarget === null) return;
@@ -169,6 +181,7 @@ function Home() {
       <MainHomeSection2 ref={MainHomeSection2Ref}>
         {main === "1" ? <MainHomeComp2_1 /> : <MainHomeComp2 />}
         <MainHomeComp3 />
+        <MainHomeComp4 />
       </MainHomeSection2>
     </Container>
   );
