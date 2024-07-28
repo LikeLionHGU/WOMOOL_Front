@@ -1,12 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
 
 import MainCupImg from "../../assets/MainHome/Section2/Cup.jpg";
 // import CupMask from "../../assets/MainHome/Section2/CupMask.svg";
 import CupBackgroundImg from "../../assets/MainHome/Section2/CupBg.jpg";
-import styled from "styled-components";
+import { removeNonNumeric } from "../../tools/tool";
 
 function MainHomeComp2_1() {
   const mainRef = useRef();
+  const cupBgRef = useRef();
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const [scrollY, setScrollY] = useState({
     scrollTop: 0,
     mainTop: 0,
@@ -25,37 +33,40 @@ function MainHomeComp2_1() {
 
   const animationDurPx = 150;
   const scrollProcess = Math.max(0, scrollY.scrollTop - scrollY.mainTop);
+  const cupBgRefComputedMarginTop =
+    (cupBgRef.current &&
+      +removeNonNumeric(getComputedStyle(cupBgRef.current)["paddingTop"])) ||
+    0;
+  // console.log(
+  //   cupBgRefComputedMarginTop,
+  //   scrollY.scrollTop,
+  //   cupBgRef?.current?.offsetTop,
+  //   cupBgRef.current?.getBoundingClientRect().top,
+  //   cupBgRef.current?.getBoundingClientRect().bottom,
+
+  //   -cupBgRef.current?.getBoundingClientRect().top /
+  //     cupBgRef?.current?.offsetTop
+  // );
 
   return (
     <div ref={mainRef}>
-      <MainHomeTodayDrank>
-        <Cup.main
-          style={{
-            transform: `translateY(${Math.min(
-              animationDurPx + 150,
-              scrollProcess + (scrollProcess / animationDurPx) * 150
-            )}px) scale(${Math.max(
-              1,
-              3 * (1 - scrollProcess / (animationDurPx * 1.5))
-            )})`,
-          }}
-        >
-          <Cup.bg
-            style={{
-              // width: 1100 - (scrollY.scrollTop - scrollY.mainTop) * 3,
-              "mask-image": `url('/assets/CupMask.svg')`,
-              "-webkit-mask-image": `url('/assets/CupMask.svg')`,
-              "mask-size": `${Math.max(
-                100,
-                100 + animationDurPx * (1 - scrollProcess / animationDurPx)
-              )}%`,
-              "-webkit-mask-size": `${Math.max(
-                100,
-                100 + animationDurPx * (1 - scrollProcess / animationDurPx)
-              )}%`,
-            }}
-          >
-            <img src={CupBackgroundImg} />
+      <MainHomeTodayDrank ref={cupBgRef}>
+        <Cup.main style={{}} data-aos="fade-up" data-aos-offset="500">
+          <Cup.bg style={{}}>
+            <img
+              style={{
+                top: `-${Math.max(
+                  0,
+                  Math.min(
+                    50,
+                    (-cupBgRef.current?.getBoundingClientRect().top /
+                      cupBgRef?.current?.offsetTop) *
+                      50
+                  )
+                )}%`,
+              }}
+              src={CupBackgroundImg}
+            />
           </Cup.bg>
           {/* 
           <Cup.mask>
@@ -70,7 +81,7 @@ function MainHomeComp2_1() {
 export default MainHomeComp2_1;
 
 const MainHomeTodayDrank = styled.div`
-  /* padding-top: 90px; */
+  padding-top: 250px;
   padding-bottom: 100px;
 
   padding-left: 20.8%;
@@ -79,11 +90,11 @@ const MainHomeTodayDrank = styled.div`
   overflow: hidden;
 
   /* overflow: hidden; */
-  height: 100vh;
+  height: 3000px;
 
   img {
     width: 100%;
-    max-width: 534px;
+
     /* padding: 8px; */
   }
 `;
@@ -102,6 +113,20 @@ const Cup = {
   bg: styled.div`
     position: absolute;
     width: 100%;
+    max-width: 534px;
+    max-height: 445px;
+    padding-bottom: 83.3333%;
+    mask-image: url("/assets/CupMask.svg");
+    -webkit-mask-image: url("/assets/CupMask.svg");
+    mask-size: 100%;
+    -webkit-mask-size: 100%;
+
+    img {
+      width: 150%;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+    }
 
     /* -webkit-mask-size: 100px; */
   `,

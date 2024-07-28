@@ -1,5 +1,7 @@
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { authJwtAtom } from "../recoil/auth/atoms";
 import Header from "../components/Header";
 import { Container } from "../styles/Container";
@@ -8,7 +10,6 @@ import MainWoomoolText from "../assets/MainHome/Section1/main-woomol-text.svg";
 import MainPointDownImg from "../assets/MainHome/Section1/main-point-down.svg";
 import MainEntertheRoomImg from "../assets/MainHome/Section1/main-EntertheRoom.svg";
 
-import { useEffect, useRef, useState } from "react";
 import MainHomeComp2 from "../components/Home/MainHomeComp2";
 import MainHomeComp2_1 from "../components/Home/MainHomeComp2_1";
 
@@ -16,6 +17,9 @@ function Home() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
   const jwtValue = useRecoilValue(authJwtAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
+
+  const { main } = useParams();
+  console.log({ main });
 
   // Javascript Animation
   const containerRef = useRef(null);
@@ -157,13 +161,12 @@ function Home() {
             loop
             onLoadedData={() => setVideoLoadedComplete(true)}
           >
-            <source src="assets/water-back-vid.webm" type="video/webm" />
+            <source src="/assets/water-back-vid.webm" type="video/webm" />
           </video>
         </MainHomeVid>
       </MainHomeSection1>
       <MainHomeSection2 ref={MainHomeSection2Ref}>
-        <MainHomeComp2 />
-        <MainHomeComp2_1 />
+        {main === "1" ? <MainHomeComp2_1 /> : <MainHomeComp2 />}
       </MainHomeSection2>
     </Container>
   );

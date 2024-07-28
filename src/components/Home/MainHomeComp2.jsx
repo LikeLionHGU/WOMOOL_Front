@@ -43,13 +43,13 @@ function MainHomeComp2() {
           <Cup.bg
             style={{
               // width: 1100 - (scrollY.scrollTop - scrollY.mainTop) * 3,
-              "mask-image": `url('/assets/CupMask.svg')`,
-              "-webkit-mask-image": `url('/assets/CupMask.svg')`,
-              "mask-size": `${Math.max(
+              maskImage: `url('/assets/CupMask.svg')`,
+              WebKitMaskImage: `url('/assets/CupMask.svg')`,
+              maskSize: `${Math.max(
                 100,
                 100 + animationDurPx * (1 - scrollProcess / animationDurPx)
               )}%`,
-              "-webkit-mask-size": `${Math.max(
+              WebkitMaskSize: `${Math.max(
                 100,
                 100 + animationDurPx * (1 - scrollProcess / animationDurPx)
               )}%`,
