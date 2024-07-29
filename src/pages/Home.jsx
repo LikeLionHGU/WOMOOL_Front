@@ -17,6 +17,7 @@ import MainHomeComp2 from "../components/Home/MainHomeComp2";
 import MainHomeComp2_1 from "../components/Home/MainHomeComp2_1";
 import MainHomeComp3 from "../components/Home/MainHomeComp3";
 import MainHomeComp4 from "../components/Home/MainHomeComp4";
+import Footer from "../components/Home/Footer";
 
 function Home() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
@@ -182,6 +183,7 @@ function Home() {
         {main === "1" ? <MainHomeComp2_1 /> : <MainHomeComp2 />}
         <MainHomeComp3 />
         <MainHomeComp4 />
+        <Footer />
       </MainHomeSection2>
     </Container>
   );
@@ -343,5 +345,4 @@ const MainPointDown = styled.img`
 
 const MainHomeSection2 = styled(ScrollSnap)`
   background-color: black;
-  min-height: 200vh;
 `;

@@ -62,6 +62,7 @@ const MainHomeComp4Style = styled.div`
   width: calc(100% - 60px - 100px);
   margin: auto;
   margin-top: 52px;
+  margin-bottom: 136px;
   padding-bottom: 180px;
   text-align: center;
   & > img {
