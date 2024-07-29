@@ -36,6 +36,15 @@ const presets = [
     body: {},
   },
   {
+    method: "PATCH",
+    endpoint: "/userDetail/update",
+    description: "키 몸무게 수정",
+    body: {
+      height: "190.3",
+      weight: "20.2",
+    },
+  },
+  {
     method: "POST",
     endpoint: "/userRecord/add",
     description: "물마시기",
@@ -69,6 +78,12 @@ const presets = [
   },
 ];
 
+const requestColor = {
+  GET: "#a6ffac",
+  POST: "#ffd5a6",
+  PATCH: "#ffa6ed",
+};
+
 function ApiTest() {
   const [targetEndPoint, setTargetEndPoint] = useState("/userDetail/get");
   const [requestType, setRequestType] = useState("GET");
@@ -93,7 +108,9 @@ function ApiTest() {
         requestType !== "GET"
           ? JSON.stringify(JSON.parse(requestData))
           : undefined,
-    }).then((data) => data.json().then((json) => setResponseData(json)));
+    })
+      .then((data) => data.json().then((json) => setResponseData(json)))
+      .catch((e) => setResponseData(e.message));
   };
   return (
     <Container>
@@ -124,20 +141,17 @@ function ApiTest() {
         />
         <h3>Method</h3>
         <div>
-          <input
-            type="radio"
-            id="type-get"
-            checked={requestType === "GET"}
-            onClick={() => setRequestType("GET")}
-          />
-          <label for="type-get">GET</label>
-          <input
-            type="radio"
-            id="type-post"
-            checked={requestType === "POST"}
-            onClick={() => setRequestType("POST")}
-          />
-          <label for="type-post">POST</label>
+          {Object.keys(requestColor).map((rtype) => (
+            <>
+              <input
+                type="radio"
+                id={`type-${rtype}`}
+                checked={requestType === rtype}
+                onClick={() => setRequestType(rtype)}
+              />
+              <label for={`type-${rtype}`}>{rtype}</label>
+            </>
+          ))}
         </div>
         <textarea
           value={requestData}
@@ -154,8 +168,7 @@ function ApiTest() {
           >
             <span
               style={{
-                backgroundColor:
-                  preset.method === "GET" ? "#a6ffac" : "#ffd5a6",
+                backgroundColor: requestColor[preset.method],
               }}
             >
               [{preset.method}]
