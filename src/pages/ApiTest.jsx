@@ -15,6 +15,12 @@ const presets = [
     },
   },
   {
+    method: "GET",
+    endpoint: "/user/get",
+    description: "유저 닉네임, 이메일, 이름 get",
+    body: {},
+  },
+  {
     method: "POST",
     endpoint: "/userDetail/add",
     description: "키와 몸무게 입력 (처음 가입시)",
