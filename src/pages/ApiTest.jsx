@@ -82,6 +82,28 @@ const presets = [
     description: "전체 유저 정보 확인",
     body: {},
   },
+  {
+    method: "POST",
+    endpoint: "/team/create",
+    description: "그룹 만들기",
+    body: {
+      name: "꿀꺽꿀꺽그룹",
+    },
+  },
+  {
+    method: "POST",
+    endpoint: "/team/join",
+    description: "그룹에 가입",
+    body: {
+      teamCode: "JPHL",
+    },
+  },
+  {
+    method: "GET",
+    endpoint: "/team/{groupId}",
+    description: "그룹정보 불러오기",
+    body: {},
+  },
 ];
 
 const requestColor = {
@@ -160,7 +182,8 @@ function ApiTest() {
           ))}
         </div>
         <textarea
-          value={requestData}
+          value={requestType === "GET" ? "" : requestData}
+          disabled={requestType === "GET"}
           onChange={(e) => setRequestData(e.target.value)}
         />
         <h3>Preset</h3>
