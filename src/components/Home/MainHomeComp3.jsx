@@ -14,6 +14,8 @@ function MainHomeComp3() {
 export default MainHomeComp3;
 
 const MainHomeComp3Style = styled.div`
+  max-width: 486px;
+  margin: auto;
   margin-top: 200px;
   text-align: center;
   padding: 8px;
