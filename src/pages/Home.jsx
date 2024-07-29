@@ -166,7 +166,15 @@ function Home() {
             <MainEnterTheRoom.img src={MainEntertheRoomImg} />
           </MainEnterTheRoom.main>
         </MainFeatureComp.main>
-        <MainPointDown src={MainPointDownImg} />
+        <MainPointDown
+          onClick={() => {
+            MainHomeSection2Ref.current?.scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+        >
+          <img src={MainPointDownImg} />
+        </MainPointDown>
         <MainHomeVid>
           <MainHomeBackShade className={videoLoadedComplete && "darker"} />
           <video
@@ -324,12 +332,17 @@ const MainEnterTheRoom = {
   `,
 };
 
-const MainPointDown = styled.img`
+const MainPointDown = styled.div`
   position: absolute;
   bottom: 17px;
   left: 0;
   right: 0;
   margin: auto;
+
+  text-align: center;
+  padding: 8px;
+
+  cursor: pointer;
 
   animation: moveUpDown 1.4s infinite;
   @keyframes moveUpDown {
