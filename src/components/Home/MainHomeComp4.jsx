@@ -17,6 +17,7 @@ function MainHomeComp4() {
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    customPaging: (i) => <>{i + 1}</>,
   };
   return (
     <MainHomeComp4Style data-aos="fade-up" data-aos-offset="200">
@@ -61,9 +62,26 @@ const MainHomeComp4Style = styled.div`
   width: calc(100% - 60px - 100px);
   margin: auto;
   margin-top: 52px;
+  padding-bottom: 180px;
   text-align: center;
   & > img {
     /* margin: auto; */
+  }
+
+  .slick-dots {
+    margin-top: 110px;
+    bottom: auto;
+    font-family: "Times New Roman, sans-serif";
+    right: 0;
+    left: 0;
+  }
+
+  .slick-dots > li {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .slick-dots .slick-active {
+    color: white;
   }
 `;
 
