@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import LeftArrowImg from "../../assets/MainHome/Section4/LeftArrow.svg";
 import RightArrowImg from "../../assets/MainHome/Section4/RightArrow.svg";
 import styled from "styled-components";
+import { pretendard, timesNewRoman } from "../../styles/fonts";
 
 function MainHomeComp4() {
   var settings = {
@@ -88,14 +89,10 @@ const MainHomeComp4Style = styled.div`
 
 const SliderStyle = {
   card: styled.div`
-    font-family: "Pretendard Variable", Pretendard, -apple-system,
-      BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-      "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    ${pretendard}
   `,
   number: styled.div`
-    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
-      serif;
+    ${timesNewRoman}
     font-size: 48px;
     padding: 36.5px;
   `,

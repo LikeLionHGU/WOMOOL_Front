@@ -5,6 +5,7 @@ import headerLogo from "../assets/header-logo.svg";
 import googleLogo from "../assets/googlelogo.svg";
 import kakaoLogo from "../assets/kakaologo.svg";
 import { serverRootUrl } from "../constants";
+import { pretendard, timesNewRoman } from "../styles/fonts";
 
 function Header() {
   const [openModal, setOpenModal] = useState("initial");
@@ -233,8 +234,7 @@ const HeaderModalLoginText = {
     }
   `,
   title: styled.div`
-    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
-      serif;
+    ${timesNewRoman}
     font-size: 18px;
     font-weight: bold;
     font-style: italic;
@@ -242,8 +242,7 @@ const HeaderModalLoginText = {
     margin-bottom: 13px;
   `,
   text: styled.div`
-    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
-      serif;
+    ${timesNewRoman}
     font-size: 12px;
     text-transform: uppercase;
     margin-bottom: 25px;
@@ -252,11 +251,8 @@ const HeaderModalLoginText = {
 
 const HeaderModalLoginBtn = {
   root: styled.div`
+    ${pretendard}
     color: black;
-    font-family: "Pretendard Variable", Pretendard, -apple-system,
-      BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-      "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     font-size: 12px;
     font-weight: 600; // Semi Bold
   `,

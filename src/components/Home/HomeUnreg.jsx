@@ -18,6 +18,7 @@ import MainHomeComp2_1 from "./MainHomeComp2_1";
 import MainHomeComp3 from "./MainHomeComp3";
 import MainHomeComp4 from "./MainHomeComp4";
 import Footer from "./Footer";
+import { pretendard } from "../../styles/fonts";
 
 function HomeUnreg() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
@@ -287,10 +288,7 @@ const MainFeatureComp = {
     }
   `,
   subtext: styled.div`
-    font-family: "Pretendard Variable", Pretendard, -apple-system,
-      BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-      "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    ${pretendard}
     font-weight: medium;
     font-size: 24px;
     display: flex;
