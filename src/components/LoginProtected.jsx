@@ -1,30 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRecoilValue } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
-import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function LoginProtected({ comp: Comp }) {
   const jwtValue = useRecoilValue(authJwtAtom);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!jwtValue) navigate("/");
-  });
 
   if (jwtValue) {
     if (typeof Comp === "object") return <>{Comp}</>;
     return <Comp />;
   }
 
-  return (
-    <div style={{ color: "white" }}>
-      Please redirect{" "}
-      <Link to="/" style={{ color: "skyblue" }}>
-        To Home
-      </Link>{" "}
-      and Login
-    </div>
-  );
+  return <Navigate to="/" />;
 }
 
 export default LoginProtected;
