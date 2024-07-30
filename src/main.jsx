@@ -7,6 +7,8 @@ import { RecoilRoot } from "recoil";
 import Logincb from "./pages/Logincb.jsx";
 import Home from "./pages/Home.jsx";
 import ApiTest from "./pages/ApiTest.jsx";
+import LoginProtected from "./components/LoginProtected.jsx";
+import Mypage from "./pages/Mypage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/apitest",
     element: <ApiTest />,
+  },
+  {
+    path: "/mypage",
+    element: <LoginProtected comp={Mypage} />,
   },
 ]);
 
