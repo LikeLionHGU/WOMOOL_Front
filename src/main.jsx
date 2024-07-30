@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import ApiTest from "./pages/ApiTest.jsx";
 import LoginProtected from "./components/LoginProtected.jsx";
 import Mypage from "./pages/Mypage.jsx";
+import NewUser from "./pages/NewUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/apitest",
     element: <ApiTest />,
+  },
+  {
+    path: "/newuser",
+    element: <NewUser />,
   },
   {
     path: "/mypage",

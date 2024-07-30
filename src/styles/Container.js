@@ -5,3 +5,11 @@ export const Container = styled.div`
   margin: 0 auto;
   color: white;
 `;
+
+export const NewContainer = styled(Container)`
+  max-width: 750px;
+  margin: 0 auto;
+  color: black;
+  min-height: 100vh;
+  background-color: white;
+`;
