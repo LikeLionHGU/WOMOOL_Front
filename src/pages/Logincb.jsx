@@ -19,7 +19,7 @@ function Logincb() {
       console.log("aa", result.jwt);
       localStorage.setItem("user_jwt", JSON.stringify(result.jwt)); // Incase of strictmode error
       setJwt(result.jwt);
-      navigate("/");
+      navigate("/mypage");
     }
   }, []);
   return (
@@ -32,7 +32,7 @@ function Logincb() {
         }}
       >
         {JSON.stringify(paramData, null, 2)}
-        <Link to="/">To Home</Link>
+        <Link to="/mypage">To Mypage</Link>
       </pre>
     </div>
   );
