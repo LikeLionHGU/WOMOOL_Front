@@ -101,7 +101,8 @@ const HeaderImage = styled.img`
 `;
 
 const HeaderMenus = styled.div`
-  font-family: "Times New Roman", sans-serif;
+  font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
+    serif;
   display: flex;
 `;
 
@@ -232,7 +233,8 @@ const HeaderModalLoginText = {
     }
   `,
   title: styled.div`
-    font-family: "Times New Roman", sans-serif;
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
+      serif;
     font-size: 18px;
     font-weight: bold;
     font-style: italic;
@@ -240,7 +242,8 @@ const HeaderModalLoginText = {
     margin-bottom: 13px;
   `,
   text: styled.div`
-    font-family: "Times New Roman", sans-serif;
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
+      serif;
     font-size: 12px;
     text-transform: uppercase;
     margin-bottom: 25px;

@@ -94,7 +94,8 @@ const SliderStyle = {
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   `,
   number: styled.div`
-    font-family: "Times New Roman", sans-serif;
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia,
+      serif;
     font-size: 48px;
     padding: 36.5px;
   `,
