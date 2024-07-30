@@ -17,7 +17,7 @@ function MainHomeComp4() {
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    customPaging: (i) => <>{i + 1}</>,
+    customPaging: (i) => <span>{i + 1}</span>,
   };
   return (
     <MainHomeComp4Style data-aos="fade-up" data-aos-offset="200">
