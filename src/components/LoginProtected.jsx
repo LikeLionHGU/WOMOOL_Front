@@ -9,7 +9,7 @@ function LoginProtected({ comp: Comp }) {
 
   useEffect(() => {
     if (!jwtValue) navigate("/");
-  }, []);
+  });
 
   if (jwtValue) {
     if (typeof Comp === "object") return <>{Comp}</>;
@@ -17,8 +17,12 @@ function LoginProtected({ comp: Comp }) {
   }
 
   return (
-    <div>
-      Please redirect <Link to="/">To Home</Link> and Login
+    <div style={{ color: "white" }}>
+      Please redirect{" "}
+      <Link to="/" style={{ color: "skyblue" }}>
+        To Home
+      </Link>{" "}
+      and Login
     </div>
   );
 }
