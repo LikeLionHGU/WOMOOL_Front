@@ -37,6 +37,18 @@ function NewUser() {
         if (json.weight) navigate("/");
       })
       .catch((e) => setUserDataError(e.message));
+    fetchBe(jwtValue, "/user/get").then(({ nickName }) => {
+      if (nickName) {
+        setNicknameState({
+          status: "ok",
+          lastNickname: nickName,
+        });
+        setUserInputState((prev) => ({
+          ...prev,
+          nickname: nickName,
+        }));
+      }
+    });
   }, [jwtValue]);
 
   // Handle Not Logged In User
@@ -215,6 +227,7 @@ function NewUser() {
         <img
           src={ReadyWoomoolImg}
           onClick={() => {
+            if (nickNameState.status !== "ok") return;
             if (
               !(
                 +removeNonNumeric(userInputState.height) >= 140 &&
