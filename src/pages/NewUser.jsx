@@ -257,7 +257,7 @@ function NewUser() {
                   return;
                 }
                 if (json.height) {
-                  navigate("/");
+                  navigate("/newusercup");
                   return;
                 }
                 // Something went really wrong
