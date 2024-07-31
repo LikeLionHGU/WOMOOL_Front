@@ -13,7 +13,6 @@ import MainEntertheRoomImg from "../../assets/MainHome/Section1/main-EntertheRoo
 import { authJwtAtom } from "../../recoil/auth/atoms";
 import Header from "../Header";
 import { Container } from "../../styles/Container";
-import MainHomeComp2 from "./MainHomeComp2";
 import MainHomeComp2_1 from "./MainHomeComp2_1";
 import MainHomeComp3 from "./MainHomeComp3";
 import MainHomeComp4 from "./MainHomeComp4";
@@ -24,9 +23,6 @@ function HomeUnreg() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
   const jwtValue = useRecoilValue(authJwtAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
-
-  const { main } = useParams();
-  console.log({ main });
 
   // Javascript Animation
   const MainHomeSection1Ref = useRef(null);
@@ -86,7 +82,7 @@ function HomeUnreg() {
         </MainHomeVid>
       </MainHomeSection1>
       <MainHomeSection2 ref={MainHomeSection2Ref}>
-        {main === "1" ? <MainHomeComp2_1 /> : <MainHomeComp2 />}
+        <MainHomeComp2_1 />
         <MainHomeComp3 />
         <MainHomeComp4 />
         <Footer />
