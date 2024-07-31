@@ -99,13 +99,18 @@ function NewUser() {
                 fetchBe(jwtValue, "/user/nickname", "POST", {
                   nickName: userInputState.nickname,
                 })
-                  .then(({ nickName, status }) => {
+                  .then(({ nickName, status, message }) => {
                     if (status === 400) {
                       setNicknameState({ status: "dup" });
                     } else if (nickName) {
                       setNicknameState({
                         status: "ok",
                         lastNickname: nickName,
+                      });
+                    } else if (status === 500) {
+                      setNicknameState({
+                        status: "err",
+                        errorMessage: message || "Unknown Error",
                       });
                     }
                   })
