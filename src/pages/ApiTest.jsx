@@ -231,5 +231,5 @@ const ApiResult = styled.div`
   font-family: monospace;
   word-wrap: normal;
   word-break: break-word;
-  white-space: pre;
+  white-space: pre-wrap;
 `;
