@@ -29,13 +29,8 @@ function HomeUnreg() {
   console.log({ main });
 
   // Javascript Animation
-  const containerRef = useRef(null);
   const MainHomeSection1Ref = useRef(null);
   const MainHomeSection2Ref = useRef(null);
-  const [scrollTimeout, setScrollTimeout] = useState(null);
-  const [previousScrollLoc, setPreviousScrollLoc] = useState(0);
-  const [locationWhere, setLocationWhere] = useState(0);
-  const [scrollTarget, setScrollTarget] = useState(null);
 
   // Setup AOS
   useEffect(() => {
@@ -44,104 +39,6 @@ function HomeUnreg() {
       // throttleDelay: 60,
     });
   });
-
-  useEffect(() => {
-    if (scrollTarget === null) return;
-    let prevValue = 0;
-    const interval = setInterval(() => {
-      const scrollLoc =
-        document.documentElement.scrollTop || document.body.scrollTop;
-
-      console.log({ prevValue, scrollLoc });
-
-      if (Math.abs(scrollTarget - scrollLoc) < 5) {
-        document.body.style.overflow = "";
-        setScrollTarget(null);
-        return;
-      }
-
-      if (prevValue === scrollLoc) {
-        console.log("DEAD", scrollTarget);
-        document.documentElement.scrollTo({
-          top: scrollTarget,
-          behavior: "smooth",
-        });
-      }
-      prevValue = scrollLoc;
-    }, 20);
-    return () => clearInterval(interval);
-  }, [scrollTarget]);
-
-  useEffect(() => {
-    // return; // 임시 stick 효과 비활성화.
-    const handleScroll = (e) => {
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      const container = containerRef.current;
-      const mainHome1 = MainHomeSection1Ref.current;
-      const mainHome2 = MainHomeSection2Ref.current;
-      // console.log(mainHome1.offsetTop, mainHome1.offsetHeight);
-      // console.log(mainHome2.offsetTop);
-      const clientHeight = window.screen.height;
-      // const clientHeight = document.documentElement.clientHeight;
-      const scrollLoc =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      // console.log(scrollLoc, clientHeight, scrollLoc + clientHeight);
-      // console.log("scroll", e);
-
-      setPreviousScrollLoc(scrollLoc);
-
-      setScrollTimeout(
-        setTimeout(
-          ((paramPrevScrollLoc) => {
-            const updown = scrollLoc < previousScrollLoc ? "up" : "down";
-            console.log("Fire scroll", updown, locationWhere, {
-              scrollLoc,
-              previousScrollLoc,
-              paramPrevScrollLoc,
-              mainHome2,
-            });
-
-            if (
-              locationWhere === 0 &&
-              updown == "down" &&
-              scrollLoc + clientHeight > mainHome2.offsetTop &&
-              scrollLoc < mainHome2.offsetTop
-            ) {
-              console.log("Scrolling to mainHome2");
-              setLocationWhere(1);
-              setScrollTarget(mainHome2.offsetTop);
-              document.body.style.overflow = "hidden";
-              // document.documentElement.scrollTo({
-              //   top: mainHome2.offsetTop,
-              //   behavior: "smooth",
-              // });
-            } else if (
-              locationWhere === 1 &&
-              updown == "up" &&
-              scrollLoc < mainHome2.offsetTop
-            ) {
-              console.log("Scrolling to mainHome1");
-              setLocationWhere(0);
-              document.body.style.overflow = "hidden";
-              setScrollTarget(mainHome1.offsetTop);
-              // document.documentElement.scrollTo({
-              //   top: mainHome1.offsetTop,
-              //   behavior: "smooth",
-              // });
-            }
-          }).bind(null, scrollLoc),
-          1
-        ) // Delay to prevent excessive calls
-      );
-    };
-
-    // const container = containerRef.current;
-    document.addEventListener("scroll", handleScroll);
-    return () => document.removeEventListener("scroll", handleScroll);
-  }, [scrollTimeout]);
 
   return (
     <Container
