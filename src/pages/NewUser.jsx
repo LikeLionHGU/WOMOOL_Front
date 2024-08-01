@@ -19,8 +19,8 @@ function NewUser() {
 
   const [userInputState, setUserInputState] = useState({
     nickname: "",
-    height: "",
-    weight: "",
+    height: null,
+    weight: null,
   });
 
   const [nickNameState, setNicknameState] = useState({
@@ -86,7 +86,7 @@ function NewUser() {
           >
             <InputTextItem.inputArea
               placeholder="닉네임을 입력해주세요"
-              value={userInputState.nickname}
+              value={userInputState.nickname || ""}
               onChange={(e) =>
                 setUserInputState((prev) => ({
                   ...prev,
@@ -149,7 +149,7 @@ function NewUser() {
                 //   );
               }}
             />
-            <InputTextItem.warning>
+            <InputTextItem.warning className="display">
               {nickNameState.status === "dup"
                 ? "중복된 이름입니다. 다름 이름을 입력해주세요."
                 : nickNameState.status === "ok"
@@ -174,9 +174,11 @@ function NewUser() {
         <InputTextSection.right>
           <div
             className={
-              +removeNonNumeric(userInputState.height) >= 140 &&
-              +removeNonNumeric(userInputState.height) <= 220
+              userInputState.height === null
                 ? ""
+                : +removeNonNumeric(userInputState.height) >= 140 &&
+                  +removeNonNumeric(userInputState.height) <= 220
+                ? "good"
                 : "warn"
             }
           >
@@ -187,13 +189,19 @@ function NewUser() {
               inputMode="numeric"
               min="140"
               max="220"
-              value={userInputState.height}
+              value={userInputState.height || ""}
               onChange={(e) =>
                 setUserInputState((prev) => ({
                   ...prev,
                   height: removeNonNumeric(e.target.value),
                 }))
               }
+              onBlur={() => {
+                setUserInputState((prev) => ({
+                  ...prev,
+                  height: prev.height || "",
+                }));
+              }}
             />
             <InputTextItem.warning>
               140-220 사이의 값을 입력해주세요
@@ -201,9 +209,11 @@ function NewUser() {
           </div>
           <div
             className={
-              +removeNonNumeric(userInputState.weight) >= 30 &&
-              +removeNonNumeric(userInputState.weight) <= 200
+              userInputState.weight === null
                 ? ""
+                : +removeNonNumeric(userInputState.weight) >= 30 &&
+                  +removeNonNumeric(userInputState.weight) <= 200
+                ? "good"
                 : "warn"
             }
           >
@@ -214,13 +224,19 @@ function NewUser() {
               inputMode="numeric"
               min="30"
               max="200"
-              value={userInputState.weight}
+              value={userInputState.weight || ""}
               onChange={(e) =>
                 setUserInputState((prev) => ({
                   ...prev,
                   weight: removeNonNumeric(e.target.value),
                 }))
               }
+              onBlur={() => {
+                setUserInputState((prev) => ({
+                  ...prev,
+                  weight: prev.weight || "",
+                }));
+              }}
             />
             <InputTextItem.warning>
               30-200 사이의 값을 입력해주세요
@@ -373,7 +389,7 @@ const InputTextSection = {
         border-color: #2892c2;
       }
 
-      ${InputTextItem.warning} {
+      ${InputTextItem.warning}.display {
         display: block;
         color: #2892c2;
       }
