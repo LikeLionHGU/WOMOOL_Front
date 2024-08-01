@@ -64,6 +64,14 @@ const presets = [
     },
   },
   {
+    method: "PATCH",
+    endpoint: "/userDetail/updateCup",
+    description: "컵 선택 저장",
+    body: {
+      cup: "3",
+    },
+  },
+  {
     method: "POST",
     endpoint: "/userRecord/add",
     description: "물마시기",
@@ -89,6 +97,7 @@ const presets = [
     description: "( 권장량 통과한 날 넘겨줌 (스탬프))",
     body: {},
   },
+
   {
     method: "GET",
     endpoint: "/main/getInfo",
@@ -118,12 +127,10 @@ const presets = [
     body: {},
   },
   {
-    method: "POST",
-    endpoint: "/team/getByCode",
+    method: "GET",
+    endpoint: "/team/getByCode/{code}",
     description: "그룹정보 불러오기 (그룹코드)",
-    body: {
-      teamCode: "H5AP",
-    },
+    body: {},
   },
   {
     method: "GET",
@@ -132,12 +139,10 @@ const presets = [
     body: {},
   },
   {
-    method: "POST",
-    endpoint: "/team/UsersByCode",
+    method: "GET",
+    endpoint: "/team/UsersByCode/{code}",
     description: "그룹 코드로 유저 정보 조회",
-    body: {
-      teamCode: "H5AP",
-    },
+    body: {},
   },
 ];
 
