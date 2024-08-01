@@ -8,11 +8,9 @@ export const fetchBe = (jwtValue, path, method = "GET", body) =>
     };
     if (body && !["GET", "HEAD"].includes(method)) {
       initStuff.headers["Content-Type"] = "application/json";
-      initStuff["body"] = body;
+      initStuff["body"] = JSON.stringify(body);
     }
     if (jwtValue) initStuff.headers.Authorization = `Bearer ${jwtValue}`;
-
-    console.log(body);
 
     fetch(serverRootUrl + path, initStuff)
       .then((doc) =>
