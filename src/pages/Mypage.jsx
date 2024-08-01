@@ -6,6 +6,16 @@ import { NewContainer } from "../styles/Container";
 
 import PrevRecord from "../assets/Mypage/prev-record.svg";
 import PrevRecordHover from "../assets/Mypage/prev-record-hover.svg";
+import MainMug from "../assets/Mypage/mainmug.svg";
+
+import ImgBottle from "../assets/Mypage/bottle.svg";
+import ImgBottleHover from "../assets/Mypage/bottle-hover.svg";
+import ImgCup from "../assets/Mypage/cup.svg";
+import ImgCupHover from "../assets/Mypage/cup-hover.svg";
+import ImgCustom from "../assets/Mypage/custom.svg";
+import ImgCustomHover from "../assets/Mypage/custom-hover.svg";
+import ImgSip from "../assets/Mypage/sip.svg";
+import ImgSipHover from "../assets/Mypage/sip-hover.svg";
 
 import styled from "styled-components";
 import { nenu, pretendard } from "../styles/fonts";
@@ -47,6 +57,40 @@ function Mypage() {
           </span>
         </TopBlock.right>
       </TopBlock.wrapper>
+      <MainMugArea>
+        <img src={MainMug} />
+      </MainMugArea>
+
+      <WaterButtons>
+        <WaterButton>
+          <HoverImageSpan>
+            <img src={ImgSip} draggable={false} />
+            <img className="hover" src={ImgSipHover} draggable={false} />
+          </HoverImageSpan>
+          <div className="text">한 모금</div>
+        </WaterButton>
+        <WaterButton>
+          <HoverImageSpan>
+            <img src={ImgCup} draggable={false} />
+            <img className="hover" src={ImgCupHover} draggable={false} />
+          </HoverImageSpan>
+          <div className="text">한 컵</div>
+        </WaterButton>
+        <WaterButton>
+          <HoverImageSpan>
+            <img src={ImgBottle} draggable={false} />
+            <img className="hover" src={ImgBottleHover} draggable={false} />
+          </HoverImageSpan>
+          <div className="text">한 병</div>
+        </WaterButton>
+        <WaterButton>
+          <HoverImageSpan>
+            <img src={ImgCustom} draggable={false} />
+            <img className="hover" src={ImgCustomHover} draggable={false} />
+          </HoverImageSpan>
+          <div className="text">직접추가</div>
+        </WaterButton>
+      </WaterButtons>
     </NewContainer>
   );
 }
@@ -55,27 +99,35 @@ export default Mypage;
 
 const TopBlock = {
   wrapper: styled.div`
+    padding-top: 171px; // Header 없어서 임시
     display: flex;
     align-items: flex-end;
+    margin-bottom: 3px;
+
     & > * {
-      border: 1px solid red;
+      /* border: 1px solid red; */
       box-sizing: border-box;
+    }
+
+    img {
     }
   `,
   left: styled.div`
-    width: 100%;
-    flex-grow: 1;
+    flex: 1 1 150px;
+    width: 150px;
     * {
       float: right;
-      padding-right: 13px;
+      margin-right: 13px;
     }
   `,
   center: styled.div`
     flex: 0 0 300px;
+    width: 300px;
+    padding-bottom: 19px;
   `,
   right: styled.div`
-    width: 100%;
-    flex-grow: 1;
+    flex: 1 1 150px;
+    width: 150px;
     padding-left: 26px;
   `,
 };
@@ -159,4 +211,34 @@ const CurrentLevel = styled.div`
 
   color: #000000;
   text-align: center;
+`;
+
+const MainMugArea = styled.div`
+  text-align: center;
+  margin-bottom: 54px;
+`;
+
+const WaterButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 85px;
+`;
+
+const WaterButton = styled.div`
+  padding: 8px;
+  ${HoverImageSpan} {
+    display: block;
+  }
+  .text {
+    /* 한 모금 */
+    ${pretendard}
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #000000;
+  }
 `;
