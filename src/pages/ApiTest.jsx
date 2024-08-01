@@ -127,7 +127,7 @@ function ApiTest() {
   };
 
   const sendApiRequest = () => {
-    fetchBe(jwtValue, targetEndPoint, requestType, requestData)
+    fetchBe(jwtValue, targetEndPoint, requestType, JSON.parse(requestData))
       .then((json) => setResponseData(json))
       .catch((e) => setResponseData(e.message));
   };
