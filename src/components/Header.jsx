@@ -6,6 +6,7 @@ import googleLogo from "../assets/googlelogo.svg";
 import kakaoLogo from "../assets/kakaologo.svg";
 import { serverRootUrl } from "../constants";
 import { pretendard, timesNewRoman } from "../styles/fonts";
+import TheModal from "./TheModal";
 
 function Header() {
   const [openModal, setOpenModal] = useState("initial");
@@ -42,36 +43,31 @@ function Header() {
           </HeaderMenuBtn>
         </HeaderMenus>
       </HeaderCompContent>
-      <HeaderModal className={openModal}>
-        <HeaderModalBackdrop
-          className={openModal}
-          onClick={() => setOpenModal("hidden")}
-        />
-        <HeaderModalContent className={openModal}>
-          <HeaderModalLoginText.logo>
-            <img src={headerLogo} />
-          </HeaderModalLoginText.logo>
-          <HeaderModalLoginText.title>LOGIN</HeaderModalLoginText.title>
-          <HeaderModalLoginText.text>
-            Pure water is the world's
-            <br /> first and foremost medicine.
-          </HeaderModalLoginText.text>
-          <HeaderModalLoginBtn.root>
-            <HeaderModalLoginBtn.google
-              href={serverRootUrl + "/oauth2/authorization/google"}
-            >
-              <img src={googleLogo} />
-              <div>Google 계정으로 계속</div>
-            </HeaderModalLoginBtn.google>
-            <HeaderModalLoginBtn.kakao
-              href={serverRootUrl + "/oauth2/authorization/kakao"}
-            >
-              <img src={kakaoLogo} />
-              <div> Kakao 계정으로 계속</div>
-            </HeaderModalLoginBtn.kakao>
-          </HeaderModalLoginBtn.root>
-        </HeaderModalContent>
-      </HeaderModal>
+
+      <TheModal openModal={openModal} setOpenModal={setOpenModal}>
+        <HeaderModalLoginText.logo>
+          <img src={headerLogo} />
+        </HeaderModalLoginText.logo>
+        <HeaderModalLoginText.title>LOGIN</HeaderModalLoginText.title>
+        <HeaderModalLoginText.text>
+          Pure water is the world's
+          <br /> first and foremost medicine.
+        </HeaderModalLoginText.text>
+        <HeaderModalLoginBtn.root>
+          <HeaderModalLoginBtn.google
+            href={serverRootUrl + "/oauth2/authorization/google"}
+          >
+            <img src={googleLogo} />
+            <div>Google 계정으로 계속</div>
+          </HeaderModalLoginBtn.google>
+          <HeaderModalLoginBtn.kakao
+            href={serverRootUrl + "/oauth2/authorization/kakao"}
+          >
+            <img src={kakaoLogo} />
+            <div> Kakao 계정으로 계속</div>
+          </HeaderModalLoginBtn.kakao>
+        </HeaderModalLoginBtn.root>
+      </TheModal>
     </HeaderComp>
   );
 }
@@ -126,103 +122,6 @@ const HeaderCompContent = styled.div`
   max-width: 652px;
   padding: 18px 16px;
   margin: auto;
-`;
-
-const HeaderModal = styled.div`
-  position: fixed;
-  /* background-color: rgba(0, 0, 0, 0.3); */
-
-  padding: 0;
-  width: 0;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  display: flex; // Overwritten by inline style
-  align-items: center;
-  justify-content: center;
-
-  box-sizing: border-box;
-  padding: 16px;
-
-  /* opacity: 0; */
-  /* visibility: hidden; */
-
-  &.initial {
-    visibility: hidden;
-  }
-
-  &.hidden {
-    visibility: hidden;
-  }
-
-  &.show {
-    visibility: visible;
-  }
-
-  & .initial {
-    visibility: hidden;
-  }
-
-  & .hidden {
-    animation: fadeOut 250ms forwards;
-  }
-
-  & .show {
-    animation: fadeIn 250ms forwards;
-  }
-  /* 
-  visibility: hidden;
-  opacity: ${(props) => (props.modalOpen ? 100 : 0)}; */
-  /* visibility: ${(props) => (props.modalOpen ? "visible" : "hidden")}; */
-  /* transition: opacity 1000ms linear; */
-
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-      visibility: visible;
-    }
-    to {
-      opacity: 0;
-      visibility: hidden; /* Optional: also set visibility to hidden at the end */
-    }
-  }
-
-  /* Define keyframes for fade in */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      visibility: visible; /* Optional: ensure visibility is set to visible at the start */
-    }
-    to {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-`;
-
-const HeaderModalBackdrop = styled.div`
-  /* background-color: white; */
-  height: 100%;
-  width: 100%;
-  position: absolute;
-`;
-
-const HeaderModalContent = styled.div`
-  width: 100%;
-  max-width: 380px;
-  background: rgba(222, 239, 255, 0.127);
-  box-shadow: inset 4.39333px -4.39333px 4.39333px rgba(186, 201, 214, 0.454),
-    inset -4.39333px 4.39333px 4.39333px rgba(255, 255, 255, 0.454);
-  backdrop-filter: blur(24.383px) opacity(1);
-  border-radius: 30px;
-  padding: 33px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const HeaderModalLoginText = {
