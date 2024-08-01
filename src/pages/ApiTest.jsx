@@ -4,7 +4,6 @@ import { useRecoilValue } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 import styled from "styled-components";
 import { serverRootUrl } from "../constants";
-import { fetchBe } from "../tools/api";
 
 const presets = [
   {
@@ -127,7 +126,17 @@ function ApiTest() {
   };
 
   const sendApiRequest = () => {
-    fetchBe(jwtValue, targetEndPoint, requestType, requestData)
+    fetch(serverRootUrl + targetEndPoint, {
+      method: requestType,
+      headers: {
+        Authorization: jwtValue ? `Bearer ${jwtValue}` : undefined,
+        "Content-Type": "application/json",
+      },
+      body:
+        requestType !== "GET"
+          ? JSON.stringify(JSON.parse(requestData))
+          : undefined,
+    })
       .then((data) => data.json().then((json) => setResponseData(json)))
       .catch((e) => setResponseData(e.message));
   };
