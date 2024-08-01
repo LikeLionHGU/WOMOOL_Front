@@ -315,7 +315,9 @@ const MainBanner = {
 };
 
 const BlueHr = styled.hr`
-  border-color: #2892c2;
+  border-top: 1px solid #2892c2;
+  margin-left: 41px;
+  margin-right: 41px;
 `;
 
 const InputTextItem = {
