@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 
@@ -9,9 +9,12 @@ import PrevRecordHover from "../assets/Mypage/prev-record-hover.svg";
 
 import styled from "styled-components";
 import { nenu, pretendard } from "../styles/fonts";
+import GroupOnOffToggle from "../components/Mypage/GroupOnOffToggle";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
+
+  const [groupMode, setGroupMode] = useState(false);
 
   return (
     <NewContainer style={{ backgroundColor: "#EDECEB" }}>
@@ -38,7 +41,11 @@ function Mypage() {
           </LevelIconBox>
           <CurrentLevel>Lv.3</CurrentLevel>
         </TopBlock.center>
-        <TopBlock.right>개인 Page 토글</TopBlock.right>
+        <TopBlock.right>
+          <span onClick={() => setGroupMode((prev) => !prev)}>
+            <GroupOnOffToggle clicked={groupMode} />
+          </span>
+        </TopBlock.right>
       </TopBlock.wrapper>
     </NewContainer>
   );
@@ -69,6 +76,7 @@ const TopBlock = {
   right: styled.div`
     width: 100%;
     flex-grow: 1;
+    padding-left: 26px;
   `,
 };
 
