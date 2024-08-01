@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Container, NewContainer } from "../styles/Container";
+import { NewContainer } from "../styles/Container";
 import styled from "styled-components";
 import { pretendard, timesNewRoman } from "../styles/fonts";
 
 import ReadyWoomoolImg from "../assets/NewUser/ReadyWoomool.svg";
-import { serverRootUrl } from "../constants";
 import { removeNonNumeric } from "../tools/tool";
 import { fetchBe } from "../tools/api";
 
