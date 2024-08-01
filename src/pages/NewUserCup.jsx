@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { pretendard, timesNewRoman } from "../styles/fonts";
 
 import SelectMyCupBtn from "../assets/NewUserCup/select-my-cup-btn.svg";
+import SelectMyCupBtnHover from "../assets/NewUserCup/select-my-cup-btn-hover.svg";
 
 const cupType = [
   {
@@ -73,7 +74,10 @@ function NewUserCup() {
                 <img src={`/assets/${cup.cupImage}`} />
               </CupItemData.left>
               <CupItemData.right>
-                <img src={SelectMyCupBtn} />
+                <span>
+                  <img src={SelectMyCupBtn} />
+                  <img className="hover" src={SelectMyCupBtnHover} />
+                </span>
               </CupItemData.right>
             </CupItem.body>
           </CupItem.wrapper>
@@ -190,6 +194,21 @@ const CupItem = {
     }
 
     ${CupItemData.right} {
+      span {
+        cursor: pointer;
+      }
+
+      span .hover {
+        display: none;
+      }
+
+      span:hover .hover {
+        display: inline;
+      }
+
+      span:hover img:not(.hover) {
+        display: none;
+      }
     }
   `,
 };
