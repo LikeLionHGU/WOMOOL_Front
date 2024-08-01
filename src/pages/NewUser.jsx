@@ -71,7 +71,7 @@ function NewUser() {
             <br /> your name?
           </InputTextItem.headerLabel>
           <InputTextItem.descriptionLabel>
-            당신을 가장 잘 나타내는 이름을 알려주세요
+            자신을 가장 잘 나타내는 이름을 알려주세요
           </InputTextItem.descriptionLabel>
         </InputTextSection.left>
         <InputTextSection.right>
