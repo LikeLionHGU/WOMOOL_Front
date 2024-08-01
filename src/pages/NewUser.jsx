@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { pretendard, timesNewRoman } from "../styles/fonts";
 
 import ReadyWoomoolImg from "../assets/NewUser/ReadyWoomool.svg";
+import ReadyWoomoolImgHover from "../assets/NewUser/ReadyWoomool-hover.svg";
+import ReadyWoomoolImgDisabled from "../assets/NewUser/ReadyWoomool-deactive.svg";
 import { removeNonNumeric } from "../tools/tool";
 import { fetchBe } from "../tools/api";
 
@@ -244,46 +246,45 @@ function NewUser() {
         </InputTextSection.right>
       </InputTextSection.main>
       <BottomButtonArea>
-        <img
-          src={ReadyWoomoolImg}
-          onClick={() => {
-            if (nickNameState.status !== "ok") return;
-            if (
-              !(
-                +removeNonNumeric(userInputState.height) >= 140 &&
-                +removeNonNumeric(userInputState.height) <= 220
-              )
-            )
-              return;
-            if (
-              !(
-                +removeNonNumeric(userInputState.weight) >= 30 &&
-                +removeNonNumeric(userInputState.weight) <= 200
-              )
-            )
-              return;
-            fetchBe(jwtValue, "/userDetail/add", "POST", {
-              height: userInputState.height,
-              weight: userInputState.weight,
-            })
-              .then((json) => {
-                if (json.message?.includes("Duplicate entry")) {
-                  window.location.href = "/"; // Hard reload as something went wrong
-                  return;
-                }
-                if (json.height) {
-                  navigate("/newusercup");
-                  return;
-                }
-                // Something went really wrong
-                alert("Something went really wrong. Redirect you to home page");
-                window.location.href = "/"; // Hard reload as something went wrong
-
-                console.log(json);
+        {nickNameState.status === "ok" &&
+        +removeNonNumeric(userInputState.height) >= 140 &&
+        +removeNonNumeric(userInputState.height) <= 220 &&
+        +removeNonNumeric(userInputState.weight) >= 30 &&
+        +removeNonNumeric(userInputState.weight) <= 200 ? (
+          <span
+            onClick={() => {
+              fetchBe(jwtValue, "/userDetail/add", "POST", {
+                height: userInputState.height,
+                weight: userInputState.weight,
               })
-              .catch((err) => console.log(err));
-          }}
-        />
+                .then((json) => {
+                  if (json.message?.includes("Duplicate entry")) {
+                    window.location.href = "/"; // Hard reload as something went wrong
+                    return;
+                  }
+                  if (json.height) {
+                    navigate("/newusercup");
+                    return;
+                  }
+                  // Something went really wrong
+                  alert(
+                    "Something went really wrong. Redirect you to home page"
+                  );
+                  window.location.href = "/"; // Hard reload as something went wrong
+
+                  console.log(json);
+                })
+                .catch((err) => console.log(err));
+            }}
+          >
+            <img className="ready" src={ReadyWoomoolImg} />
+            <img className="hover" src={ReadyWoomoolImgHover} />
+          </span>
+        ) : (
+          <span>
+            <img className="disabled" src={ReadyWoomoolImgDisabled} />
+          </span>
+        )}
       </BottomButtonArea>
     </NewContainer>
   );
@@ -406,7 +407,20 @@ const BottomButtonArea = styled.div`
   text-align: center;
   padding-top: 9px;
   padding-bottom: 44px;
-  img {
+  img:not(.disabled) {
     cursor: pointer;
+  }
+
+  span .hover {
+    display: none;
+  }
+
+  span:hover {
+    .hover {
+      display: inline;
+    }
+    .ready {
+      display: none;
+    }
   }
 `;
