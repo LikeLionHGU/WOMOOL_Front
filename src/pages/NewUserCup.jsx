@@ -87,7 +87,9 @@ export default NewUserCup;
 
 const HeaderBanner = {
   container: styled.div`
-    padding: 36px 54px;
+    padding: 36px 13px;
+    margin: 0 41px;
+    border-bottom: 1px solid #2892c2;
   `,
   header: styled.div`
     /* choose a weapon for the challenge */
@@ -136,9 +138,6 @@ const CupItem = {
 
     padding: 24px 0;
 
-    border-bottom: 1px solid #2892c2;
-    border-top: 1px solid #2892c2;
-
     cursor: pointer;
 
     ${CupItemData.left} {
@@ -172,6 +171,10 @@ const CupItem = {
     align-items: center;
 
     /* padding: 48px 0; */
+
+    box-sizing: border-box;
+    border-bottom: 1px solid #2892c2;
+    border-top: ${(props) => (props.$clicked ? "1px solid #2892c2" : "0")};
 
     transition: height 0.3s ease-in-out;
     overflow: hidden;
