@@ -11,3 +11,7 @@ export const pretendard = css`
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 `;
+
+export const nenu = css`
+  font-family: "Neue Haas Grotesk Display Pro", Arial, Helvetica, sans-serif;
+`;
