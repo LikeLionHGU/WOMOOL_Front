@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { NewContainer } from "../styles/Container";
 import styled from "styled-components";
 import { pretendard, timesNewRoman } from "../styles/fonts";
@@ -14,6 +14,7 @@ import { fetchBe } from "../tools/api";
 
 function NewUser() {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
 
   const jwtValue = useRecoilValue(authJwtAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -35,6 +36,10 @@ function NewUser() {
     if (!jwtValue) return;
     fetchBe(jwtValue, "/userDetail/get")
       .then((json) => {
+        if (params.get("force") === "true") {
+          alert("Design preview mode.");
+          return;
+        }
         if (json.weight) navigate("/");
       })
       .catch((e) => setUserDataError(e.message));
