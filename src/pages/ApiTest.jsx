@@ -22,6 +22,18 @@ const presets = [
     body: {},
   },
   {
+    method: "GET",
+    endpoint: "/user/getGroups",
+    description: "내가 속해있는 그룹 조회",
+    body: {},
+  },
+  {
+    method: "GET",
+    endpoint: "/user/getGroupsById/{유저ID}",
+    description: "유저가 속해있는 그룹 조회",
+    body: {},
+  },
+  {
     method: "POST",
     endpoint: "/userDetail/add",
     description: "키와 몸무게 입력 (처음 가입시)",
@@ -102,8 +114,30 @@ const presets = [
   {
     method: "GET",
     endpoint: "/team/{groupId}",
-    description: "그룹정보 불러오기",
+    description: "그룹정보 불러오기 (그룹아이디)",
     body: {},
+  },
+  {
+    method: "POST",
+    endpoint: "/team/getByCode",
+    description: "그룹정보 불러오기 (그룹코드)",
+    body: {
+      teamCode: "H5AP",
+    },
+  },
+  {
+    method: "GET",
+    endpoint: "/team/allGroups",
+    description: "모든 그룹 정보 불러오기",
+    body: {},
+  },
+  {
+    method: "POST",
+    endpoint: "/team/UsersByCode",
+    description: "그룹 코드로 유저 정보 조회",
+    body: {
+      teamCode: "H5AP",
+    },
   },
 ];
 
