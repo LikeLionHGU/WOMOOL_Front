@@ -129,7 +129,7 @@ function ApiTest() {
     fetch(serverRootUrl + targetEndPoint, {
       method: requestType,
       headers: {
-        Authorization: `Bearer ${jwtValue}`,
+        Authorization: jwtValue ? `Bearer ${jwtValue}` : undefined,
         "Content-Type": "application/json",
       },
       body:
