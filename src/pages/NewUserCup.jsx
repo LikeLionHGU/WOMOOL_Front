@@ -6,9 +6,14 @@ import { fetchBe } from "../tools/api";
 import { NewContainer } from "../styles/Container";
 import styled from "styled-components";
 import { pretendard, timesNewRoman } from "../styles/fonts";
+import TheModal from "../components/TheModal";
 
 import SelectMyCupBtn from "../assets/NewUserCup/select-my-cup-btn.svg";
 import SelectMyCupBtnHover from "../assets/NewUserCup/select-my-cup-btn-hover.svg";
+import ModalSample from "../assets/NewUserCup/modal/sample.svg";
+import ModalConfirm from "../assets/NewUserCup/modal/confirm.svg";
+import ModalConfirmHover from "../assets/NewUserCup/modal/confirm-hover.svg";
+import ModalWoomoolSvg from "../assets/modal-woomool-blue.svg";
 
 const cupType = [
   {
@@ -33,6 +38,8 @@ function NewUserCup() {
 
   const [clickedId, setClickedId] = useState(1);
 
+  const [hintModal, setHintModal] = useState("initial");
+
   // 이미 컵을 선택했는지는 딱히 확인할 필요가 없음. 선택한 적이 있으면 덮어 씌우면 됨.
   // (백이 그렇게 처리 가능하다면...)
 
@@ -45,6 +52,11 @@ function NewUserCup() {
       })
       .catch((e) => setUserDataError(e.message));
   }, [jwtValue]);
+
+  // modal 이 hidden 되면 그냥 냅다 redirect
+  useEffect(() => {
+    if (hintModal === "hidden") navigate("/");
+  }, [hintModal]);
 
   // Handle Not Logged In User
   if (!jwtValue) return <Navigate to="/" />;
@@ -74,15 +86,60 @@ function NewUserCup() {
                 <img src={`/assets/${cup.cupImage}`} />
               </CupItemData.left>
               <CupItemData.right>
-                <span>
-                  <img src={SelectMyCupBtn} />
-                  <img className="hover" src={SelectMyCupBtnHover} />
+                <span
+                  onClick={() => {
+                    setHintModal("show");
+                    fetchBe(jwtValue, "/userDetail/updateCup", "PATCH", {
+                      cup: cup.id,
+                    }).then((json) => {
+                      if (json.cup !== cup.id) {
+                        alert(
+                          "Something went wrong. Redirect you to home page."
+                        );
+                        location.href = "/";
+                      }
+                    });
+                  }}
+                >
+                  <img src={SelectMyCupBtn} draggable={false} />
+                  <img
+                    className="hover"
+                    src={SelectMyCupBtnHover}
+                    draggable={false}
+                  />
                 </span>
               </CupItemData.right>
             </CupItem.body>
           </CupItem.wrapper>
         ))}
       </CupSelectionContainer>
+      <TheModal
+        openModal={hintModal}
+        setOpenModal={setHintModal}
+        style={{ maxWidth: 594 }}
+      >
+        <ModalContent.img src={ModalWoomoolSvg} />
+        <ModalContent.header>하루에 얼마나 물을 마시나요?</ModalContent.header>
+        <ModalContent.subheader>
+          <div className="text">
+            하단 버튼들을 누를 때마다 다음과 같은 용량으로 계산됩니다
+          </div>
+          <div>
+            <img src={ModalSample} draggable={false} />
+          </div>
+        </ModalContent.subheader>
+        <ModalContent.content>
+          <span
+            className="btn"
+            onClick={() => {
+              setHintModal("hidden");
+            }}
+          >
+            <img src={ModalConfirm} draggable={false} />
+            <img className="hover" src={ModalConfirmHover} draggable={false} />
+          </span>
+        </ModalContent.content>
+      </TheModal>
     </NewContainer>
   );
 }
@@ -209,6 +266,59 @@ const CupItem = {
       span:hover img:not(.hover) {
         display: none;
       }
+    }
+  `,
+};
+
+const ModalContent = {
+  img: styled.img`
+    display: block;
+    margin-bottom: 27px;
+  `,
+  header: styled.div`
+    ${pretendard}
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 33px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #2892c2;
+    margin-bottom: 11px;
+  `,
+  subheader: styled.div`
+    /* 하단 버튼들을 누를 때마다 다음과 같은 용량으로 계산됩니다 */
+
+    ${pretendard}
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #2892c2;
+
+    & > * {
+      margin-bottom: 27px;
+    }
+  `,
+  content: styled.div`
+    span.btn {
+      cursor: pointer;
+    }
+
+    span.btn .hover {
+      display: none;
+    }
+
+    span.btn:hover .hover {
+      display: inline;
+    }
+
+    span.btn:hover img:not(.hover) {
+      display: none;
     }
   `,
 };

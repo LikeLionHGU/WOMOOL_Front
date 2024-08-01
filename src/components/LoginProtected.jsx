@@ -31,6 +31,9 @@ function LoginProtected({ comp: Comp }) {
       return <div style={{ color: "white" }}>Loading User Data...</div>;
 
     if (!!userData) {
+      if (!userData.cup || userData.cup === 0) {
+        return <Navigate to="/newusercup" />;
+      }
       return <Comp />;
     } else {
       return <Navigate to="/newuser" />;

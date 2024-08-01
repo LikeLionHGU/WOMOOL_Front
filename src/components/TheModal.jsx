@@ -5,31 +5,15 @@ function TheModal({
   openModal,
   setOpenModal,
   children: ModalContent = <div>Modal</div>,
+  style,
 }) {
-  const headerRef = useRef(null);
-  useEffect(() => {
-    const scrollHandler = () => {
-      const scrollLoc =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      const element = headerRef.current;
-      if (scrollLoc > 0) {
-        element.classList.add("bg");
-      } else {
-        element.classList.remove("bg");
-      }
-    };
-    document.addEventListener("scroll", scrollHandler);
-
-    return () => document.removeEventListener("scroll", scrollHandler);
-  }, []);
-
   return (
     <HeaderModal className={openModal}>
       <HeaderModalBackdrop
         className={openModal}
         onClick={() => setOpenModal("hidden")}
       />
-      <HeaderModalContent className={openModal}>
+      <HeaderModalContent className={openModal} style={style}>
         {ModalContent}
       </HeaderModalContent>
     </HeaderModal>
