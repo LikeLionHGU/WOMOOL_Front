@@ -13,6 +13,10 @@ const Header = styled.div`
   cursor: pointer;
   border: 1px solid #ccc;
   margin-top: 10px;
+
+  font-family: "Neue Haas Grotesk Display Pro", serif;
+  font-weight: bold;
+  font-style: normal;
 `;
 
 const Paragraph = styled.div`
