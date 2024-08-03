@@ -4,6 +4,7 @@ import { authJwtAtom } from "../recoil/auth/atoms";
 
 import { NewContainer, NewContainerInnerScroll } from "../styles/Container";
 
+import ModalWoomoolSvg from "src/assets/modal-woomool-blue.svg";
 import PrevRecord from "../assets/Mypage/prev-record.svg";
 import PrevRecordHover from "../assets/Mypage/prev-record-hover.svg";
 import MainMug from "../assets/Mypage/mainmug.svg";
@@ -25,7 +26,9 @@ import AttendanceCheck from "../components/Mypage/AttendanceCheck";
 import Spinner from "../styles/Spinner";
 import { useFetchBe } from "../tools/api";
 import { userDetailAtom } from "../recoil/userAtoms";
-import { convertMlToL } from "../tools/tool";
+import { convertMlToL, removeNonNumeric } from "../tools/tool";
+import TheModal from "../components/TheModal";
+import TheButton from "../styles/TheButton";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -34,6 +37,8 @@ function Mypage() {
 
   const [groupMode, setGroupMode] = useState(false);
   const [showRecord, setShowRecord] = useState("init");
+  const [showCustomModal, setShowCustomModal] = useState("initial");
+  const [customValue, setCustomValue] = useState("");
   const [loading, setLoading] = useState({
     bottle: false,
     cup: false,
@@ -46,7 +51,6 @@ function Mypage() {
       bottle: 500,
       cup: 200,
       sip: 30,
-      custom: 1000,
     };
     if (loading[type]) return;
 
@@ -54,21 +58,21 @@ function Mypage() {
       ...prev,
       [type]: true,
     }));
-    fetchBe("/userRecord/add", "POST", { amount: typeDrink[type] }).then(
-      (json) => {
-        if (json.message !== "Successfully Added") {
-          alert("Error while adding water");
-          return;
-        }
-        setTimeout(
-          setLoading((prev) => ({
-            ...prev,
-            [type]: false,
-          })),
-          1500
-        );
+    fetchBe("/userRecord/add", "POST", {
+      amount: type === "custom" ? customValue : typeDrink[type],
+    }).then((json) => {
+      if (json.message !== "Successfully Added") {
+        alert("Error while adding water");
+        return;
       }
-    );
+      setTimeout(
+        setLoading((prev) => ({
+          ...prev,
+          [type]: false,
+        })),
+        1500
+      );
+    });
   };
 
   return (
@@ -140,7 +144,12 @@ function Mypage() {
           </HoverImageSpan>
           <div className="text">한 병</div>
         </WaterButton>
-        <WaterButton onClick={() => sendWaterDrink("custom")}>
+        <WaterButton
+          onClick={() => {
+            setShowCustomModal("show");
+            setCustomValue("");
+          }}
+        >
           <HoverImageSpan className={loading.custom ? "disabled" : ""}>
             <img src={ImgCustom} draggable={false} />
             <img className="hover" src={ImgCustomHover} draggable={false} />
@@ -149,6 +158,40 @@ function Mypage() {
           <div className="text">직접추가</div>
         </WaterButton>
       </WaterButtons>
+
+      <TheModal
+        openModal={showCustomModal}
+        setOpenModal={setShowCustomModal}
+        style={{
+          // width: "100%",
+          maxWidth: 594,
+          padding: 60,
+          boxSizing: "border-box",
+        }}
+      >
+        <ModalContent.img src={ModalWoomoolSvg} />
+        <ModalContent.header>무엇을 얼마나 마셨나요?</ModalContent.header>
+        <ModalContent.subheader>
+          <div className="text">특별하게 마신 수분을 직접 추가해주세요!</div>
+        </ModalContent.subheader>
+        <ModalContent.content>
+          <CustomModalInput
+            value={customValue}
+            onChange={(e) => setCustomValue(removeNonNumeric(e.target.value))}
+            placeholder="수분량(ml)을 입력해주세요"
+            pattern="[0-9]*"
+            inputMode="numeric"
+          />
+          <TheButton
+            onClick={() => {
+              setShowCustomModal("hidden");
+              sendWaterDrink("custom");
+            }}
+          >
+            추가하기
+          </TheButton>
+        </ModalContent.content>
+      </TheModal>
     </NewContainerInnerScroll>
   );
 }
@@ -323,5 +366,94 @@ const WaterButton = styled.div`
     text-transform: uppercase;
 
     color: #000000;
+  }
+`;
+
+const ModalContent = {
+  img: styled.img`
+    display: block;
+    margin-bottom: 27px;
+  `,
+  header: styled.div`
+    ${pretendard}
+    /* 무엇을 얼마나 마셨나요? */
+
+font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 33px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #2892c2;
+
+    margin-bottom: 11px;
+  `,
+  subheader: styled.div`
+    /* 하단 버튼들을 누를 때마다 다음과 같은 용량으로 계산됩니다 */
+
+    ${pretendard}
+    /* 오늘의 출석 도장을 받았습니다 오늘도 우물하러 가볼까요? */
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #2892c2;
+
+    & > * {
+      margin-bottom: 34px;
+    }
+  `,
+  content: styled.div`
+    span.btn {
+      cursor: pointer;
+    }
+
+    span.btn .hover {
+      display: none;
+    }
+
+    span.btn:hover .hover {
+      display: inline;
+    }
+
+    span.btn:hover img:not(.hover) {
+      display: none;
+    }
+  `,
+};
+
+const CustomModalInput = styled.input`
+  /* Rectangle 72 */
+
+  width: 274px;
+  height: 46px;
+
+  padding: 12px;
+  margin-bottom: 58px;
+
+  box-sizing: border-box;
+
+  background-color: transparent;
+  border: 1px solid #2892c2;
+  border-radius: 5px;
+
+  /* 수분량(ml)을 입력해주세요 */
+
+  ${pretendard}
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000;
+
+  &:focus {
+    outline: none;
   }
 `;
