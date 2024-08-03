@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { pretendard } from "./fonts";
 
-function Button({ children, ...props }) {
+function TheButton({ children, ...props }) {
   return (
     <ButtonContainer {...props}>
       <ButtonComp>{children}</ButtonComp>
@@ -10,12 +10,11 @@ function Button({ children, ...props }) {
   );
 }
 
-export default Button;
+export default TheButton;
 
 const ButtonComp = styled.div`
   /* 확인했어요! */
 
-  width: 74px;
   height: 19px;
 
   ${pretendard}
@@ -46,8 +45,7 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 9px 51px;
-  gap: 10px;
+  padding: 8px 8px;
 
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px #ffffff;
   border-radius: 30px;

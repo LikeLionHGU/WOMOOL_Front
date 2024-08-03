@@ -21,6 +21,7 @@ import styled from "styled-components";
 import { nenu, pretendard } from "../styles/fonts";
 import GroupOnOffToggle from "../components/Mypage/GroupOnOffToggle";
 import LastLog from "../components/Mypage/LastLog";
+import AttendanceCheck from "../components/Mypage/AttendanceCheck";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -30,6 +31,7 @@ function Mypage() {
 
   return (
     <NewContainerInnerScroll style={{ backgroundColor: "#EDECEB" }}>
+      <AttendanceCheck />
       <LastLog show={showRecord} setShow={setShowRecord} />
       <div>
         <button onClick={() => resetAuth()}>로그아웃</button>

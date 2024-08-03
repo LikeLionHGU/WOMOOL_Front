@@ -24,4 +24,9 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+      src: "/src",
+    },
+  },
 });
