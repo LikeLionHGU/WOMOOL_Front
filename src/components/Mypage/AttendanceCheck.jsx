@@ -18,7 +18,7 @@ function AttendanceCheck() {
   useEffect(() => {
     if (userData?.attendance) return;
     setTimeout(() => setOpen("show"), 1000);
-  }, []);
+  }, [userData]);
   useEffect(() => {
     if (open !== "hidden") return;
     fetchBe(jwtValue, "/userDetail/attendance", "PATCH");
