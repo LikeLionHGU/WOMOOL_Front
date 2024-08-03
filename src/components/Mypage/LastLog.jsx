@@ -210,10 +210,22 @@ const Header = {
     height: 109px;
     background-color: white;
     padding: 0 40px;
+
+    transition: padding 300ms;
+    @media (max-width: 750px) {
+      padding: 0 18px;
+    }
   `,
   closeIcn: styled.img`
     cursor: pointer;
     padding: 16px;
+    margin-left: -16px;
+
+    transition: width 300ms;
+    @media (max-width: 750px) {
+      box-sizing: border-box;
+      width: 64px;
+    }
   `,
   text: styled.div`
     /* 지난 기록 */
@@ -240,6 +252,10 @@ const UserRecordWeek = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 33px;
+  transition: padding 300ms;
+  @media (max-width: 750px) {
+    padding: 0 14px;
+  }
 
   div {
     /* Week 2 */
@@ -267,6 +283,11 @@ const UserRecordDay = {
 
     color: black;
 
+    transition: padding 300ms;
+    @media (max-width: 750px) {
+      padding: 0 14px;
+    }
+
     .day {
       margin-right: 18px;
       ${pretendard}
@@ -279,6 +300,12 @@ const UserRecordDay = {
       text-transform: uppercase;
 
       color: #000000;
+      @media (max-width: 750px) {
+        font-size: 3.2vw;
+      }
+      @media (max-width: 650px) {
+        font-size: 20.8px;
+      }
     }
 
     .date {
@@ -291,6 +318,13 @@ const UserRecordDay = {
       text-transform: uppercase;
 
       color: #000000;
+
+      @media (max-width: 750px) {
+        font-size: 3.733vw;
+      }
+      @media (max-width: 650px) {
+        font-size: 24.265px;
+      }
     }
   `,
   day: styled.div`
@@ -303,6 +337,18 @@ const UserRecordDay = {
 
     .stamp {
       margin-right: 23px;
+      transition: margin-right 300ms;
+      @media (max-width: 750px) {
+        margin-right: 14px;
+        img {
+          width: 9.467vw;
+        }
+      }
+      @media (max-width: 650px) {
+        img {
+          width: 61.536px;
+        }
+      }
     }
 
     .status {
@@ -317,6 +363,12 @@ const UserRecordDay = {
       text-transform: uppercase;
 
       color: #000000;
+      @media (max-width: 750px) {
+        font-size: 2.667vw;
+      }
+      @media (max-width: 650px) {
+        font-size: 17.335px;
+      }
     }
 
     .stats {
