@@ -31,6 +31,7 @@ import TheModal from "../components/TheModal";
 import TheButton from "../styles/TheButton";
 import Header from "../components/Header";
 import useWindowSize from "../tools/useWindowSize";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -38,10 +39,19 @@ function Mypage() {
   const fetchBe = useFetchBe();
   const [swidth] = useWindowSize();
 
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
+
   const mainRef = useRef();
 
   const [groupMode, setGroupMode] = useState(false);
-  const [showRecord, setShowRecord] = useState("init");
+  // const [showRecord, setShowRecord] = useState("init");
+  const showRecord = params.get("showRecord") || "hidden";
+  const setShowRecord = (value) =>
+    value === "show"
+      ? navigate("/mypage?showRecord=" + value)
+      : navigate("/mypage");
+
   const [showCustomModal, setShowCustomModal] = useState("initial");
   const [customValue, setCustomValue] = useState("");
   const [loading, setLoading] = useState({
