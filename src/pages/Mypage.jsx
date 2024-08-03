@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 
@@ -30,11 +30,15 @@ import { convertMlToL, removeNonNumeric } from "../tools/tool";
 import TheModal from "../components/TheModal";
 import TheButton from "../styles/TheButton";
 import Header from "../components/Header";
+import useWindowSize from "../tools/useWindowSize";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
   const userData = useRecoilValue(userDetailAtom);
   const fetchBe = useFetchBe();
+  const [swidth] = useWindowSize();
+
+  const mainRef = useRef();
 
   const [groupMode, setGroupMode] = useState(false);
   const [showRecord, setShowRecord] = useState("init");
@@ -76,6 +80,13 @@ function Mypage() {
     });
   };
 
+  const scaleValue = Math.min(1, Math.max(0.7, ((swidth - 360) / 360) * 2));
+  console.log(scaleValue);
+  const rectHeight = mainRef?.current?.getBoundingClientRect().height;
+  console.log(rectHeight);
+  const translateValue =
+    (1 - scaleValue) * mainRef?.current?.offsetHeight * -0.5;
+
   return (
     <NewContainerInnerScroll style={{ backgroundColor: "#EDECEB" }}>
       <AttendanceCheck />
@@ -93,8 +104,21 @@ function Mypage() {
           />
         </div>
 
-        <div className="main">
-          <TopBlock.wrapper>
+        <div
+          className="main"
+          style={{
+            transform: `translateY(${translateValue}px)`,
+          }}
+        >
+          <TopBlock.wrapper
+            ref={mainRef}
+            style={{
+              // transform: scaleValue,
+              transform: `scale(${scaleValue})`,
+              transformOrigin: "bottom center",
+              // height: Math.floor(rectHeight),
+            }}
+          >
             <TopBlock.left>
               <HoverImageSpan onClick={() => setShowRecord("show")}>
                 <img src={PrevRecord} draggable={false} />
@@ -227,7 +251,8 @@ const TopBlock = {
       box-sizing: border-box;
     }
 
-    img {
+    @media (max-width: 750px) {
+      margin-bottom: 16px;
     }
   `,
   left: styled.div`
@@ -242,6 +267,11 @@ const TopBlock = {
     flex: 0 0 300px;
     width: 300px;
     padding-bottom: 19px;
+    transition: flex 300ms;
+
+    @media (max-width: 750px) {
+      flex: 1;
+    }
   `,
   right: styled.div`
     flex: 1 1 150px;
@@ -354,12 +384,16 @@ const CurrentLevel = styled.div`
 const MainMugArea = styled.div`
   text-align: center;
   margin-bottom: 54px;
+  transition: margin-bottom 300ms;
+  @media (max-width: 750px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const WaterButtons = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 85px;
+  /* padding-bottom: 85px; */
 `;
 
 const WaterButton = styled.div`
@@ -370,6 +404,11 @@ const WaterButton = styled.div`
     &.disabled img {
       filter: brightness(0) saturate(100%) invert(80%) sepia(0%) saturate(0%)
         hue-rotate(153deg) brightness(97%) contrast(90%);
+    }
+    @media (max-width: 750px) {
+      img {
+        width: 63px;
+      }
     }
   }
   .text {
@@ -492,5 +531,9 @@ const MyPageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media (max-width: 750px) {
+      align-items: center;
+    }
   }
 `;
