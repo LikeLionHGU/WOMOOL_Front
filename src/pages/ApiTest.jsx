@@ -72,6 +72,12 @@ const presets = [
     },
   },
   {
+    method: "PATCH",
+    endpoint: "/userDetail/attendance",
+    description: "출석확인",
+    body: null,
+  },
+  {
     method: "POST",
     endpoint: "/userRecord/add",
     description: "물마시기",
@@ -142,6 +148,12 @@ const presets = [
     method: "GET",
     endpoint: "/team/UsersByCode/{code}",
     description: "그룹 코드로 유저 정보 조회",
+    body: {},
+  },
+  {
+    method: "GET",
+    endpoint: "/userAttendance/get",
+    description: "유저 출석 기록 확인",
     body: {},
   },
 ];

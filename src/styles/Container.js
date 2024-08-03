@@ -12,4 +12,11 @@ export const NewContainer = styled(Container)`
   color: black;
   min-height: 100vh;
   background-color: white;
+  position: relative;
+`;
+
+export const NewContainerInnerScroll = styled(NewContainer)`
+  overflow-y: auto;
+  height: 100vh;
+  overflow-x: hidden;
 `;

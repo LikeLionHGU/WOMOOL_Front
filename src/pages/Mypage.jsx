@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 
-import { NewContainer } from "../styles/Container";
+import { NewContainer, NewContainerInnerScroll } from "../styles/Container";
 
 import PrevRecord from "../assets/Mypage/prev-record.svg";
 import PrevRecordHover from "../assets/Mypage/prev-record-hover.svg";
@@ -20,21 +20,24 @@ import ImgSipHover from "../assets/Mypage/sip-hover.svg";
 import styled from "styled-components";
 import { nenu, pretendard } from "../styles/fonts";
 import GroupOnOffToggle from "../components/Mypage/GroupOnOffToggle";
+import LastLog from "../components/Mypage/LastLog";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
 
   const [groupMode, setGroupMode] = useState(false);
+  const [showRecord, setShowRecord] = useState("init");
 
   return (
-    <NewContainer style={{ backgroundColor: "#EDECEB" }}>
+    <NewContainerInnerScroll style={{ backgroundColor: "#EDECEB" }}>
+      <LastLog show={showRecord} setShow={setShowRecord} />
       <div>
         <button onClick={() => resetAuth()}>로그아웃</button>
       </div>
 
       <TopBlock.wrapper>
         <TopBlock.left>
-          <HoverImageSpan>
+          <HoverImageSpan onClick={() => setShowRecord("show")}>
             <img src={PrevRecord} draggable={false} />
             <img className="hover" src={PrevRecordHover} draggable={false} />
           </HoverImageSpan>
@@ -91,7 +94,7 @@ function Mypage() {
           <div className="text">직접추가</div>
         </WaterButton>
       </WaterButtons>
-    </NewContainer>
+    </NewContainerInnerScroll>
   );
 }
 
