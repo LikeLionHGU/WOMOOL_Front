@@ -82,7 +82,7 @@ const HeaderComp = styled.div`
   max-width: 750px;
   margin: auto;
 
-  z-index: 99999;
+  z-index: 99;
 
   transition: background-color 80ms linear;
   &.bg {

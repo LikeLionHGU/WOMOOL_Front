@@ -23,6 +23,7 @@ function TheModal({
 export default TheModal;
 
 const HeaderModal = styled.div`
+  z-index: 999;
   position: fixed;
   /* background-color: rgba(0, 0, 0, 0.3); */
 
