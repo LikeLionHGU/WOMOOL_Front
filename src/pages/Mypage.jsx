@@ -22,12 +22,51 @@ import { nenu, pretendard } from "../styles/fonts";
 import GroupOnOffToggle from "../components/Mypage/GroupOnOffToggle";
 import LastLog from "../components/Mypage/LastLog";
 import AttendanceCheck from "../components/Mypage/AttendanceCheck";
+import Spinner from "../styles/Spinner";
+import { useFetchBe } from "../tools/api";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
+  const fetchBe = useFetchBe();
 
   const [groupMode, setGroupMode] = useState(false);
   const [showRecord, setShowRecord] = useState("init");
+  const [loading, setLoading] = useState({
+    bottle: false,
+    cup: false,
+    sip: false,
+    custom: false,
+  });
+
+  const sendWaterDrink = (type) => {
+    const typeDrink = {
+      bottle: 500,
+      cup: 200,
+      sip: 30,
+      custom: 1000,
+    };
+    if (loading[type]) return;
+
+    setLoading((prev) => ({
+      ...prev,
+      [type]: true,
+    }));
+    fetchBe("/userRecord/add", "POST", { amount: typeDrink[type] }).then(
+      (json) => {
+        if (json.message !== "Successfully Added") {
+          alert("Error while adding water");
+          return;
+        }
+        setTimeout(
+          setLoading((prev) => ({
+            ...prev,
+            [type]: false,
+          })),
+          1500
+        );
+      }
+    );
+  };
 
   return (
     <NewContainerInnerScroll style={{ backgroundColor: "#EDECEB" }}>
@@ -67,31 +106,35 @@ function Mypage() {
       </MainMugArea>
 
       <WaterButtons>
-        <WaterButton>
-          <HoverImageSpan>
+        <WaterButton onClick={() => sendWaterDrink("sip")}>
+          <HoverImageSpan className={loading.sip ? "disabled" : ""}>
             <img src={ImgSip} draggable={false} />
             <img className="hover" src={ImgSipHover} draggable={false} />
+            <Spinner className="spinner" load={true} />
           </HoverImageSpan>
           <div className="text">한 모금</div>
         </WaterButton>
-        <WaterButton>
-          <HoverImageSpan>
+        <WaterButton onClick={() => sendWaterDrink("cup")}>
+          <HoverImageSpan className={loading.cup ? "disabled" : ""}>
             <img src={ImgCup} draggable={false} />
             <img className="hover" src={ImgCupHover} draggable={false} />
+            <Spinner className="spinner" load={true} />
           </HoverImageSpan>
           <div className="text">한 컵</div>
         </WaterButton>
-        <WaterButton>
-          <HoverImageSpan>
+        <WaterButton onClick={() => sendWaterDrink("bottle")}>
+          <HoverImageSpan className={loading.bottle ? "disabled" : ""}>
             <img src={ImgBottle} draggable={false} />
             <img className="hover" src={ImgBottleHover} draggable={false} />
+            <Spinner className="spinner" load={true} />
           </HoverImageSpan>
           <div className="text">한 병</div>
         </WaterButton>
-        <WaterButton>
-          <HoverImageSpan>
+        <WaterButton onClick={() => sendWaterDrink("custom")}>
+          <HoverImageSpan className={loading.custom ? "disabled" : ""}>
             <img src={ImgCustom} draggable={false} />
             <img className="hover" src={ImgCustomHover} draggable={false} />
+            <Spinner className="spinner" load={true} />
           </HoverImageSpan>
           <div className="text">직접추가</div>
         </WaterButton>
@@ -186,7 +229,8 @@ const LevelBoxIconContent = {
   `,
 };
 
-const HoverImageSpan = styled.span`
+const HoverImageSpan = styled.div`
+  position: relative;
   & {
     cursor: pointer;
   }
@@ -195,12 +239,17 @@ const HoverImageSpan = styled.span`
     display: none;
   }
 
-  &:hover .hover {
-    display: inline;
+  &:not(.disabled) .spinner {
+    display: none;
   }
 
-  &:hover img:not(.hover) {
-    display: none;
+  &:not(.disabled):hover {
+    .hover {
+      display: inline;
+    }
+    img:not(.hover) {
+      display: none;
+    }
   }
 `;
 
@@ -233,6 +282,11 @@ const WaterButton = styled.div`
   padding: 8px;
   ${HoverImageSpan} {
     display: block;
+
+    &.disabled img {
+      filter: brightness(0) saturate(100%) invert(80%) sepia(0%) saturate(0%)
+        hue-rotate(153deg) brightness(97%) contrast(90%);
+    }
   }
   .text {
     /* 한 모금 */
