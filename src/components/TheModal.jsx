@@ -107,14 +107,21 @@ const HeaderModalBackdrop = styled.div`
 const HeaderModalContent = styled.div`
   width: 100%;
   max-width: 380px;
-  background: rgba(222, 239, 255, 0.127);
+  background: rgba(222, 239, 255, 0.85);
   box-shadow: inset 4.39333px -4.39333px 4.39333px rgba(186, 201, 214, 0.454),
     inset -4.39333px 4.39333px 4.39333px rgba(255, 255, 255, 0.454);
-  backdrop-filter: blur(24.383px) opacity(1);
   border-radius: 30px;
   padding: 33px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    & {
+      background: rgba(222, 239, 255, 0.127);
+      -webkit-backdrop-filter: blur(24.383px) opacity(1);
+      backdrop-filter: blur(24.383px) opacity(1);
+    }
+  }
 `;
