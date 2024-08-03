@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 
 import { NewContainer, NewContainerInnerScroll } from "../styles/Container";
@@ -24,9 +24,12 @@ import LastLog from "../components/Mypage/LastLog";
 import AttendanceCheck from "../components/Mypage/AttendanceCheck";
 import Spinner from "../styles/Spinner";
 import { useFetchBe } from "../tools/api";
+import { userDetailAtom } from "../recoil/userAtoms";
+import { convertMlToL } from "../tools/tool";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
+  const userData = useRecoilValue(userDetailAtom);
   const fetchBe = useFetchBe();
 
   const [groupMode, setGroupMode] = useState(false);
@@ -85,15 +88,22 @@ function Mypage() {
         </TopBlock.left>
         <TopBlock.center>
           <LevelIconBox>
-            <LevelBoxIconContent.dayNum>#01</LevelBoxIconContent.dayNum>
-            <LevelBoxIconContent.weekNum>WEEK 2</LevelBoxIconContent.weekNum>
+            <LevelBoxIconContent.dayNum>
+              #{userData.weekDate.toString().padStart(2, "0")}
+            </LevelBoxIconContent.dayNum>
+            <LevelBoxIconContent.weekNum>
+              WEEK {userData.week}
+            </LevelBoxIconContent.weekNum>
             <LevelBoxIconContent.desc>
               Drinking
               <br />
               Water
             </LevelBoxIconContent.desc>
           </LevelIconBox>
-          <CurrentLevel>Lv.3</CurrentLevel>
+          <CurrentGoal>
+            GOAL {convertMlToL(userData.recommendation)}L
+          </CurrentGoal>
+          <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
         </TopBlock.center>
         <TopBlock.right>
           <span onClick={() => setGroupMode((prev) => !prev)}>
@@ -189,7 +199,7 @@ const LevelIconBox = styled.div`
   border-radius: 10px;
   box-sizing: border-box;
   margin: auto;
-  margin-bottom: 60px;
+  margin-bottom: 13px;
 `;
 
 const LevelBoxIconContent = {
@@ -251,6 +261,20 @@ const HoverImageSpan = styled.div`
       display: none;
     }
   }
+`;
+
+const CurrentGoal = styled.div`
+  margin-bottom: 18px;
+  ${pretendard}
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #2892c2;
 `;
 
 const CurrentLevel = styled.div`
