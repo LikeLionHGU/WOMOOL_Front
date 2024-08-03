@@ -95,7 +95,7 @@ function LastLog({ show = "init", setShow }) {
                     if (day.attendance) status = 1;
                     if (day.hasDrankToday) status = 2;
                     return (
-                      <UserRecordDay.wrapper>
+                      <UserRecordDay.wrapper key={day.date}>
                         <UserRecordDay.day>
                           <div className="day">#{day.dateCount + 1}</div>
                           <div className="date">{`${formatDate(day.date)[0]}_${
