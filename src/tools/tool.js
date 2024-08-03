@@ -1,5 +1,5 @@
 export function removeNonNumeric(str) {
-  return str?.replace(/\D/g, "");
+  return str?.toString().replace(/\D/g, "");
 }
 
 export function formatDate(dateStr) {

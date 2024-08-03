@@ -29,6 +29,7 @@ import { userDetailAtom } from "../recoil/userAtoms";
 import { convertMlToL, removeNonNumeric } from "../tools/tool";
 import TheModal from "../components/TheModal";
 import TheButton from "../styles/TheButton";
+import Header from "../components/Header";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -79,85 +80,101 @@ function Mypage() {
     <NewContainerInnerScroll style={{ backgroundColor: "#EDECEB" }}>
       <AttendanceCheck />
       <LastLog show={showRecord} setShow={setShowRecord} />
-      <div>
-        <button onClick={() => resetAuth()}>로그아웃</button>
-      </div>
 
-      <TopBlock.wrapper>
-        <TopBlock.left>
-          <HoverImageSpan onClick={() => setShowRecord("show")}>
-            <img src={PrevRecord} draggable={false} />
-            <img className="hover" src={PrevRecordHover} draggable={false} />
-          </HoverImageSpan>
-        </TopBlock.left>
-        <TopBlock.center>
-          <LevelIconBox>
-            <LevelBoxIconContent.dayNum>
-              #{userData.weekDate.toString().padStart(2, "0")}
-            </LevelBoxIconContent.dayNum>
-            <LevelBoxIconContent.weekNum>
-              WEEK {userData.week}
-            </LevelBoxIconContent.weekNum>
-            <LevelBoxIconContent.desc>
-              Drinking
-              <br />
-              Water
-            </LevelBoxIconContent.desc>
-          </LevelIconBox>
-          <CurrentGoal>
-            GOAL {convertMlToL(userData.recommendation)}L
-          </CurrentGoal>
-          <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
-        </TopBlock.center>
-        <TopBlock.right>
-          <span onClick={() => setGroupMode((prev) => !prev)}>
-            <GroupOnOffToggle clicked={groupMode} />
-          </span>
-        </TopBlock.right>
-      </TopBlock.wrapper>
-      <MainMugArea>
-        <img src={MainMug} />
-      </MainMugArea>
+      <MyPageWrapper>
+        <div className="header">
+          <Header
+            loggedIn={true}
+            style={{
+              position: "relative",
+              color: "#2892C2",
+              width: "100%",
+            }}
+          />
+        </div>
 
-      <WaterButtons>
-        <WaterButton onClick={() => sendWaterDrink("sip")}>
-          <HoverImageSpan className={loading.sip ? "disabled" : ""}>
-            <img src={ImgSip} draggable={false} />
-            <img className="hover" src={ImgSipHover} draggable={false} />
-            <Spinner className="spinner" load={true} />
-          </HoverImageSpan>
-          <div className="text">한 모금</div>
-        </WaterButton>
-        <WaterButton onClick={() => sendWaterDrink("cup")}>
-          <HoverImageSpan className={loading.cup ? "disabled" : ""}>
-            <img src={ImgCup} draggable={false} />
-            <img className="hover" src={ImgCupHover} draggable={false} />
-            <Spinner className="spinner" load={true} />
-          </HoverImageSpan>
-          <div className="text">한 컵</div>
-        </WaterButton>
-        <WaterButton onClick={() => sendWaterDrink("bottle")}>
-          <HoverImageSpan className={loading.bottle ? "disabled" : ""}>
-            <img src={ImgBottle} draggable={false} />
-            <img className="hover" src={ImgBottleHover} draggable={false} />
-            <Spinner className="spinner" load={true} />
-          </HoverImageSpan>
-          <div className="text">한 병</div>
-        </WaterButton>
-        <WaterButton
-          onClick={() => {
-            setShowCustomModal("show");
-            setCustomValue("");
-          }}
-        >
-          <HoverImageSpan className={loading.custom ? "disabled" : ""}>
-            <img src={ImgCustom} draggable={false} />
-            <img className="hover" src={ImgCustomHover} draggable={false} />
-            <Spinner className="spinner" load={true} />
-          </HoverImageSpan>
-          <div className="text">직접추가</div>
-        </WaterButton>
-      </WaterButtons>
+        <div className="main">
+          <TopBlock.wrapper>
+            <TopBlock.left>
+              <HoverImageSpan onClick={() => setShowRecord("show")}>
+                <img src={PrevRecord} draggable={false} />
+                <img
+                  className="hover"
+                  src={PrevRecordHover}
+                  draggable={false}
+                />
+              </HoverImageSpan>
+            </TopBlock.left>
+            <TopBlock.center>
+              <LevelIconBox>
+                <LevelBoxIconContent.dayNum>
+                  #{userData.weekDate.toString().padStart(2, "0")}
+                </LevelBoxIconContent.dayNum>
+                <LevelBoxIconContent.weekNum>
+                  WEEK {userData.week}
+                </LevelBoxIconContent.weekNum>
+                <LevelBoxIconContent.desc>
+                  Drinking
+                  <br />
+                  Water
+                </LevelBoxIconContent.desc>
+              </LevelIconBox>
+              <CurrentGoal>
+                GOAL {convertMlToL(userData.recommendation)}L
+              </CurrentGoal>
+              <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
+            </TopBlock.center>
+            <TopBlock.right>
+              <span onClick={() => setGroupMode((prev) => !prev)}>
+                <GroupOnOffToggle clicked={groupMode} />
+              </span>
+            </TopBlock.right>
+          </TopBlock.wrapper>
+          <MainMugArea>
+            <img src={MainMug} />
+          </MainMugArea>
+
+          <WaterButtons>
+            <WaterButton onClick={() => sendWaterDrink("sip")}>
+              <HoverImageSpan className={loading.sip ? "disabled" : ""}>
+                <img src={ImgSip} draggable={false} />
+                <img className="hover" src={ImgSipHover} draggable={false} />
+                <Spinner className="spinner" load={true} />
+              </HoverImageSpan>
+              <div className="text">한 모금</div>
+            </WaterButton>
+            <WaterButton onClick={() => sendWaterDrink("cup")}>
+              <HoverImageSpan className={loading.cup ? "disabled" : ""}>
+                <img src={ImgCup} draggable={false} />
+                <img className="hover" src={ImgCupHover} draggable={false} />
+                <Spinner className="spinner" load={true} />
+              </HoverImageSpan>
+              <div className="text">한 컵</div>
+            </WaterButton>
+            <WaterButton onClick={() => sendWaterDrink("bottle")}>
+              <HoverImageSpan className={loading.bottle ? "disabled" : ""}>
+                <img src={ImgBottle} draggable={false} />
+                <img className="hover" src={ImgBottleHover} draggable={false} />
+                <Spinner className="spinner" load={true} />
+              </HoverImageSpan>
+              <div className="text">한 병</div>
+            </WaterButton>
+            <WaterButton
+              onClick={() => {
+                setShowCustomModal("show");
+                setCustomValue("");
+              }}
+            >
+              <HoverImageSpan className={loading.custom ? "disabled" : ""}>
+                <img src={ImgCustom} draggable={false} />
+                <img className="hover" src={ImgCustomHover} draggable={false} />
+                <Spinner className="spinner" load={true} />
+              </HoverImageSpan>
+              <div className="text">직접추가</div>
+            </WaterButton>
+          </WaterButtons>
+        </div>
+      </MyPageWrapper>
 
       <TheModal
         openModal={showCustomModal}
@@ -200,7 +217,7 @@ export default Mypage;
 
 const TopBlock = {
   wrapper: styled.div`
-    padding-top: 171px; // Header 없어서 임시
+    padding-top: 0px; // Header 없어서 임시
     display: flex;
     align-items: flex-end;
     margin-bottom: 3px;
@@ -455,5 +472,25 @@ const CustomModalInput = styled.input`
 
   &:focus {
     outline: none;
+  }
+`;
+
+const MyPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  & > .header {
+    flex-shrink: 0;
+  }
+
+  & > .main {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;

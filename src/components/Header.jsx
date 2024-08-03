@@ -2,15 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import headerLogo from "../assets/header-logo.svg";
+import headerLogoBlue from "../assets/header-logo-blue.svg";
 import googleLogo from "../assets/googlelogo.svg";
 import kakaoLogo from "../assets/kakaologo.svg";
 import { serverRootUrl } from "../constants";
 import { pretendard, timesNewRoman } from "../styles/fonts";
 import TheModal from "./TheModal";
+import { useRecoilValue } from "recoil";
+import { authJwtAtom } from "../recoil/auth/atoms";
+import { useNavigate } from "react-router-dom";
 
-function Header() {
+function Header({ loggedIn = false, ...props }) {
+  const navigate = useNavigate();
+
   const [openModal, setOpenModal] = useState("initial");
   const headerRef = useRef(null);
+
+  const jwtValue = useRecoilValue(authJwtAtom);
+
   useEffect(() => {
     const scrollHandler = () => {
       const scrollLoc =
@@ -28,19 +37,29 @@ function Header() {
   }, []);
 
   return (
-    <HeaderComp ref={headerRef}>
+    <HeaderComp ref={headerRef} {...props}>
       <HeaderCompContent>
-        <HeaderImage src={headerLogo} />
+        <HeaderImage src={loggedIn ? headerLogoBlue : headerLogo} />
         <HeaderMenus>
           <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
-          <HeaderMenuBtn
-            onClick={() => {
-              console.log("AAA");
-              setOpenModal("show");
-            }}
-          >
-            LOGIN
-          </HeaderMenuBtn>
+          {jwtValue ? (
+            <HeaderMenuBtn
+              onClick={() => {
+                navigate("/newuser");
+              }}
+            >
+              MYPAGE
+            </HeaderMenuBtn>
+          ) : (
+            <HeaderMenuBtn
+              onClick={() => {
+                console.log("AAA");
+                setOpenModal("show");
+              }}
+            >
+              LOGIN
+            </HeaderMenuBtn>
+          )}
         </HeaderMenus>
       </HeaderCompContent>
 

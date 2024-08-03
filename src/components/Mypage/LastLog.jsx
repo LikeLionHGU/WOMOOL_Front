@@ -146,7 +146,7 @@ const LastLogContent = styled.div`
 `;
 
 const LastLogWrapper = styled.div`
-  z-index: 9;
+  z-index: 111;
   position: fixed;
   width: 100vw;
   min-height: 100vh;

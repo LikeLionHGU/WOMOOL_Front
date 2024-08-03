@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { NewContainer } from "../styles/Container";
@@ -11,12 +11,14 @@ import ReadyWoomoolImgHover from "../assets/NewUser/ReadyWoomool-hover.svg";
 import ReadyWoomoolImgDisabled from "../assets/NewUser/ReadyWoomool-deactive.svg";
 import { removeNonNumeric } from "../tools/tool";
 import { fetchBe } from "../tools/api";
+import { userDetailAtom } from "../recoil/userAtoms";
 
 function NewUser() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
   const jwtValue = useRecoilValue(authJwtAtom);
+  const [userData, setUserData] = useRecoilState(userDetailAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
 
   const [userInputState, setUserInputState] = useState({
@@ -36,11 +38,13 @@ function NewUser() {
     if (!jwtValue) return;
     fetchBe(jwtValue, "/userDetail/get")
       .then((json) => {
-        if (params.get("force") === "true") {
-          alert("Design preview mode.");
-          return;
-        }
-        if (json.weight) navigate("/");
+        // 기존 사용자
+        setUserData(json);
+        setUserInputState((prev) => ({
+          ...prev,
+          height: json.height,
+          weight: json.weight,
+        }));
       })
       .catch((e) => setUserDataError(e.message));
     fetchBe(jwtValue, "/user/get").then(({ nickName }) => {
@@ -62,7 +66,6 @@ function NewUser() {
 
   return (
     <NewContainer>
-      <button onClick={() => resetAuth()}>로그아웃</button>
       <MainBanner.main>
         <MainBanner.header>Let's drink water together</MainBanner.header>
         <MainBanner.subheader>
@@ -258,10 +261,15 @@ function NewUser() {
         +removeNonNumeric(userInputState.weight) <= 200 ? (
           <span
             onClick={() => {
-              fetchBe(jwtValue, "/userDetail/add", "POST", {
-                height: userInputState.height,
-                weight: userInputState.weight,
-              })
+              fetchBe(
+                jwtValue,
+                userData.weight ? "/userDetail/update" : "/userDetail/add",
+                userData.weight ? "PATCH" : "POST",
+                {
+                  height: userInputState.height,
+                  weight: userInputState.weight,
+                }
+              )
                 .then((json) => {
                   if (json.message?.includes("Duplicate entry")) {
                     window.location.href = "/"; // Hard reload as something went wrong
