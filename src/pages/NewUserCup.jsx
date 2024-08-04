@@ -14,6 +14,7 @@ import ModalSample from "../assets/NewUserCup/modal/sample.svg";
 import ModalConfirm from "../assets/NewUserCup/modal/confirm.svg";
 import ModalConfirmHover from "../assets/NewUserCup/modal/confirm-hover.svg";
 import ModalWoomoolSvg from "../assets/modal-woomool-blue.svg";
+import Header from "../components/Header";
 
 const cupType = [
   {
@@ -61,14 +62,27 @@ function NewUserCup() {
   // Handle Not Logged In User
   if (!jwtValue) return <Navigate to="/" />;
   return (
-    <NewContainer>
+    <NewContainer
+      style={{
+        paddingBottom: 64,
+      }}
+    >
+      <Header
+        loggedIn={true}
+        style={{
+          position: "relative",
+          color: "#2892C2",
+          width: "100%",
+        }}
+      />
       <HeaderBanner.container>
         <HeaderBanner.header>
           choose a weapon <br />
           for the challenge
         </HeaderBanner.header>
         <HeaderBanner.subheader>
-          도전을 수행할 자신만의 컵을 골라 보세요 (*프로필 수정 시 변경 가능)
+          도전을 수행할 자신만의 컵을 골라 보세요{" "}
+          <span className="newln">(*프로필 수정 시 변경 가능)</span>
         </HeaderBanner.subheader>
       </HeaderBanner.container>
       <CupSelectionContainer>
@@ -178,6 +192,13 @@ const HeaderBanner = {
     text-transform: uppercase;
 
     color: #000000;
+
+    @media (max-width: 530px) {
+      span.newln {
+        margin-top: 4px;
+        display: block;
+      }
+    }
   `,
 };
 
@@ -197,7 +218,7 @@ const CupItem = {
     justify-content: space-between;
     align-items: flex-end;
 
-    padding: 24px 0;
+    padding: 24px 13px;
 
     cursor: pointer;
 
@@ -225,6 +246,16 @@ const CupItem = {
       text-transform: uppercase;
 
       color: #000000;
+    }
+
+    @media (max-width: 530px) {
+      display: block;
+      ${CupItemData.left} {
+        margin-bottom: 8px;
+      }
+      /* flex-direction: column; */
+      /* height: ${(props) => (props.$clicked ? "453px" : "0")}; */
+      /* height: auto; */
     }
   `,
   body: styled.div`
@@ -266,6 +297,13 @@ const CupItem = {
       span:hover img:not(.hover) {
         display: none;
       }
+    }
+
+    @media (max-width: 750px) {
+      /* display: block; */
+      flex-direction: column;
+      height: ${(props) => (props.$clicked ? "453px" : "0")};
+      /* height: auto; */
     }
   `,
 };

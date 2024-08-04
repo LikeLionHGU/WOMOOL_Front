@@ -12,6 +12,7 @@ import ReadyWoomoolImgDisabled from "../assets/NewUser/ReadyWoomool-deactive.svg
 import { removeNonNumeric } from "../tools/tool";
 import { fetchBe } from "../tools/api";
 import { userDetailAtom } from "../recoil/userAtoms";
+import Header from "../components/Header";
 
 function NewUser() {
   const navigate = useNavigate();
@@ -66,6 +67,14 @@ function NewUser() {
 
   return (
     <NewContainer>
+      <Header
+        loggedIn={true}
+        style={{
+          position: "relative",
+          color: "#2892C2",
+          width: "100%",
+        }}
+      />
       <MainBanner.main>
         <MainBanner.header>Let's drink water together</MainBanner.header>
         <MainBanner.subheader>
@@ -308,11 +317,13 @@ export default NewUser;
 const MainBanner = {
   main: styled.div`
     height: 323px;
+    margin: 0 41px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    border-top: 4px solid #2892c2;
   `,
   header: styled.div`
     ${timesNewRoman}
@@ -353,6 +364,9 @@ const InputTextItem = {
     font-size: 20px;
     border-width: 0 0 1px;
     border-color: #9e9e9e;
+    @media (max-width: 705px) {
+      max-width: 300px;
+    }
   `,
   warning: styled.div`
     ${pretendard}
@@ -366,18 +380,24 @@ const InputTextItem = {
 const InputTextSection = {
   main: styled.div`
     display: flex;
-    height: 246px;
+    min-height: 246px;
 
     padding-left: 54px;
     padding-right: 41px;
     padding-top: 30px;
     padding-bottom: 30px;
+    @media (max-width: 705px) {
+      display: block;
+    }
   `,
   left: styled.div`
     border-right: 1px solid #2892c2;
     width: 382px;
     padding-top: 10px;
     flex-shrink: 0;
+    @media (max-width: 705px) {
+      border-right: none;
+    }
   `,
   right: styled.div`
     padding: 12px;
@@ -408,6 +428,10 @@ const InputTextSection = {
         display: block;
         color: #2892c2;
       }
+    }
+
+    @media (max-width: 705px) {
+      padding-left: 0;
     }
   `,
   // centerBorder: styled.div`
