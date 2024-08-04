@@ -66,7 +66,11 @@ function NewUser() {
   if (!jwtValue) return <Navigate to="/" />;
 
   return (
-    <NewContainer>
+    <NewContainer
+      style={{
+        wordBreak: "keep-all",
+      }}
+    >
       <Header
         loggedIn={true}
         style={{
@@ -397,6 +401,7 @@ const InputTextSection = {
     flex-shrink: 0;
     @media (max-width: 705px) {
       border-right: none;
+      width: 100%;
     }
   `,
   right: styled.div`

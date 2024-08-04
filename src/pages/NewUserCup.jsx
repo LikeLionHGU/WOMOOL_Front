@@ -65,6 +65,7 @@ function NewUserCup() {
     <NewContainer
       style={{
         paddingBottom: 64,
+        wordBreak: "keep-all",
       }}
     >
       <Header
