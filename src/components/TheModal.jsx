@@ -6,12 +6,14 @@ function TheModal({
   setOpenModal,
   children: ModalContent = <div>Modal</div>,
   style,
+  backdropStyle,
 }) {
   return (
     <HeaderModal className={openModal}>
       <HeaderModalBackdrop
         className={openModal}
         onClick={() => setOpenModal("hidden")}
+        style={backdropStyle}
       />
       <HeaderModalContent className={openModal} style={style}>
         {ModalContent}

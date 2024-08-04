@@ -12,6 +12,7 @@ import Mypage from "./pages/Mypage.jsx";
 import NewUser from "./pages/NewUser.jsx";
 import NewUserCup from "./pages/NewUserCup.jsx";
 import TestPage from "./pages/TestPage.jsx";
+import WebsiteBlocker from "./components/WebsiteBlocker.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RecoilRoot>
-      <RouterProvider router={router} />
+      <WebsiteBlocker>
+        <RouterProvider router={router} />
+      </WebsiteBlocker>
     </RecoilRoot>
   </React.StrictMode>
 );
