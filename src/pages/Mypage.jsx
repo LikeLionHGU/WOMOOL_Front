@@ -21,6 +21,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import PersonalVeryTop from "../components/Mypage/PersonalViewVeryTop";
 import PersonalViewMain from "../components/Mypage/PersonalViewMain";
 import { HoverImageSpan } from "../styles/stylePresets";
+import GroupViewExploreMain from "../components/Mypage/GroupViewExploreMain";
+import GroupViewExploreTop from "../components/Mypage/GroupViewExploreTop";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -33,7 +35,8 @@ function Mypage() {
 
   const mainRef = useRef();
 
-  const [groupMode, setGroupMode] = useState(false);
+  // 0 - personal, 1 - explorer, ID - 그룹페이지
+  const [groupMode, setGroupMode] = useState(0);
   // const [showRecord, setShowRecord] = useState("init");
   const showRecord = params.get("showRecord") || "hidden";
   const setShowRecord = (value) =>
@@ -72,7 +75,8 @@ function Mypage() {
           }}
         >
           <VeryTopWrapper>
-            <PersonalVeryTop userData={userData} />
+            {groupMode === 0 && <PersonalVeryTop userData={userData} />}
+            {groupMode === 1 && <GroupViewExploreTop />}
           </VeryTopWrapper>
           <TopBlock.wrapper
             ref={mainRef}
@@ -94,15 +98,20 @@ function Mypage() {
               </HoverImageSpan>
             </TopBlock.left>
             <TopBlock.center>
-              <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
+              {groupMode === 0 && (
+                <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
+              )}
             </TopBlock.center>
             <TopBlock.right>
-              <span onClick={() => setGroupMode((prev) => !prev)}>
-                <GroupOnOffToggle clicked={groupMode} />
+              <span onClick={() => setGroupMode((prev) => (!prev ? 1 : 0))}>
+                <GroupOnOffToggle clicked={groupMode === 0 ? false : true} />
               </span>
             </TopBlock.right>
           </TopBlock.wrapper>
-          <PersonalViewMain />
+          <MainAreaWrapper>
+            {groupMode === 0 && <PersonalViewMain />}
+            {groupMode === 1 && <GroupViewExploreMain />}
+          </MainAreaWrapper>
         </div>
       </MyPageWrapper>
     </NewContainerInnerScroll>
@@ -115,8 +124,9 @@ const TopBlock = {
   wrapper: styled.div`
     padding-top: 0px; // Header 없어서 임시
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     margin-bottom: 3px;
+    height: 65px;
 
     & > * {
       /* border: 1px solid red; */
@@ -138,7 +148,7 @@ const TopBlock = {
   center: styled.div`
     flex: 0 0 300px;
     width: 300px;
-    padding-bottom: 19px;
+    /* padding-bottom: 19px; */
     transition: flex 300ms;
 
     @media (max-width: 750px) {
@@ -191,8 +201,15 @@ const MyPageWrapper = styled.div`
 `;
 
 const VeryTopWrapper = styled.div`
+  width: 100%;
   height: 225px;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+`;
+
+const MainAreaWrapper = styled.div`
+  width: 100%;
+  min-height: 535px;
 `;
