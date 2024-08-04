@@ -202,7 +202,7 @@ const MyPageWrapper = styled.div`
 
 const VeryTopWrapper = styled.div`
   width: 100%;
-  height: 225px;
+  height: 250px;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
