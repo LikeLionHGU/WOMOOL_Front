@@ -120,6 +120,24 @@ function Mypage() {
             transform: `translateY(${translateValue}px)`,
           }}
         >
+          <VeryTopWrapper>
+            <LevelIconBox>
+              <LevelBoxIconContent.dayNum>
+                #{userData.weekDate.toString().padStart(2, "0")}
+              </LevelBoxIconContent.dayNum>
+              <LevelBoxIconContent.weekNum>
+                WEEK {userData.week}
+              </LevelBoxIconContent.weekNum>
+              <LevelBoxIconContent.desc>
+                Drinking
+                <br />
+                Water
+              </LevelBoxIconContent.desc>
+            </LevelIconBox>
+            <CurrentGoal>
+              GOAL {convertMlToL(userData.recommendation)}L
+            </CurrentGoal>
+          </VeryTopWrapper>
           <TopBlock.wrapper
             ref={mainRef}
             style={{
@@ -140,22 +158,6 @@ function Mypage() {
               </HoverImageSpan>
             </TopBlock.left>
             <TopBlock.center>
-              <LevelIconBox>
-                <LevelBoxIconContent.dayNum>
-                  #{userData.weekDate.toString().padStart(2, "0")}
-                </LevelBoxIconContent.dayNum>
-                <LevelBoxIconContent.weekNum>
-                  WEEK {userData.week}
-                </LevelBoxIconContent.weekNum>
-                <LevelBoxIconContent.desc>
-                  Drinking
-                  <br />
-                  Water
-                </LevelBoxIconContent.desc>
-              </LevelIconBox>
-              <CurrentGoal>
-                GOAL {convertMlToL(userData.recommendation)}L
-              </CurrentGoal>
               <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
             </TopBlock.center>
             <TopBlock.right>
@@ -546,4 +548,11 @@ const MyPageWrapper = styled.div`
       align-items: center;
     }
   }
+`;
+
+const VeryTopWrapper = styled.div`
+  height: 225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
