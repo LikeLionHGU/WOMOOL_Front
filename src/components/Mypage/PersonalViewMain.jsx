@@ -21,9 +21,13 @@ import styled from "styled-components";
 import { convertMlToL, removeNonNumeric } from "src/tools/tool";
 import TheButton from "src/styles/TheButton";
 import { HoverImageSpan } from "../../styles/stylePresets";
+import { useSetRecoilState } from "recoil";
+import { userDetailAtom } from "../../recoil/userAtoms";
 
 function PersonalViewMain() {
   const fetchBe = useFetchBe();
+
+  const setUserData = useSetRecoilState(userDetailAtom);
 
   const [loading, setLoading] = useState({
     bottle: false,
@@ -54,6 +58,9 @@ function PersonalViewMain() {
         alert("Error while adding water");
         return;
       }
+      fetchBe("/userDetail/get").then((json) => {
+        setUserData(json);
+      });
       setTimeout(
         setLoading((prev) => ({
           ...prev,

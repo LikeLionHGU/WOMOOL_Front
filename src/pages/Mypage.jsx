@@ -23,6 +23,7 @@ import PersonalViewMain from "../components/Mypage/PersonalViewMain";
 import { HoverImageSpan } from "../styles/stylePresets";
 import GroupViewExploreMain from "../components/Mypage/GroupViewExploreMain";
 import GroupViewExploreTop from "../components/Mypage/GroupViewExploreTop";
+import { convertMlToL } from "../tools/tool";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -109,7 +110,17 @@ function Mypage() {
             </TopBlock.right>
           </TopBlock.wrapper>
           <MainAreaWrapper>
-            {groupMode === 0 && <PersonalViewMain />}
+            {groupMode === 0 && (
+              <>
+                <PersonalViewMain />
+                <TempText>
+                  <div>
+                    Today <br />
+                    {convertMlToL(userData.todayTotal)}L
+                  </div>
+                </TempText>
+              </>
+            )}
             {groupMode === 1 && <GroupViewExploreMain />}
           </MainAreaWrapper>
         </div>
@@ -212,4 +223,21 @@ const VeryTopWrapper = styled.div`
 const MainAreaWrapper = styled.div`
   width: 100%;
   min-height: 535px;
+  position: relative;
+`;
+
+const TempText = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  div {
+    display: inline-block;
+    margin: auto;
+    font-size: 64px;
+    font-weight: bold;
+    text-align: center;
+    background-color: lightgray;
+  }
 `;
