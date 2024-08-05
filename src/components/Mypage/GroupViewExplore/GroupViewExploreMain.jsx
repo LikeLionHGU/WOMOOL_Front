@@ -10,10 +10,12 @@ import CreateGroup from "src/assets/Mypage-group/createGroup.svg";
 import CreateGroupHover from "src/assets/Mypage-group/createGroup-hover.svg";
 import { HoverImageSpan } from "../../../styles/stylePresets";
 import ModalCreateGroup from "./ModalCreateGroup";
+import { useRecoilState } from "recoil";
+import { allGroupsAtom } from "../../../recoil/groupAtoms";
 
 function GroupViewExploreMain() {
   const fetchBe = useFetchBe();
-  const [allGroups, setAllGroups] = useState();
+  const [allGroups, setAllGroups] = useRecoilState(allGroupsAtom);
   const [myGroups, setMyGroups] = useState();
   const [modalOpen, setModalOpen] = useState(null);
   const allGroupByCode = useMemo(() => {

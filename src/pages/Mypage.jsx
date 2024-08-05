@@ -6,6 +6,8 @@ import { NewContainer, NewContainerInnerScroll } from "../styles/Container";
 
 import PrevRecord from "../assets/Mypage/prev-record.svg";
 import PrevRecordHover from "../assets/Mypage/prev-record-hover.svg";
+import GroupAdd from "../assets/Mypage/joingroup.svg";
+import GroupAddHover from "../assets/Mypage/joingroup-hover.svg";
 
 import styled from "styled-components";
 import { nenu, pretendard } from "../styles/fonts";
@@ -24,6 +26,7 @@ import { HoverImageSpan } from "../styles/stylePresets";
 import GroupViewExploreMain from "../components/Mypage/GroupViewExplore/GroupViewExploreMain";
 import GroupViewExploreTop from "../components/Mypage/GroupViewExplore/GroupViewExploreTop";
 import { convertMlToL } from "../tools/tool";
+import ModalJoinGroup from "../components/Mypage/GroupViewExplore/ModalJoinGroup";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -49,11 +52,11 @@ function Mypage() {
       : navigate("/mypage");
 
   const scaleValue = Math.min(1, Math.max(0.7, ((swidth - 360) / 360) * 2));
-  console.log(scaleValue);
   const rectHeight = mainRef?.current?.getBoundingClientRect().height;
-  console.log(rectHeight);
   const translateValue =
     (1 - scaleValue) * mainRef?.current?.offsetHeight * -0.5;
+
+  const [joinModalOpen, setJoinModalOpen] = useState(false);
 
   useEffect(() => {
     if (groupMode === 0 && gid) {
@@ -110,14 +113,26 @@ function Mypage() {
             }}
           >
             <TopBlock.left>
-              <HoverImageSpan onClick={() => setShowRecord("show")}>
-                <img src={PrevRecord} draggable={false} />
-                <img
-                  className="hover"
-                  src={PrevRecordHover}
-                  draggable={false}
-                />
-              </HoverImageSpan>
+              {groupMode === 0 && (
+                <HoverImageSpan onClick={() => setShowRecord("show")}>
+                  <img src={PrevRecord} draggable={false} />
+                  <img
+                    className="hover"
+                    src={PrevRecordHover}
+                    draggable={false}
+                  />
+                </HoverImageSpan>
+              )}
+              {groupMode === 1 && (
+                <HoverImageSpan onClick={() => setJoinModalOpen(true)}>
+                  <img src={GroupAdd} draggable={false} />
+                  <img
+                    className="hover"
+                    src={GroupAddHover}
+                    draggable={false}
+                  />
+                </HoverImageSpan>
+              )}
             </TopBlock.left>
             <TopBlock.center>
               {groupMode === 0 && (
@@ -146,6 +161,7 @@ function Mypage() {
           </MainAreaWrapper>
         </div>
       </MyPageWrapper>
+      <ModalJoinGroup isOpen={joinModalOpen} setIsOpen={setJoinModalOpen} />
     </NewContainerInnerScroll>
   );
 }

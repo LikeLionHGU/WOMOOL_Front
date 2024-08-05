@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { pretendard } from "../../../styles/fonts";
 
@@ -8,6 +8,7 @@ import ExitIcon from "src/assets/Mypage-group/exit-icon.svg";
 import { convertMlToL } from "src/tools/tool";
 import { useNavigate } from "react-router-dom";
 import { useFetchBe } from "../../../tools/api";
+import ModalJoinGroup from "./ModalJoinGroup";
 
 function GroupViewExploreCard({
   hoverGroupCode = false,
@@ -17,6 +18,7 @@ function GroupViewExploreCard({
 }) {
   const fetchBe = useFetchBe();
   const navigate = useNavigate();
+  const [joinModal, setJoinModal] = useState(false);
   return (
     <Card
       style={{
@@ -39,7 +41,7 @@ function GroupViewExploreCard({
       </Content>
 
       {hoverGroupCode && (
-        <Hover>
+        <Hover onClick={() => setJoinModal(true)}>
           <div>CODE | {data.code}</div>
         </Hover>
       )}
@@ -62,6 +64,11 @@ function GroupViewExploreCard({
           )}
         </Hover>
       )}
+      <ModalJoinGroup
+        isOpen={joinModal}
+        setIsOpen={setJoinModal}
+        initialCustomValue={data.code}
+      />
     </Card>
   );
 }
