@@ -43,8 +43,8 @@ function NewUser() {
         setUserData(json);
         setUserInputState((prev) => ({
           ...prev,
-          height: json.height,
-          weight: json.weight,
+          height: json.height || null,
+          weight: json.weight || null,
         }));
       })
       .catch((e) => setUserDataError(e.message));
