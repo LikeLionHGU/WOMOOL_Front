@@ -17,7 +17,14 @@ export const fetchBe = (jwtValue, path, method = "GET", body) =>
     fetch(serverRootUrl + path, initStuff)
       .then((doc) =>
         doc.json().then((json) => {
-          res(json);
+          // If User not exist (due to db reset, etc)
+          if (json?.message?.includes('"user" is null')) {
+            alert("유저가 존재하지 않습니다. 로그인을 다시해주세요.");
+            localStorage.clear();
+            window.location.reload();
+            return rej("유저가 존재하지 않습니다. 로그인을 다시해주세요.");
+          }
+          return res(json);
         })
       )
 
