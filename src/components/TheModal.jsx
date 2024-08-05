@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 
 function TheModal({
@@ -8,7 +9,7 @@ function TheModal({
   style,
   backdropStyle,
 }) {
-  return (
+  return ReactDOM.createPortal(
     <HeaderModal className={openModal}>
       <HeaderModalBackdrop
         className={openModal}
@@ -18,7 +19,8 @@ function TheModal({
       <HeaderModalContent className={openModal} style={style}>
         {ModalContent}
       </HeaderModalContent>
-    </HeaderModal>
+    </HeaderModal>,
+    document.body
   );
 }
 

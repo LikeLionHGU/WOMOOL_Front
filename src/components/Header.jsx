@@ -63,7 +63,13 @@ function Header({ loggedIn = false, ...props }) {
         </HeaderMenus>
       </HeaderCompContent>
 
-      <TheModal openModal={openModal} setOpenModal={setOpenModal}>
+      <TheModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        style={{
+          color: "white",
+        }}
+      >
         <HeaderModalLoginText.logo>
           <img src={headerLogo} />
         </HeaderModalLoginText.logo>
