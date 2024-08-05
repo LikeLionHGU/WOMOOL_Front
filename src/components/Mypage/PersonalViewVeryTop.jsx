@@ -5,14 +5,16 @@ import { nenu, pretendard } from "src/styles/fonts";
 
 function PersonalVeryTop({ userData }) {
   return (
-    <>
+    <Wrapper>
       <LevelIconBox>
-        <LevelBoxIconContent.dayNum>
-          #{(+userData.weekDate + 1).toString().padStart(2, "0")}
-        </LevelBoxIconContent.dayNum>
-        <LevelBoxIconContent.weekNum>
-          WEEK {userData.week}
-        </LevelBoxIconContent.weekNum>
+        <div>
+          <LevelBoxIconContent.dayNum>
+            #{(+userData.weekDate + 1).toString().padStart(2, "0")}
+          </LevelBoxIconContent.dayNum>
+          <LevelBoxIconContent.weekNum>
+            WEEK {userData.week}
+          </LevelBoxIconContent.weekNum>
+        </div>
         <LevelBoxIconContent.desc>
           Drinking
           <br />
@@ -20,11 +22,18 @@ function PersonalVeryTop({ userData }) {
         </LevelBoxIconContent.desc>
       </LevelIconBox>
       <CurrentGoal>GOAL {convertMlToL(userData.recommendation)}L</CurrentGoal>
-    </>
+    </Wrapper>
   );
 }
 
 export default PersonalVeryTop;
+
+const Wrapper = styled.div`
+  margin-bottom: 18px;
+  @media (max-width: 550px) {
+    margin-bottom: 8px;
+  }
+`;
 
 const LevelIconBox = styled.div`
   ${nenu}
@@ -36,6 +45,17 @@ const LevelIconBox = styled.div`
   box-sizing: border-box;
   margin: auto;
   margin-bottom: 13px;
+
+  @media (max-width: 550px) {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    padding: 8px 16px;
+    margin: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: none; */
+  }
 `;
 
 const LevelBoxIconContent = {
@@ -61,6 +81,9 @@ const LevelBoxIconContent = {
     color: #000000;
 
     margin-bottom: 11px;
+    @media (max-width: 550px) {
+      margin-bottom: 0;
+    }
   `,
   desc: styled.div`
     /* Drinking water */
@@ -76,7 +99,7 @@ const LevelBoxIconContent = {
 };
 
 const CurrentGoal = styled.div`
-  margin-bottom: 18px;
+  /* margin-bottom: 18px; */
   ${pretendard}
   font-style: normal;
   font-weight: 600;

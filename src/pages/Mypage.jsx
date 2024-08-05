@@ -100,7 +100,7 @@ function Mypage() {
             </TopBlock.left>
             <TopBlock.center>
               {groupMode === 0 && (
-                <CurrentLevel>Lv.{userData.hasDrankLevel}</CurrentLevel>
+                <CurrentLevel>Lv.{+userData.hasDrankLevel + 1}</CurrentLevel>
               )}
             </TopBlock.center>
             <TopBlock.right>
@@ -218,6 +218,9 @@ const VeryTopWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media (max-width: 550px) {
+    height: 160px;
+  }
 `;
 
 const MainAreaWrapper = styled.div`
