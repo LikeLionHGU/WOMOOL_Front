@@ -15,6 +15,7 @@ function GroupViewExploreCard({
   hoverDelete = false,
   clickJoin = false,
   data = {},
+  cb = () => {},
 }) {
   const fetchBe = useFetchBe();
   const navigate = useNavigate();
@@ -58,7 +59,8 @@ function GroupViewExploreCard({
               src={ExitIcon}
               draggable={false}
               onClick={async () => {
-                fetchBe("/team/exit/" + data.teamId, "PATCH");
+                await fetchBe("/team/exit/" + data.teamId, "PATCH");
+                cb();
               }}
             />
           )}

@@ -25,9 +25,13 @@ function GroupViewExploreMain() {
     }, {});
   }, [allGroups]);
 
-  useEffect(() => {
+  const getGroupDatas = () => {
     fetchBe("/team/allGroups").then((json) => setAllGroups(json.teams));
     fetchBe("/user/getGroups").then((json) => setMyGroups(json.teams));
+  };
+
+  useEffect(() => {
+    getGroupDatas();
   }, []);
 
   if (!allGroups || !myGroups) return <div></div>;
@@ -70,6 +74,7 @@ function GroupViewExploreMain() {
               data={allGroupByCode[code]}
               hoverDelete={true}
               clickJoin={true}
+              cb={getGroupDatas}
             />
           ))}
           <HoverImageSpan onClick={() => setModalOpen("create")}>
