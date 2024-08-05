@@ -28,6 +28,7 @@ import GroupViewExploreTop from "../components/Mypage/GroupViewExplore/GroupView
 import { convertMlToL } from "../tools/tool";
 import ModalJoinGroup from "../components/Mypage/GroupViewExplore/ModalJoinGroup";
 import GroupViewVeryTop from "../components/Mypage/GroupViewVeryTop";
+import GroupViewMain from "../components/Mypage/GroupViewMain";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -43,11 +44,17 @@ function Mypage() {
 
   const { gid } = useParams();
 
+  const [groupOneData, setGroupOneData] = useState({});
+
   // 0 - personal, 1 - explorer, ID - 그룹페이지
   const [groupMode, setGroupMode] = useState(gid || 0);
   // const [showRecord, setShowRecord] = useState("init");
   const showRecord = params.get("showRecord") || "hidden";
   const setShowRecord = (value) =>
+    value === "show"
+      ? navigate("/mypage?showRecord=" + value)
+      : navigate("/mypage");
+  const setShowGroupRecord = (value) =>
     value === "show"
       ? navigate("/mypage?showRecord=" + value)
       : navigate("/mypage");
@@ -69,6 +76,7 @@ function Mypage() {
     if (!!gid) {
       wrapperRef.current?.scrollTo(0, 0);
       setGroupMode(gid);
+      fetchBe("/team/getByCode/" + gid).then((json) => setGroupOneData(json));
     } else {
       if (groupMode !== 0) setGroupMode(1);
     }
@@ -106,7 +114,7 @@ function Mypage() {
             ) : groupMode === 1 ? (
               <GroupViewExploreTop />
             ) : (
-              <GroupViewVeryTop userData={userData} />
+              <GroupViewVeryTop userData={userData} groupData={groupOneData} />
             )}
           </VeryTopWrapper>
           <TopBlock.wrapper
@@ -119,7 +127,7 @@ function Mypage() {
             }}
           >
             <TopBlock.left>
-              {groupMode === 0 && (
+              {groupMode === 0 ? (
                 <HoverImageSpan onClick={() => setShowRecord("show")}>
                   <img src={PrevRecord} draggable={false} />
                   <img
@@ -128,8 +136,7 @@ function Mypage() {
                     draggable={false}
                   />
                 </HoverImageSpan>
-              )}
-              {groupMode === 1 && (
+              ) : groupMode === 1 ? (
                 <HoverImageSpan onClick={() => setJoinModalOpen(true)}>
                   <img src={GroupAdd} draggable={false} />
                   <img
@@ -138,11 +145,26 @@ function Mypage() {
                     draggable={false}
                   />
                 </HoverImageSpan>
+              ) : (
+                <HoverImageSpan onClick={() => setShowGroupRecord("show")}>
+                  <img src={PrevRecord} draggable={false} />
+                  <img
+                    className="hover"
+                    src={PrevRecordHover}
+                    draggable={false}
+                  />
+                </HoverImageSpan>
               )}
             </TopBlock.left>
             <TopBlock.center>
-              {groupMode === 0 && (
+              {groupMode === 0 ? (
                 <CurrentLevel>Lv.{+userData.hasDrankLevel + 1}</CurrentLevel>
+              ) : (
+                groupMode !== 1 && (
+                  <CurrentLevel>
+                    Lv.{+groupOneData.completeLevel + 1}
+                  </CurrentLevel>
+                )
               )}
             </TopBlock.center>
             <TopBlock.right>
@@ -152,7 +174,7 @@ function Mypage() {
             </TopBlock.right>
           </TopBlock.wrapper>
           <MainAreaWrapper>
-            {groupMode === 0 && (
+            {groupMode === 0 ? (
               <>
                 <PersonalViewMain />
                 <TempText>
@@ -162,8 +184,11 @@ function Mypage() {
                   </div>
                 </TempText>
               </>
+            ) : groupMode === 1 ? (
+              <GroupViewExploreMain />
+            ) : (
+              <GroupViewMain groupData={groupOneData} />
             )}
-            {groupMode === 1 && <GroupViewExploreMain />}
           </MainAreaWrapper>
         </div>
       </MyPageWrapper>

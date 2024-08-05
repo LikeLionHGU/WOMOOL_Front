@@ -3,17 +3,17 @@ import styled from "styled-components";
 import { convertMlToL } from "src/tools/tool";
 import { nenu, pretendard } from "src/styles/fonts";
 
-function GroupViewVeryTop({ userData }) {
+function GroupViewVeryTop({ userData, groupData }) {
   return (
     <Wrapper>
       <TopPart>
         <LevelIconBox>
           <div>
             <LevelBoxIconContent.dayNum>
-              #{(+userData.weekDate + 1).toString().padStart(2, "0")}
+              #{((+groupData.dateCount % 7) + 1).toString().padStart(2, "0")}
             </LevelBoxIconContent.dayNum>
             <LevelBoxIconContent.weekNum>
-              WEEK {userData.week}
+              WEEK {Math.floor(groupData.dateCount / 7) + 1}
             </LevelBoxIconContent.weekNum>
           </div>
           <LevelBoxIconContent.desc>
@@ -21,12 +21,15 @@ function GroupViewVeryTop({ userData }) {
             <br />
             Water
           </LevelBoxIconContent.desc>
+          <ProfileImageBox>
+            <img src={groupData.teamImage} />
+          </ProfileImageBox>
         </LevelIconBox>
         <ProfileImageBox>
-          {/* <img src="https://csee.handong.edu/swplus/img/bottom/bottom1.png" /> */}
+          <img src={groupData.teamImage} />
         </ProfileImageBox>
       </TopPart>
-      <CurrentGoal>GOAL {convertMlToL(userData.recommendation)}L</CurrentGoal>
+      <CurrentGoal>GOAL {convertMlToL(groupData.recommendation)}L</CurrentGoal>
     </Wrapper>
   );
 }
@@ -34,32 +37,13 @@ function GroupViewVeryTop({ userData }) {
 export default GroupViewVeryTop;
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
   margin-bottom: 18px;
   @media (max-width: 550px) {
     margin-bottom: 8px;
-  }
-`;
-
-const LevelIconBox = styled.div`
-  ${nenu}
-  border: 1px solid black;
-  padding: 8px 11px;
-  /* width: calc(129px - 22px); */
-  width: 129px;
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin: auto;
-  margin-bottom: 13px;
-
-  @media (max-width: 550px) {
-    box-sizing: border-box;
-    width: calc(100% - 32px);
-    padding: 8px 16px;
-    margin: 8px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* border: none; */
   }
 `;
 
@@ -100,6 +84,10 @@ const LevelBoxIconContent = {
     text-transform: uppercase;
 
     color: #000000;
+
+    @media (max-width: 550px) {
+      display: none;
+    }
   `,
 };
 
@@ -117,13 +105,65 @@ const CurrentGoal = styled.div`
   color: #2892c2;
 `;
 
-const TopPart = styled.div`
-  display: flex;
-`;
-
 const ProfileImageBox = styled.div`
   height: 100%;
-  img: {
+  border-radius: 10px;
+  border: 1px solid black;
+  overflow: hidden;
+  img {
     height: 100%;
+    object-fit: cover; /* Ensures the image covers the container */
+    object-position: center center; /* Centers the image */
+  }
+`;
+
+const TopPart = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 13px;
+  gap: 15px;
+  height: 140px;
+
+  @media (max-width: 550px) {
+    height: 110px;
+  }
+
+  & > ${ProfileImageBox} {
+    @media (max-width: 550px) {
+      display: none;
+    }
+  }
+`;
+
+const LevelIconBox = styled.div`
+  flex-shrink: 1;
+
+  ${nenu}
+  border: 1px solid black;
+  padding: 8px 11px;
+  /* width: calc(129px - 22px); */
+  width: 129px;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+  & > ${ProfileImageBox} {
+    display: none;
+  }
+
+  @media (max-width: 550px) {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    /* padding: 8px 16px; */
+    padding: 0;
+    padding-left: 16px;
+    margin: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: none; */
+    & > ${ProfileImageBox} {
+      display: block;
+      border: none;
+    }
   }
 `;
