@@ -66,7 +66,8 @@ function GroupViewExploreMain() {
             <GroupViewExploreCard
               key={code}
               data={allGroupByCode[code]}
-              hoverGroupCode={true}
+              hoverDelete={true}
+              clickJoin={true}
             />
           ))}
           <HoverImageSpan onClick={() => setModalOpen("create")}>

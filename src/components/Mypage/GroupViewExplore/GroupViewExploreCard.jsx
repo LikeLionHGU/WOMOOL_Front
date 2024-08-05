@@ -4,8 +4,15 @@ import { pretendard } from "../../../styles/fonts";
 
 import PeopleIcon from "src/assets/Mypage-group/peopleicon.svg";
 import { convertMlToL } from "src/tools/tool";
+import { useNavigate } from "react-router-dom";
 
-function GroupViewExploreCard({ hoverGroupCode = false, data = {} }) {
+function GroupViewExploreCard({
+  hoverGroupCode = false,
+  hoverDelete = false,
+  clickJoin = false,
+  data = {},
+}) {
+  const navigate = useNavigate();
   return (
     <Card
       style={{
@@ -26,6 +33,15 @@ function GroupViewExploreCard({ hoverGroupCode = false, data = {} }) {
         <Hover>
           <div>CODE | {data.code}</div>
         </Hover>
+      )}
+      {hoverDelete && <Hover></Hover>}
+      {clickJoin && (
+        <Hover
+          style={{
+            backgroundColor: "transparent",
+          }}
+          onClick={() => navigate("/group/" + data.code)}
+        ></Hover>
       )}
     </Card>
   );

@@ -65,6 +65,8 @@ function Mypage() {
     if (!!gid) {
       wrapperRef.current?.scrollTo(0, 0);
       setGroupMode(gid);
+    } else {
+      if (groupMode !== 0) setGroupMode(1);
     }
   }, [gid]);
 
