@@ -8,7 +8,7 @@ function PersonalVeryTop({ userData }) {
     <>
       <LevelIconBox>
         <LevelBoxIconContent.dayNum>
-          #{userData.weekDate.toString().padStart(2, "0")}
+          #{(+userData.weekDate + 1).toString().padStart(2, "0")}
         </LevelBoxIconContent.dayNum>
         <LevelBoxIconContent.weekNum>
           WEEK {userData.week}
