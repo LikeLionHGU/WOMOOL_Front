@@ -37,17 +37,15 @@ function NewUser() {
   // User Already have profile
   useEffect(() => {
     if (!jwtValue) return;
-    fetchBe(jwtValue, "/userDetail/get")
-      .then((json) => {
-        // 기존 사용자
-        setUserData(json);
-        setUserInputState((prev) => ({
-          ...prev,
-          height: json.height || null,
-          weight: json.weight || null,
-        }));
-      })
-      .catch((e) => setUserDataError(e.message));
+    fetchBe(jwtValue, "/userDetail/get").then((json) => {
+      // 기존 사용자
+      setUserData(json);
+      setUserInputState((prev) => ({
+        ...prev,
+        height: json.height || null,
+        weight: json.weight || null,
+      }));
+    });
     fetchBe(jwtValue, "/user/get").then(({ nickName }) => {
       if (nickName) {
         setNicknameState({
