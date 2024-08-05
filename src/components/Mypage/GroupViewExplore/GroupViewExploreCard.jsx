@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { pretendard } from "../../styles/fonts";
+import { pretendard } from "../../../styles/fonts";
 
 import PeopleIcon from "src/assets/Mypage-group/peopleicon.svg";
 import { convertMlToL } from "src/tools/tool";

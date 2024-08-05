@@ -8,7 +8,7 @@ import GroupViewExploreCard from "./GroupViewExploreCard";
 import GroupRightArrow from "src/assets/Mypage-group/group-rightarrow.svg";
 import CreateGroup from "src/assets/Mypage-group/createGroup.svg";
 import CreateGroupHover from "src/assets/Mypage-group/createGroup-hover.svg";
-import { HoverImageSpan } from "../../styles/stylePresets";
+import { HoverImageSpan } from "../../../styles/stylePresets";
 
 function GroupViewExploreMain() {
   const fetchBe = useFetchBe();

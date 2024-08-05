@@ -21,8 +21,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import PersonalVeryTop from "../components/Mypage/PersonalViewVeryTop";
 import PersonalViewMain from "../components/Mypage/PersonalViewMain";
 import { HoverImageSpan } from "../styles/stylePresets";
-import GroupViewExploreMain from "../components/Mypage/GroupViewExploreMain";
-import GroupViewExploreTop from "../components/Mypage/GroupViewExploreTop";
+import GroupViewExploreMain from "../components/Mypage/GroupViewExplore/GroupViewExploreMain";
+import GroupViewExploreTop from "../components/Mypage/GroupViewExplore/GroupViewExploreTop";
 import { convertMlToL } from "../tools/tool";
 
 function Mypage() {
