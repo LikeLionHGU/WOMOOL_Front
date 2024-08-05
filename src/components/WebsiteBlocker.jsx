@@ -29,7 +29,7 @@ function WebsiteBlocker({ children: Children }) {
             .toString()
             .padStart(2, "0")}`
         );
-      } else if (hours === 0 && minutes == 0) {
+      } else {
         if (display === "show") {
           window.location.reload();
         }
