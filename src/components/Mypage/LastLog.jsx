@@ -7,8 +7,8 @@ import { authJwtAtom } from "../../recoil/auth/atoms";
 import { pretendard } from "../../styles/fonts";
 
 import CloseBtn from "../../assets/Mypage/close-x.svg";
-import StampAttend from "../../assets/Mypage/stamp_attend.svg";
-import StampComplete from "../../assets/Mypage/stamp_complete.svg";
+import StampComplete from "../../assets/Mypage/stamp_attend.svg";
+import StampAttend from "../../assets/Mypage/stamp_complete.svg";
 import StampDisabled from "../../assets/Mypage/stamp_disabled.svg";
 import { convertMlToL, currentKoreanTime, formatDate } from "../../tools/tool";
 
