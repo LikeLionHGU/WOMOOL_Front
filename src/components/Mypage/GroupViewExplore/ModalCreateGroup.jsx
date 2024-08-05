@@ -8,6 +8,7 @@ import ModalWoomoolSvg from "src/assets/modal-woomool-blue.svg";
 import FileInit from "src/assets/Mypage-group/file-init.svg";
 import FileOk from "src/assets/Mypage-group/file-ok.svg";
 import FileDeny from "src/assets/Mypage-group/file-deny.svg";
+import WoomoolChar from "src/assets/woomool-char.png";
 import { useFetchBe } from "../../../tools/api";
 import { useNavigate } from "react-router-dom";
 
@@ -54,8 +55,8 @@ function ModalCreateGroup({ isOpen, setIsOpen, allGroups }) {
       setOpenModal={setShowCustomModal}
       style={{
         // width: "100%",
-        maxWidth: 594,
-        padding: 60,
+        maxWidth: createSuccessCode ? 380 : 594,
+        padding: createSuccessCode ? 21 : 60,
         boxSizing: "border-box",
       }}
     >
@@ -64,8 +65,10 @@ function ModalCreateGroup({ isOpen, setIsOpen, allGroups }) {
           <ModalContent.img src={ModalWoomoolSvg} />
           <ModalContent.header>그룹이 생성되었어요!</ModalContent.header>
           <ModalContent.content>
-            <div>소중한 사람들과 함께 우물해요</div>
-
+            <img src={WoomoolChar} draggable={false} />
+            <div style={{ marginBottom: 11 }}>
+              소중한 사람들과 함께 우물해요
+            </div>
             <TheButton
               onClick={() => {
                 // Redirect to createdSuccessCode
@@ -79,7 +82,9 @@ function ModalCreateGroup({ isOpen, setIsOpen, allGroups }) {
       ) : (
         <>
           <ModalContent.img src={ModalWoomoolSvg} />
-          <ModalContent.header>함께 우물할 그룹 생성하기</ModalContent.header>
+          <ModalContent.header style={{ paddingBottom: 49 }}>
+            함께 우물할 그룹 생성하기
+          </ModalContent.header>
           <ModalContent.content>
             <InputSection className={nameStats}>
               <CustomModalInput
@@ -184,7 +189,6 @@ const ModalContent = {
   `,
   header: styled.div`
     ${pretendard}
-    padding-bottom: 49px;
 
     font-style: normal;
     font-weight: 700;
@@ -217,6 +221,12 @@ const ModalContent = {
     }
   `,
   content: styled.div`
+    ${pretendard}
+    color: #2892c2;
+
+    & > img {
+      width: 149px;
+    }
     span.btn {
       cursor: pointer;
     }

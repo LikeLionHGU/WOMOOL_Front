@@ -7,6 +7,7 @@ import WoomoolBackCoverIcon from "src/assets/Mypage-group/woomool-backcover-icon
 import ExitIcon from "src/assets/Mypage-group/exit-icon.svg";
 import { convertMlToL } from "src/tools/tool";
 import { useNavigate } from "react-router-dom";
+import { useFetchBe } from "../../../tools/api";
 
 function GroupViewExploreCard({
   hoverGroupCode = false,
@@ -14,6 +15,7 @@ function GroupViewExploreCard({
   clickJoin = false,
   data = {},
 }) {
+  const fetchBe = useFetchBe();
   const navigate = useNavigate();
   return (
     <Card
@@ -41,26 +43,23 @@ function GroupViewExploreCard({
           <div>CODE | {data.code}</div>
         </Hover>
       )}
-      {hoverDelete && (
-        <Hover
-          style={{
-            justifyContent: "flex-end",
-            alignItems: "flex-start",
-            padding: 20,
-            boxSizing: "border-box",
-          }}
-        >
-          <img src={ExitIcon} draggable={false} />
-        </Hover>
-      )}
+
       {clickJoin && (
-        <Hover
-          style={{
-            backgroundColor: "transparent",
-          }}
-          onClick={() => navigate("/group/" + data.code)}
-        >
+        <Hover>
+          <Hover
+            style={{ backgroundColor: "transparent" }}
+            onClick={() => navigate("/group/" + data.code)}
+          />
           <img src={WoomoolBackCoverIcon} draggable={false} />
+          {hoverDelete && (
+            <DeleteImg
+              src={ExitIcon}
+              draggable={false}
+              onClick={async () => {
+                fetchBe("/team/exit/" + data.teamId, "PATCH");
+              }}
+            />
+          )}
         </Hover>
       )}
     </Card>
@@ -170,3 +169,13 @@ const Footer = {
     color: white;
   `,
 };
+
+const DeleteImg = styled.img`
+  position: absolute;
+  display: block;
+  right: 20px;
+  top: 20px;
+  &:hover {
+    filter: invert(1);
+  }
+`;

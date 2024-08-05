@@ -151,6 +151,12 @@ const presets = [
     body: {},
   },
   {
+    method: "PATCH",
+    endpoint: "/team/exit/{gid}",
+    description: "그룹 아이디로 나가기",
+    body: null,
+  },
+  {
     method: "GET",
     endpoint: "/userAttendance/get",
     description: "유저 출석 기록 확인",
