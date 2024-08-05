@@ -40,6 +40,10 @@ const router = createBrowserRouter([
     element: <LoginProtected comp={Mypage} />,
   },
   {
+    path: "/group/:gid",
+    element: <LoginProtected comp={Mypage} />,
+  },
+  {
     path: "/test",
     element: <TestPage />,
   },

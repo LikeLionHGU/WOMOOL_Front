@@ -52,7 +52,12 @@ const ButtonContainer = styled.div`
   background: rgba(255, 255, 255, 0.6);
   color: #2892c2;
 
-  &:hover {
+  &.disabled {
+    color: #808080;
+    cursor: not-allowed;
+  }
+
+  &:not(.disabled):hover {
     background: #2892c2;
     color: white;
   }

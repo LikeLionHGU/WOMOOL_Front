@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 
@@ -17,7 +17,7 @@ import { userDetailAtom } from "../recoil/userAtoms";
 
 import Header from "../components/Header";
 import useWindowSize from "../tools/useWindowSize";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import PersonalVeryTop from "../components/Mypage/PersonalViewVeryTop";
 import PersonalViewMain from "../components/Mypage/PersonalViewMain";
 import { HoverImageSpan } from "../styles/stylePresets";
@@ -34,10 +34,13 @@ function Mypage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
+  const wrapperRef = useRef();
   const mainRef = useRef();
 
+  const { gid } = useParams();
+
   // 0 - personal, 1 - explorer, ID - 그룹페이지
-  const [groupMode, setGroupMode] = useState(0);
+  const [groupMode, setGroupMode] = useState(gid || 0);
   // const [showRecord, setShowRecord] = useState("init");
   const showRecord = params.get("showRecord") || "hidden";
   const setShowRecord = (value) =>
@@ -52,8 +55,24 @@ function Mypage() {
   const translateValue =
     (1 - scaleValue) * mainRef?.current?.offsetHeight * -0.5;
 
+  useEffect(() => {
+    if (groupMode === 0 && gid) {
+      navigate("/mypage");
+    }
+  }, [groupMode]);
+
+  useEffect(() => {
+    if (!!gid) {
+      wrapperRef.current?.scrollTo(0, 0);
+      setGroupMode(gid);
+    }
+  }, [gid]);
+
   return (
-    <NewContainerInnerScroll style={{ backgroundColor: "#EDECEB" }}>
+    <NewContainerInnerScroll
+      ref={wrapperRef}
+      style={{ backgroundColor: "#EDECEB" }}
+    >
       <AttendanceCheck />
       <LastLog show={showRecord} setShow={setShowRecord} />
 

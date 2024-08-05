@@ -9,8 +9,12 @@ export const fetchBe = (jwtValue, path, method = "GET", body) =>
       method,
     };
     if (body && !["GET", "HEAD"].includes(method)) {
-      initStuff.headers["Content-Type"] = "application/json";
-      initStuff["body"] = JSON.stringify(body);
+      if (body instanceof FormData) {
+        initStuff["body"] = body;
+      } else {
+        initStuff.headers["Content-Type"] = "application/json";
+        initStuff["body"] = JSON.stringify(body);
+      }
     }
     if (jwtValue) initStuff.headers.Authorization = `Bearer ${jwtValue}`;
 

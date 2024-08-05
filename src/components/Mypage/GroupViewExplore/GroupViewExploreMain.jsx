@@ -9,11 +9,13 @@ import GroupRightArrow from "src/assets/Mypage-group/group-rightarrow.svg";
 import CreateGroup from "src/assets/Mypage-group/createGroup.svg";
 import CreateGroupHover from "src/assets/Mypage-group/createGroup-hover.svg";
 import { HoverImageSpan } from "../../../styles/stylePresets";
+import ModalCreateGroup from "./ModalCreateGroup";
 
 function GroupViewExploreMain() {
   const fetchBe = useFetchBe();
   const [allGroups, setAllGroups] = useState();
   const [myGroups, setMyGroups] = useState();
+  const [modalOpen, setModalOpen] = useState(null);
   const allGroupByCode = useMemo(() => {
     return allGroups?.reduce((prev, curr) => {
       prev[curr.code] = curr;
@@ -67,12 +69,17 @@ function GroupViewExploreMain() {
               hoverGroupCode={true}
             />
           ))}
-          <HoverImageSpan>
+          <HoverImageSpan onClick={() => setModalOpen("create")}>
             <img src={CreateGroup} draggable={false} />
             <img className="hover" src={CreateGroupHover} draggable={false} />
           </HoverImageSpan>
         </SectionBody>
       </Section>
+      <ModalCreateGroup
+        isOpen={modalOpen === "create"}
+        setIsOpen={setModalOpen}
+        allGroups={allGroups}
+      />
     </Wrapper>
   );
 }
