@@ -27,6 +27,7 @@ import GroupViewExploreMain from "../components/Mypage/GroupViewExplore/GroupVie
 import GroupViewExploreTop from "../components/Mypage/GroupViewExplore/GroupViewExploreTop";
 import { convertMlToL } from "../tools/tool";
 import ModalJoinGroup from "../components/Mypage/GroupViewExplore/ModalJoinGroup";
+import GroupViewVeryTop from "../components/Mypage/GroupViewVeryTop";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -100,8 +101,13 @@ function Mypage() {
           }}
         >
           <VeryTopWrapper>
-            {groupMode === 0 && <PersonalVeryTop userData={userData} />}
-            {groupMode === 1 && <GroupViewExploreTop />}
+            {groupMode === 0 ? (
+              <PersonalVeryTop userData={userData} />
+            ) : groupMode === 1 ? (
+              <GroupViewExploreTop />
+            ) : (
+              <GroupViewVeryTop userData={userData} />
+            )}
           </VeryTopWrapper>
           <TopBlock.wrapper
             ref={mainRef}
