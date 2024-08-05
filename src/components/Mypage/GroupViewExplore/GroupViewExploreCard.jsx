@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { pretendard } from "../../../styles/fonts";
 
 import PeopleIcon from "src/assets/Mypage-group/peopleicon.svg";
+import WoomoolBackCoverIcon from "src/assets/Mypage-group/woomool-backcover-icon.svg";
+import ExitIcon from "src/assets/Mypage-group/exit-icon.svg";
 import { convertMlToL } from "src/tools/tool";
 import { useNavigate } from "react-router-dom";
 
@@ -19,29 +21,47 @@ function GroupViewExploreCard({
         backgroundImage: `url(${data.teamImage})`,
       }}
     >
-      <Title>{data.name}</Title>
-      <Footer.wrapper>
-        <Footer.left>
-          {convertMlToL(data.groupTotal)}L/{convertMlToL(data.recommendation)}L
-        </Footer.left>
-        <Footer.right>
-          <img src={PeopleIcon} draggable={false} />
-          <div>{data.peopleCount}</div>
-        </Footer.right>
-      </Footer.wrapper>
+      <Backdrop />
+      <Content>
+        <Title>{data.name}</Title>
+        <Footer.wrapper>
+          <Footer.left>
+            {convertMlToL(data.groupTotal)}L/{convertMlToL(data.recommendation)}
+            L
+          </Footer.left>
+          <Footer.right>
+            <img src={PeopleIcon} draggable={false} />
+            <div>{data.peopleCount}</div>
+          </Footer.right>
+        </Footer.wrapper>
+      </Content>
+
       {hoverGroupCode && (
         <Hover>
           <div>CODE | {data.code}</div>
         </Hover>
       )}
-      {hoverDelete && <Hover></Hover>}
+      {hoverDelete && (
+        <Hover
+          style={{
+            justifyContent: "flex-end",
+            alignItems: "flex-start",
+            padding: 20,
+            boxSizing: "border-box",
+          }}
+        >
+          <img src={ExitIcon} draggable={false} />
+        </Hover>
+      )}
       {clickJoin && (
         <Hover
           style={{
             backgroundColor: "transparent",
           }}
           onClick={() => navigate("/group/" + data.code)}
-        ></Hover>
+        >
+          <img src={WoomoolBackCoverIcon} draggable={false} />
+        </Hover>
       )}
     </Card>
   );
@@ -49,14 +69,32 @@ function GroupViewExploreCard({
 
 export default GroupViewExploreCard;
 
-const Hover = styled.div`
-  display: none;
+const Content = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+
+  box-sizing: border-box;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const Backdrop = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const Hover = styled(Backdrop)`
+  display: none;
+  background-color: #2892c2;
 
   justify-content: center;
   align-items: center;
@@ -83,11 +121,6 @@ const Card = styled.div`
   width: 288px;
   height: 183px;
   background-color: #d9d9d9;
-  padding: 18px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
   background-size: cover;
   background-position: center center;
@@ -108,7 +141,7 @@ const Title = styled.div`
   /* identical to box height */
   text-transform: uppercase;
 
-  color: #000000;
+  color: white;
 `;
 
 const Footer = {
@@ -128,11 +161,12 @@ const Footer = {
     /* identical to box height */
     text-transform: uppercase;
 
-    color: #000000;
+    color: white;
   `,
   right: styled.div`
     display: flex;
     align-items: center;
     gap: 5px;
+    color: white;
   `,
 };
