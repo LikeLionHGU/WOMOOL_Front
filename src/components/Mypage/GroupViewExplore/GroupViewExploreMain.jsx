@@ -34,6 +34,8 @@ function GroupViewExploreMain() {
     getGroupDatas();
   }, []);
 
+  console.log(allGroups);
+
   if (!allGroups || !myGroups) return <div></div>;
   return (
     <Wrapper>
@@ -48,13 +50,20 @@ function GroupViewExploreMain() {
           </div>
         </SectionHeader>
         <SectionBody>
-          {allGroups.map((group) => (
-            <GroupViewExploreCard
-              key={group.code}
-              data={group}
-              hoverGroupCode={true}
-            />
-          ))}
+          {[...allGroups]
+            .sort((a, b) => {
+              if (a.groupTotal === b.groupTotal) {
+                return b.peopleCount - a.peopleCount;
+              }
+              return b.groupTotal - a.groupTotal;
+            })
+            .map((group) => (
+              <GroupViewExploreCard
+                key={group.code}
+                data={group}
+                hoverGroupCode={true}
+              />
+            ))}
         </SectionBody>
       </Section>
       <Section>
