@@ -54,7 +54,7 @@ function GroupViewExploreCard({
             onClick={() => navigate("/group/" + data.code)}
           />
           <img src={WoomoolBackCoverIcon} draggable={false} />
-          {hoverDelete && (
+          {false && hoverDelete && (
             <DeleteImg
               src={ExitIcon}
               draggable={false}
