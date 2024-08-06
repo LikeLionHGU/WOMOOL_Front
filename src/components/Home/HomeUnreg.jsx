@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 import AOS from "aos";
+
+import googleLogo from "src/assets/googlelogo.svg";
+import kakaoLogo from "src/assets/kakaologo.svg";
 
 import "aos/dist/aos.css";
 
 import MainWoomoolText from "../../assets/MainHome/Section1/main-woomol-text.svg";
 import MainPointDownImg from "../../assets/MainHome/Section1/main-point-down.svg";
 import MainEntertheRoomImg from "../../assets/MainHome/Section1/main-EntertheRoom.svg";
+import MainEntertheRoomImgHover from "../../assets/MainHome/Section1/main-EntertheRoom-hover.svg";
 
 import { authJwtAtom } from "../../recoil/auth/atoms";
 import Header from "../Header";
@@ -17,10 +21,16 @@ import MainHomeComp2_1 from "./MainHomeComp2_1";
 import MainHomeComp3 from "./MainHomeComp3";
 import MainHomeComp4 from "./MainHomeComp4";
 import Footer from "./Footer";
-import { pretendard } from "../../styles/fonts";
+import { pretendard, timesNewRoman } from "../../styles/fonts";
+import { HoverImageSpan } from "../../styles/stylePresets";
+import TheModal from "../TheModal";
+
+import headerLogo from "src/assets/header-logo.svg";
+import { serverRootUrl } from "../../constants";
 
 function HomeUnreg() {
   const [videoLoadedComplete, setVideoLoadedComplete] = useState(false);
+  const [openModal, setOpenModal] = useState("initial");
   const jwtValue = useRecoilValue(authJwtAtom);
   const resetAuth = useResetRecoilState(authJwtAtom);
 
@@ -57,7 +67,16 @@ function HomeUnreg() {
           </MainFeatureComp.img>
           <MainEnterTheRoom.main>
             {/* <MainEnterTheRoom.emptyspace /> */}
-            <MainEnterTheRoom.img src={MainEntertheRoomImg} />
+            <HoverImageSpan
+              style={{ display: "block" }}
+              onClick={() => setOpenModal("show")}
+            >
+              <MainEnterTheRoom.img src={MainEntertheRoomImg} />
+              <MainEnterTheRoom.img
+                className="hover"
+                src={MainEntertheRoomImgHover}
+              />
+            </HoverImageSpan>
           </MainEnterTheRoom.main>
         </MainFeatureComp.main>
         <MainPointDown
@@ -87,6 +106,37 @@ function HomeUnreg() {
         <MainHomeComp4 />
         <Footer />
       </MainHomeSection2>
+
+      <TheModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        style={{
+          color: "white",
+        }}
+      >
+        <HeaderModalLoginText.logo>
+          <img src={headerLogo} />
+        </HeaderModalLoginText.logo>
+        <HeaderModalLoginText.title>LOGIN</HeaderModalLoginText.title>
+        <HeaderModalLoginText.text>
+          Pure water is the world's
+          <br /> first and foremost medicine.
+        </HeaderModalLoginText.text>
+        <HeaderModalLoginBtn.root>
+          <HeaderModalLoginBtn.google
+            href={serverRootUrl + "/oauth2/authorization/google"}
+          >
+            <img src={googleLogo} />
+            <div>Google 계정으로 계속</div>
+          </HeaderModalLoginBtn.google>
+          <HeaderModalLoginBtn.kakao
+            href={serverRootUrl + "/oauth2/authorization/kakao"}
+          >
+            <img src={kakaoLogo} />
+            <div> Kakao 계정으로 계속</div>
+          </HeaderModalLoginBtn.kakao>
+        </HeaderModalLoginBtn.root>
+      </TheModal>
     </Container>
   );
 }
@@ -206,6 +256,7 @@ const MainEnterTheRoom = {
   main: styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     /* position: absolute; */
     /* bottom: 0;
     transform: translateY(100%); */
@@ -250,3 +301,75 @@ const MainPointDown = styled.div`
 const MainHomeSection2 = styled(ScrollSnap)`
   background-color: black;
 `;
+
+const HeaderModalLoginBtn = {
+  root: styled.div`
+    ${pretendard}
+    color: black;
+    font-size: 12px;
+    font-weight: 600; // Semi Bold
+  `,
+  google: styled.a`
+    /* Frame 6 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 51px;
+    gap: 10px;
+
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px #ffffff;
+    border-radius: 30px;
+
+    margin-bottom: 11px;
+
+    text-decoration: none;
+    color: inherit;
+  `,
+  kakao: styled.a`
+    /* Frame 7 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 31px;
+    gap: 10px;
+
+    background: rgba(250, 255, 9, 0.6);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25),
+      inset 0px 0px 4px rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+
+    text-decoration: none;
+    color: inherit;
+  `,
+};
+
+const HeaderModalLoginText = {
+  logo: styled.div`
+    width: 47px;
+    margin-bottom: 18px;
+    img {
+      width: 100%;
+    }
+  `,
+  title: styled.div`
+    ${timesNewRoman}
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+  `,
+  text: styled.div`
+    ${timesNewRoman}
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  `,
+};
