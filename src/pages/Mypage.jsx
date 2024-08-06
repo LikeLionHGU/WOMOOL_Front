@@ -45,6 +45,7 @@ function Mypage() {
   const { gid } = useParams();
 
   const [groupOneData, setGroupOneData] = useState({});
+  const [groupOneMemberData, setGroupOneMemberData] = useState([]);
 
   // 0 - personal, 1 - explorer, ID - 그룹페이지
   const [groupMode, setGroupMode] = useState(gid || 0);
@@ -77,6 +78,9 @@ function Mypage() {
       wrapperRef.current?.scrollTo(0, 0);
       setGroupMode(gid);
       fetchBe("/team/getByCode/" + gid).then((json) => setGroupOneData(json));
+      fetchBe("/team/UsersByCode/" + gid).then((json) =>
+        setGroupOneMemberData(json?.userInfos)
+      );
     } else {
       if (groupMode !== 0) setGroupMode(1);
     }
@@ -187,7 +191,10 @@ function Mypage() {
             ) : groupMode === 1 ? (
               <GroupViewExploreMain />
             ) : (
-              <GroupViewMain groupData={groupOneData} />
+              <GroupViewMain
+                groupData={groupOneData}
+                groupMembers={groupOneMemberData}
+              />
             )}
           </MainAreaWrapper>
         </div>

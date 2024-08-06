@@ -4,14 +4,39 @@ import WoomoolChar from "src/assets/woomool-char.png";
 import styled from "styled-components";
 import { pretendard } from "../../styles/fonts";
 import { convertMlToL } from "../../tools/tool";
+import WaterDrinkSlider from "./WaterDrinkSlider";
+import PeopleIcon from "src/assets/Mypage-group/peopleicon-black.svg";
 
-function GroupViewMain({ groupData }) {
+import GroupRightArrow from "src/assets/Mypage-group/group-rightarrow-blue.svg";
+
+function GroupViewMain({ groupData, groupMembers }) {
+  console.log({ groupMembers });
   return (
     <div>
       <WoomoolCharImg src={WoomoolChar} />
       <Total>
         <div className="today">This Week</div>
         <div>{convertMlToL(groupData.groupTotal)}L</div>
+        <GroupMembersStats>
+          {(groupMembers || []).map((memberData) => (
+            <WaterDrinkSlider
+              name={memberData.nickName}
+              drink={memberData.waterAmount}
+              toDrink={1000}
+            />
+          ))}
+        </GroupMembersStats>
+
+        <BottomFlex>
+          <PeopleCount>
+            <img src={PeopleIcon} draggable={false} />
+            <div>{groupMembers.length}</div>
+          </PeopleCount>
+          <BottomArrow>
+            <div>Explore</div>
+            <img src={GroupRightArrow} draggable={false} />
+          </BottomArrow>
+        </BottomFlex>
       </Total>
     </div>
   );
@@ -27,6 +52,9 @@ const WoomoolCharImg = styled.img`
 `;
 
 const Total = styled.div`
+  width: 320px;
+  margin: auto;
+
   ${pretendard}
   font-style: normal;
   font-weight: 600;
@@ -48,5 +76,53 @@ const Total = styled.div`
     text-transform: uppercase;
 
     color: #000000;
+  }
+`;
+
+const GroupMembersStats = styled.div`
+  margin-top: 38px;
+  margin-bottom: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+`;
+
+const PeopleCount = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: black;
+
+  ${pretendard}
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+  text-transform: uppercase;
+
+  color: #000000;
+`;
+
+const BottomFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const BottomArrow = styled.div`
+  cursor: pointer;
+  display: flex;
+  div {
+    /* 마신 물 자세히 보기 */
+    ${pretendard}
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    text-transform: uppercase;
+
+    color: #2892c2;
   }
 `;
