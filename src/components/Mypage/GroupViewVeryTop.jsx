@@ -111,6 +111,7 @@ const ProfileImageBox = styled.div`
   border: 1px solid black;
   overflow: hidden;
   img {
+    aspect-ratio: 1 / 1;
     height: 100%;
     object-fit: cover; /* Ensures the image covers the container */
     object-position: center center; /* Centers the image */
