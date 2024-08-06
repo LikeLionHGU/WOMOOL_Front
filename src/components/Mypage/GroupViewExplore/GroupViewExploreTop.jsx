@@ -25,9 +25,13 @@ const Text = styled.div`
   font-style: normal;
   font-weight: 800;
   font-size: 58px;
-  line-height: 75px;
+  /* line-height: 75px; */
   /* or 110% */
   text-transform: uppercase;
 
   color: #000000;
+
+  @media (max-width: 550px) {
+    font-size: 48px;
+  }
 `;
