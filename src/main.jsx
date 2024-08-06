@@ -11,6 +11,7 @@ import LoginProtected from "./components/LoginProtected.jsx";
 import Mypage from "./pages/Mypage.jsx";
 import NewUser from "./pages/NewUser.jsx";
 import NewUserCup from "./pages/NewUserCup.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
 import TestPage from "./pages/TestPage.jsx";
 import WebsiteBlocker from "./components/WebsiteBlocker.jsx";
 
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/group/:gid",
     element: <LoginProtected comp={Mypage} />,
+  },
+  {
+    path: "/aboutus",
+    element: <AboutUs />,
   },
   {
     path: "/test",

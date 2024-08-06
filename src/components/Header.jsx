@@ -48,7 +48,7 @@ function Header({ loggedIn = false, ...props }) {
           }}
         />
         <HeaderMenus>
-          <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
+          {/* <HeaderMenuBtn>ABOUT US</HeaderMenuBtn> */}
           {jwtValue ? (
             <>
               <HeaderMenuBtn

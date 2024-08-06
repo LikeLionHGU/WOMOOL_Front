@@ -163,14 +163,15 @@ function Mypage() {
                   />
                 </HoverImageSpan>
               ) : (
-                <HoverImageSpan onClick={() => setShowGroupRecord("show")}>
-                  <img src={PrevRecord} draggable={false} />
-                  <img
-                    className="hover"
-                    src={PrevRecordHover}
-                    draggable={false}
-                  />
-                </HoverImageSpan>
+                <></>
+                // <HoverImageSpan onClick={() => setShowGroupRecord("show")}>
+                //   <img src={PrevRecord} draggable={false} />
+                //   <img
+                //     className="hover"
+                //     src={PrevRecordHover}
+                //     draggable={false}
+                //   />
+                // </HoverImageSpan>
               )}
             </TopBlock.left>
             <TopBlock.center>
