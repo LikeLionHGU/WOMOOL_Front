@@ -46,14 +46,20 @@ function GroupViewMain({ groupData, groupMembers }) {
           L
         </div>
         <GroupMembersStats>
-          {(groupMembers || []).map((memberData, idx) => (
-            <WaterDrinkSlider
-              key={memberData.userId}
-              name={memberData.nickName}
-              drink={memberData.waterAmount + memberCurrData[idx]?.todayTotal}
-              toDrink={memberData.recommendation}
-            />
-          ))}
+          {(groupMembers || [])
+            .map((memberData, idx) => ({
+              ...memberData,
+              drink: memberData.waterAmount + memberCurrData[idx]?.todayTotal,
+            }))
+            .sort((a, b) => b.drink - a.drink)
+            .map((memberData) => (
+              <WaterDrinkSlider
+                key={memberData.userId}
+                name={memberData.nickName}
+                drink={memberData.drink}
+                toDrink={memberData.recommendation}
+              />
+            ))}
         </GroupMembersStats>
 
         <BottomFlex>
@@ -61,10 +67,10 @@ function GroupViewMain({ groupData, groupMembers }) {
             <img src={PeopleIcon} draggable={false} />
             <div>{groupMembers.length}</div>
           </PeopleCount>
-          <BottomArrow>
+          {/* <BottomArrow>
             <div>Explore</div>
             <img src={GroupRightArrow} draggable={false} />
-          </BottomArrow>
+          </BottomArrow> */}
         </BottomFlex>
       </Total>
     </div>
