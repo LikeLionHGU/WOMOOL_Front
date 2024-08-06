@@ -39,7 +39,12 @@ function Header({ loggedIn = false, ...props }) {
   return (
     <HeaderComp ref={headerRef} {...props}>
       <HeaderCompContent>
-        <HeaderImage src={loggedIn ? headerLogoBlue : headerLogo} />
+        <HeaderImage
+          src={loggedIn ? headerLogoBlue : headerLogo}
+          onClick={() => {
+            navigate(loggedIn ? "/mypage" : "/");
+          }}
+        />
         <HeaderMenus>
           <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
           {jwtValue ? (
@@ -120,6 +125,7 @@ const HeaderImage = styled.img`
   max-width: 68px;
   padding-left: 25px;
   width: 9.067vw;
+  cursor: pointer;
 `;
 
 const HeaderMenus = styled.div`

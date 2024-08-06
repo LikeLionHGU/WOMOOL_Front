@@ -164,8 +164,8 @@ const Footer = {
     ${pretendard}
     font-style: normal;
     font-weight: 600;
-    font-size: 36px;
-    line-height: 43px;
+    font-size: 24px;
+    /* line-height: 43px; */
     /* identical to box height */
     text-transform: uppercase;
 
