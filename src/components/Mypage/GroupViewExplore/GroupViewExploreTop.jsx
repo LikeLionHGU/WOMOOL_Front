@@ -34,4 +34,7 @@ const Text = styled.div`
   @media (max-width: 550px) {
     font-size: 48px;
   }
+  @media (max-width: 550px) {
+    font-size: 36px;
+  }
 `;
