@@ -1,14 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import CountUp from "react-countup";
+import { pretendard, timesNewRoman } from "src/styles/fonts";
+import { useFetchBe } from "src/tools/api";
+import { useInView } from "react-intersection-observer";
 
 import MainCupImg from "../../assets/MainHome/Section2/Cup.jpg";
 // import CupMask from "../../assets/MainHome/Section2/CupMask.svg";
 import CupBackgroundImg from "../../assets/MainHome/Section2/CupBg.jpg";
-import { removeNonNumeric } from "../../tools/tool";
+import { convertMlToL, removeNonNumeric } from "../../tools/tool";
+import { fetchBe } from "../../tools/api";
 
 function MainHomeComp2_1() {
+  // const fetchBe = useFetchBe();
+
   const mainRef = useRef();
   const cupBgRef = useRef();
+
+  const [allStats, setAllStats] = useState();
+
   const [scrollY, setScrollY] = useState({
     scrollTop: 0,
     mainTop: 0,
@@ -32,6 +42,22 @@ function MainHomeComp2_1() {
     (cupBgRef.current &&
       +removeNonNumeric(getComputedStyle(cupBgRef.current)["paddingTop"])) ||
     0;
+
+  useEffect(() => {
+    fetchBe(null, "/main/getInfo").then((json) => setAllStats(json));
+  }, []);
+
+  const [startCount, setStartCount] = useState(false);
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0.5, // 50% of the component should be visible to trigger the count up
+    triggerOnce: true, // Trigger the count up only once
+  });
+
+  // Set startCount to true when the component is in view
+  if (inView && !startCount) {
+    setStartCount(true);
+  }
   // console.log(
   //   cupBgRefComputedMarginTop,
   //   scrollY.scrollTop,
@@ -77,6 +103,17 @@ function MainHomeComp2_1() {
           <Cup.mask>
             <img src={CupMask} />
           </Cup.mask> */}
+          <MainText ref={ref}>
+            <div>오늘까지 ‘우물우물’ 로 섭취한 물의 양</div>
+            <div className="water">
+              {startCount ? (
+                <CountUp end={allStats?.totalWater || 0} duration={6} />
+              ) : (
+                0
+              )}
+              mL
+            </div>
+          </MainText>
         </Cup.main>
       </MainHomeTodayDrank>
     </div>
@@ -107,6 +144,7 @@ const MainHomeTodayDrank = styled.div`
 const Cup = {
   main: styled.div`
     position: relative;
+    height: 100%;
     /* transition: transform 1ms ease; */
   `,
   mask: styled.div`
@@ -136,3 +174,37 @@ const Cup = {
     /* -webkit-mask-size: 100px; */
   `,
 };
+
+const MainText = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ${pretendard}
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24.4833px;
+  line-height: 29px;
+  text-align: center;
+  margin-right: 20%;
+
+  color: #ffffff;
+
+  .water {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 53px;
+    /* identical to box height */
+    margin-top: 20px;
+
+    color: #ffffff;
+  }
+`;
