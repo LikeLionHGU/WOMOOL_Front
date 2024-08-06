@@ -8,12 +8,14 @@ import kakaoLogo from "../assets/kakaologo.svg";
 import { serverRootUrl } from "../constants";
 import { pretendard, timesNewRoman } from "../styles/fonts";
 import TheModal from "./TheModal";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { authJwtAtom } from "../recoil/auth/atoms";
 import { useNavigate } from "react-router-dom";
 
 function Header({ loggedIn = false, ...props }) {
   const navigate = useNavigate();
+
+  const resetAuth = useResetRecoilState(authJwtAtom);
 
   const [openModal, setOpenModal] = useState("initial");
   const headerRef = useRef(null);
@@ -48,13 +50,23 @@ function Header({ loggedIn = false, ...props }) {
         <HeaderMenus>
           <HeaderMenuBtn>ABOUT US</HeaderMenuBtn>
           {jwtValue ? (
-            <HeaderMenuBtn
-              onClick={() => {
-                navigate("/newuser");
-              }}
-            >
-              MYPAGE
-            </HeaderMenuBtn>
+            <>
+              <HeaderMenuBtn
+                onClick={() => {
+                  navigate("/newuser");
+                }}
+              >
+                MYPAGE
+              </HeaderMenuBtn>
+              <HeaderMenuBtn
+                onClick={() => {
+                  resetAuth();
+                  // navigate("/newuser");
+                }}
+              >
+                LOGOUT
+              </HeaderMenuBtn>
+            </>
           ) : (
             <HeaderMenuBtn
               onClick={() => {
