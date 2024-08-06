@@ -8,12 +8,16 @@ import WaterDrinkSlider from "./WaterDrinkSlider";
 import PeopleIcon from "src/assets/Mypage-group/peopleicon-black.svg";
 
 import GroupRightArrow from "src/assets/Mypage-group/group-rightarrow-blue.svg";
+import { FloatEffect } from "../../styles/FloatEffect";
+import FloatingDiv from "../FloatingDiv";
 
 function GroupViewMain({ groupData, groupMembers }) {
   console.log({ groupMembers });
   return (
     <div>
-      <WoomoolCharImg src={WoomoolChar} />
+      <FloatingDiv maxDistance={10} maxTilt={5} interval={1000}>
+        <WoomoolCharImg src={WoomoolChar} />
+      </FloatingDiv>
       <Total>
         <div className="today">This Week</div>
         <div>{convertMlToL(groupData.groupTotal)}L</div>

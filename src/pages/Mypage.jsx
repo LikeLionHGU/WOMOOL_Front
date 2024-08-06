@@ -182,10 +182,10 @@ function Mypage() {
               <>
                 <PersonalViewMain />
                 <TempText>
-                  <div>
+                  {/* <div>
                     Today <br />
                     {convertMlToL(userData.todayTotal)}L
-                  </div>
+                  </div> */}
                 </TempText>
               </>
             ) : groupMode === 1 ? (

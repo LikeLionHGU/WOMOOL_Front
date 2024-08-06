@@ -23,6 +23,8 @@ import TheButton from "src/styles/TheButton";
 import { HoverImageSpan } from "../../styles/stylePresets";
 import { useSetRecoilState } from "recoil";
 import { userDetailAtom } from "../../recoil/userAtoms";
+import { FloatEffect } from "../../styles/FloatEffect";
+import FloatingDiv from "../FloatingDiv";
 
 function PersonalViewMain() {
   const fetchBe = useFetchBe();
@@ -73,9 +75,17 @@ function PersonalViewMain() {
 
   return (
     <>
-      <MainMugArea>
-        <img src={MainMug} />
-      </MainMugArea>
+      <FloatingDiv maxDistance={10} maxTilt={5} interval={1000}>
+        <MainMugArea>
+          <img src={`/assets/cups/1.png`} />
+          <div>
+            <TextDrank>
+              <div className="small">TODAY</div>
+              <div>1.5L</div>
+            </TextDrank>
+          </div>
+        </MainMugArea>
+      </FloatingDiv>
 
       <WaterButtons>
         <WaterButton onClick={() => sendWaterDrink("sip")}>
@@ -156,11 +166,31 @@ function PersonalViewMain() {
 export default PersonalViewMain;
 
 const MainMugArea = styled.div`
+  position: relative;
+  max-width: 380px;
   text-align: center;
+  margin: auto;
+  margin-top: -20px;
   margin-bottom: 54px;
   transition: margin-bottom 300ms;
   @media (max-width: 750px) {
     margin-bottom: 20px;
+  }
+  img {
+    width: 100%;
+  }
+  & > div {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-left: 70px;
+    margin-bottom: 60px;
   }
 `;
 
@@ -206,9 +236,7 @@ const ModalContent = {
   `,
   header: styled.div`
     ${pretendard}
-    /* 무엇을 얼마나 마셨나요? */
-
-font-style: normal;
+    font-style: normal;
     font-weight: 700;
     font-size: 28px;
     line-height: 33px;
@@ -286,4 +314,20 @@ const CustomModalInput = styled.input`
   &:focus {
     outline: none;
   }
+`;
+
+const TextDrank = styled.div`
+  ${pretendard}
+  font-style: normal;
+  font-weight: 600;
+  font-size: 70px;
+  /* identical to box height */
+  text-align: center;
+  text-transform: uppercase;
+
+  .small {
+    font-size: 33px;
+  }
+
+  color: #000000;
 `;

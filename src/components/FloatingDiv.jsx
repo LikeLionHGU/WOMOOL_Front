@@ -1,26 +1,10 @@
-import React, { useEffect, useState } from "react";
-
-const TestPage = () => {
-  return (
-    <div className="TestPage">
-      <FloatingDiv
-        className="custom-class"
-        style={{ backgroundColor: "blue", width: "100px", height: "100px" }}
-        interval={3000}
-        maxDistance={75}
-        maxTilt={15}
-      >
-        <p>I'm floating!</p>
-      </FloatingDiv>
-    </div>
-  );
-};
+import React, { useState, useEffect } from "react";
 
 const FloatingDiv = ({
   children,
   className = "",
   style = {},
-  interval = 600,
+  interval = 2000,
   maxDistance = 50,
   maxTilt = 10,
 }) => {
@@ -28,7 +12,7 @@ const FloatingDiv = ({
 
   useEffect(() => {
     const animateDiv = () => {
-      const xMove = Math.random() * maxDistance * 2 - maxDistance;
+      const xMove = Math.random() * maxDistance * 1.4 - maxDistance;
       const yMove = Math.random() * maxDistance * 2 - maxDistance;
       const tilt = Math.random() * maxTilt * 2 - maxTilt;
 
@@ -55,4 +39,4 @@ const FloatingDiv = ({
   );
 };
 
-export default TestPage;
+export default FloatingDiv;
