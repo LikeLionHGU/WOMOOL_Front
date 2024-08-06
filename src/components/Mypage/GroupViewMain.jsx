@@ -11,6 +11,8 @@ import GroupRightArrow from "src/assets/Mypage-group/group-rightarrow-blue.svg";
 import { FloatEffect } from "../../styles/FloatEffect";
 import FloatingDiv from "../FloatingDiv";
 
+import CountUp from "react-countup";
+
 function GroupViewMain({ groupData, groupMembers }) {
   console.log({ groupMembers });
   return (
@@ -20,7 +22,16 @@ function GroupViewMain({ groupData, groupMembers }) {
       </FloatingDiv>
       <Total>
         <div className="today">This Week</div>
-        <div>{convertMlToL(groupData.groupTotal)}L</div>
+        <div>
+          {" "}
+          <CountUp
+            end={convertMlToL(groupData.groupTotal) || 0}
+            duration={3}
+            decimals={2}
+            preserveValue={true}
+          />
+          L
+        </div>
         <GroupMembersStats>
           {(groupMembers || []).map((memberData) => (
             <WaterDrinkSlider

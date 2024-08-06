@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MainMug from "src/assets/Mypage/mainmug.svg";
+import CountUp from "react-countup";
 
 import ImgBottle from "src/assets/Mypage/bottle.svg";
 import ImgBottleHover from "src/assets/Mypage/bottle-hover.svg";
@@ -80,7 +81,15 @@ function PersonalViewMain() {
           <div>
             <TextDrank>
               <div className="small">TODAY</div>
-              <div>{convertMlToL(userData.todayTotal)}L</div>
+              <div>
+                <CountUp
+                  end={convertMlToL(userData.todayTotal) || 0}
+                  duration={3}
+                  decimals={2}
+                  preserveValue={true}
+                />
+                L
+              </div>
             </TextDrank>
           </div>
         </MainMugArea>
