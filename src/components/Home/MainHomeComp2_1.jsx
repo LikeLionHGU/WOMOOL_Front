@@ -56,7 +56,7 @@ function MainHomeComp2_1() {
               .height,
         }}
       >
-        <Cup.main style={{}} data-aos="fade-up" data-aos-offset="500">
+        <Cup.main style={{}} data-aos="fade-up">
           <Cup.bg style={{}}>
             <img
               style={{

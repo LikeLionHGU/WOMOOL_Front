@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 function MainHomeComp3() {
   return (
-    <MainHomeComp3Style data-aos="fade-up" data-aos-offset="200">
+    <MainHomeComp3Style data-aos="fade-up">
       <img src={SquarePlaceHolderImg} />
     </MainHomeComp3Style>
   );

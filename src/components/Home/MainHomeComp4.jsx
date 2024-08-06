@@ -21,7 +21,7 @@ function MainHomeComp4() {
     customPaging: (i) => <span>{i + 1}</span>,
   };
   return (
-    <MainHomeComp4Style data-aos="fade-up" data-aos-offset="200">
+    <MainHomeComp4Style data-aos="fade-up">
       <div>
         <Slider {...settings}>
           <SliderStyle.card>
