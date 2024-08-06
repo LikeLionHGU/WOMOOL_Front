@@ -145,7 +145,7 @@ function PersonalViewMain() {
         }}
       >
         <ModalContent.img src={ModalWoomoolSvg} />
-        <ModalContent.header>무엇을 얼마나 마셨나요?</ModalContent.header>
+        <ModalContent.header>얼마나 더 마셨나요?</ModalContent.header>
         <ModalContent.subheader>
           <div className="text">특별하게 마신 수분을 직접 추가해주세요!</div>
         </ModalContent.subheader>
