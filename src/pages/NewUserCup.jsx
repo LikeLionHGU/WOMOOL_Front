@@ -17,17 +17,17 @@ import ModalWoomoolSvg from "../assets/modal-woomool-blue.svg";
 import Header from "../components/Header";
 
 const cupType = [
+  // {
+  //   id: 1,
+  //   title: "Lucky cup",
+  //   description: "한 컵 마실수록 행복해지는 컵",
+  //   cupImage: "/cups/1.png",
+  // },
   {
     id: 1,
-    title: "Lucky cup",
-    description: "한 컵 마실수록 행복해지는 컵",
-    cupImage: "/cups/1.svg",
-  },
-  {
-    id: 2,
     title: "Cloudy cup",
     description: "한 컵 마실수록 몽글몽글해지는 컵",
-    cupImage: "/cups/1.svg",
+    cupImage: "/cups/1.png",
   },
 ];
 
@@ -206,7 +206,12 @@ const HeaderBanner = {
 const CupSelectionContainer = styled.div``;
 
 const CupItemData = {
-  left: styled.div``,
+  left: styled.div`
+    img {
+      width: 100%;
+      margin-top: -40px;
+    }
+  `,
   right: styled.div``,
 };
 
