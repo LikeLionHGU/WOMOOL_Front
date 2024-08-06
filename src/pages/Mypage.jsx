@@ -29,6 +29,7 @@ import { convertMlToL } from "../tools/tool";
 import ModalJoinGroup from "../components/Mypage/GroupViewExplore/ModalJoinGroup";
 import GroupViewVeryTop from "../components/Mypage/GroupViewVeryTop";
 import GroupViewMain from "../components/Mypage/GroupViewMain";
+import GroupLastLog from "../components/Mypage/GroupLastLog";
 
 function Mypage() {
   const resetAuth = useResetRecoilState(authJwtAtom);
@@ -55,10 +56,6 @@ function Mypage() {
     value === "show"
       ? navigate("/mypage?showRecord=" + value)
       : navigate("/mypage");
-  const setShowGroupRecord = (value) =>
-    value === "show"
-      ? navigate("/mypage?showRecord=" + value)
-      : navigate("/mypage");
 
   const scaleValue = Math.min(1, Math.max(0.7, ((swidth - 360) / 360) * 2));
   const rectHeight = mainRef?.current?.getBoundingClientRect().height;
@@ -66,6 +63,12 @@ function Mypage() {
     (1 - scaleValue) * mainRef?.current?.offsetHeight * -0.5;
 
   const [joinModalOpen, setJoinModalOpen] = useState(false);
+
+  const showGroupRecord = params.get("showRecord") || "hidden";
+  const setShowGroupRecord = (value) =>
+    value === "show"
+      ? navigate(`/group/${gid}?showRecord=` + value)
+      : navigate(`/group/${gid}`);
 
   useEffect(() => {
     if (groupMode === 0 && gid) {
@@ -86,13 +89,23 @@ function Mypage() {
     }
   }, [gid]);
 
+  console.log({ showGroupRecord });
+
   return (
     <NewContainerInnerScroll
       ref={wrapperRef}
       style={{ backgroundColor: "#EDECEB" }}
     >
       <AttendanceCheck />
-      <LastLog show={showRecord} setShow={setShowRecord} />
+      {!gid && <LastLog show={showRecord} setShow={setShowRecord} />}
+      {gid && (
+        <GroupLastLog
+          show={showGroupRecord}
+          setShow={setShowGroupRecord}
+          groupData={groupOneData}
+          memberData={groupOneMemberData}
+        />
+      )}
 
       <MyPageWrapper>
         <div className="header">

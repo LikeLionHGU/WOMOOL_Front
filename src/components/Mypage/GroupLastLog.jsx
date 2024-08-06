@@ -14,7 +14,7 @@ import { convertMlToL, currentKoreanTime, formatDate } from "../../tools/tool";
 
 const Stamps = [StampDisabled, StampAttend, StampComplete];
 
-function LastLog({ show = "init", setShow }) {
+function GroupLastLog({ show = "init", setShow, groupData, memberData }) {
   // const jwtValue = useRecoilValue(authJwtAtom);
   const jwtValue = useRecoilValue(authJwtAtom);
   const setUserData = useSetRecoilState(userDetailAtom);
@@ -25,6 +25,9 @@ function LastLog({ show = "init", setShow }) {
       prev[curr.week] = [...(prev[curr.week] || []), curr];
       return prev;
     }, {}) || {};
+
+  console.log(memberData);
+  console.log(!!attendanceData ? show : "init");
 
   useEffect(() => {
     if (show === "hidden") return;
@@ -129,7 +132,7 @@ function LastLog({ show = "init", setShow }) {
   );
 }
 
-export default LastLog;
+export default GroupLastLog;
 
 const LastLogContent = styled.div`
   position: absolute;
