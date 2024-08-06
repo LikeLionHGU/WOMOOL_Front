@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import WoomoolChar from "src/assets/woomool-char.png";
 import styled from "styled-components";
@@ -12,9 +12,22 @@ import { FloatEffect } from "../../styles/FloatEffect";
 import FloatingDiv from "../FloatingDiv";
 
 import CountUp from "react-countup";
+import { useFetchBe } from "../../tools/api";
 
 function GroupViewMain({ groupData, groupMembers }) {
-  console.log({ groupMembers });
+  const fetchBe = useFetchBe();
+  const [memberCurrData, setMemberCurrData] = useState({});
+  // useEffect(() => {
+  //   Promise.all(
+  //     groupMembers.map((member) => fetchBe("/userDetail/" + member.userId))
+  //   ).then((json) => console.log(json));
+  // }, [memberCurrData]);
+  useEffect(() => {
+    Promise.all(
+      groupMembers.map((member) => fetchBe("/userDetail/" + member.userId))
+    ).then((res) => setMemberCurrData(res));
+  }, []);
+  console.log(memberCurrData);
   return (
     <div>
       <FloatingDiv maxDistance={10} maxTilt={5} interval={1000}>
@@ -33,12 +46,12 @@ function GroupViewMain({ groupData, groupMembers }) {
           L
         </div>
         <GroupMembersStats>
-          {(groupMembers || []).map((memberData) => (
+          {(groupMembers || []).map((memberData, idx) => (
             <WaterDrinkSlider
               key={memberData.userId}
               name={memberData.nickName}
-              drink={memberData.waterAmount}
-              toDrink={1000}
+              drink={memberData.waterAmount + memberCurrData[idx]?.todayTotal}
+              toDrink={memberData.recommendation}
             />
           ))}
         </GroupMembersStats>
