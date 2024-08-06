@@ -6,7 +6,7 @@ import { pretendard } from "../../styles/fonts";
 
 function Footer() {
   return (
-    <FooterComp>
+    <FooterComp data-aos="fade-up">
       <hr />
       <FooterArea.main>
         <FooterArea.left>

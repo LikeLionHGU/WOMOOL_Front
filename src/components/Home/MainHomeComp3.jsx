@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import SquarePlaceHolderImg from "../../assets/MainHome/Section3/SquarePlaceHolder.svg";
+import SquarePlaceHolderImg from "../../assets/MainHome/Section3/SquarePlaceHolder.png";
 import styled from "styled-components";
 
 function MainHomeComp3() {

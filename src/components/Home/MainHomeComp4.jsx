@@ -25,7 +25,7 @@ function MainHomeComp4() {
       <div>
         <Slider {...settings}>
           <SliderStyle.card>
-            <SliderStyle.number>1</SliderStyle.number>
+            <SliderStyle.number>01</SliderStyle.number>
             <SliderStyle.header>맞춤형 목표 설정</SliderStyle.header>
             <SliderStyle.content>
               나에게 필요한 물 섭취량을 알고
@@ -34,7 +34,7 @@ function MainHomeComp4() {
             </SliderStyle.content>
           </SliderStyle.card>
           <SliderStyle.card>
-            <SliderStyle.number>2</SliderStyle.number>
+            <SliderStyle.number>02</SliderStyle.number>
             <SliderStyle.header>함께 키우는 그룹 캐릭터</SliderStyle.header>
             <SliderStyle.content>
               소중한 사람들과 습관을 길러,
@@ -43,7 +43,7 @@ function MainHomeComp4() {
             </SliderStyle.content>
           </SliderStyle.card>
           <SliderStyle.card>
-            <SliderStyle.number>3</SliderStyle.number>
+            <SliderStyle.number>03</SliderStyle.number>
             <SliderStyle.header>웹과 앱 상관없이</SliderStyle.header>
             <SliderStyle.content>
               언제 어디서나
