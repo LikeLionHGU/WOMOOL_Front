@@ -21,7 +21,7 @@ import styled from "styled-components";
 import { convertMlToL, removeNonNumeric } from "src/tools/tool";
 import TheButton from "src/styles/TheButton";
 import { HoverImageSpan } from "../../styles/stylePresets";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { userDetailAtom } from "../../recoil/userAtoms";
 import { FloatEffect } from "../../styles/FloatEffect";
 import FloatingDiv from "../FloatingDiv";
@@ -29,8 +29,7 @@ import FloatingDiv from "../FloatingDiv";
 function PersonalViewMain() {
   const fetchBe = useFetchBe();
 
-  const setUserData = useSetRecoilState(userDetailAtom);
-
+  const [userData, setUserData] = useRecoilState(userDetailAtom);
   const [loading, setLoading] = useState({
     bottle: false,
     cup: false,
@@ -81,7 +80,7 @@ function PersonalViewMain() {
           <div>
             <TextDrank>
               <div className="small">TODAY</div>
-              <div>1.5L</div>
+              <div>{convertMlToL(userData.todayTotal)}L</div>
             </TextDrank>
           </div>
         </MainMugArea>
@@ -190,7 +189,7 @@ const MainMugArea = styled.div`
     align-items: flex-end;
     justify-content: center;
     margin-left: 70px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
   }
 `;
 

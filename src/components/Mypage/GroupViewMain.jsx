@@ -24,6 +24,7 @@ function GroupViewMain({ groupData, groupMembers }) {
         <GroupMembersStats>
           {(groupMembers || []).map((memberData) => (
             <WaterDrinkSlider
+              key={memberData.userId}
               name={memberData.nickName}
               drink={memberData.waterAmount}
               toDrink={1000}
