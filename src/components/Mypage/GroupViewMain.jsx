@@ -26,7 +26,7 @@ function GroupViewMain({ groupData, groupMembers }) {
     Promise.all(
       groupMembers.map((member) => fetchBe("/userDetail/" + member.userId))
     ).then((res) => setMemberCurrData(res));
-  }, []);
+  }, [groupMembers]);
   console.log(memberCurrData);
   return (
     <div>
