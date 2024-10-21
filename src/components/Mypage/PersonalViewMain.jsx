@@ -77,7 +77,7 @@ function PersonalViewMain() {
     <>
       <FloatingDiv maxDistance={10} maxTilt={5} interval={1000}>
         <MainMugArea>
-          <img src={`/assets/cups/1.png`} />
+          <img src={`/assets/cups/${userData.cup}.png`} />
           <div>
             <TextDrank>
               <div className="small">TODAY</div>

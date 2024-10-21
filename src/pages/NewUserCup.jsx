@@ -17,17 +17,19 @@ import ModalWoomoolSvg from "../assets/modal-woomool-blue.svg";
 import Header from "../components/Header";
 
 const cupType = [
-  // {
-  //   id: 1,
-  //   title: "Lucky cup",
-  //   description: "한 컵 마실수록 행복해지는 컵",
-  //   cupImage: "/cups/1.png",
-  // },
   {
     id: 1,
     title: "Cloudy cup",
     description: "한 컵 마실수록 몽글몽글해지는 컵",
-    cupImage: "/cups/1.png",
+    cupImage: "cups/1.png",
+    topM: -60,
+  },
+  {
+    id: 2,
+    title: "Lucky cup",
+    description: "한 컵 마실수록 행복해지는 컵",
+    cupImage: "cups/2.png",
+    topM: 10,
   },
 ];
 
@@ -98,7 +100,13 @@ function NewUserCup() {
             </CupItem.header>
             <CupItem.body $clicked={clickedId === cup.id}>
               <CupItemData.left>
-                <img src={`/assets/${cup.cupImage}`} />
+                <img
+                  style={{
+                    marginTop: cup.topM || 0,
+                    marginBottom: (cup.topM > 0 && -cup.topM) || 0,
+                  }}
+                  src={`/assets/${cup.cupImage}`}
+                />
               </CupItemData.left>
               <CupItemData.right>
                 <span
@@ -276,7 +284,7 @@ const CupItem = {
 
     transition: height 0.3s ease-in-out;
     overflow: hidden;
-    height: ${(props) => (props.$clicked ? "328px" : "0")};
+    height: ${(props) => (props.$clicked ? "380px" : "0")};
 
     & > div {
       margin: 35px;
@@ -308,8 +316,12 @@ const CupItem = {
     @media (max-width: 750px) {
       /* display: block; */
       flex-direction: column;
-      height: ${(props) => (props.$clicked ? "453px" : "0")};
+      justify-content: center;
+      height: ${(props) => (props.$clicked ? "540px" : "0")};
       /* height: auto; */
+      ${CupItemData.right} {
+        margin: 20px;
+      }
     }
   `,
 };
