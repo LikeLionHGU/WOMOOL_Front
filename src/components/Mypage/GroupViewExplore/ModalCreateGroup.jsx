@@ -160,6 +160,7 @@ const UploadImageBtn = ({ file: rootFile, setFile: setRootFile }) => {
     } else {
       setMessage("File size should be less than 1MB");
     }
+    e.target.value = null;
   };
   return (
     <UploadImageWrap>
