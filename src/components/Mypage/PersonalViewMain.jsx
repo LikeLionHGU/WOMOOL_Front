@@ -27,6 +27,12 @@ import { userDetailAtom } from "../../recoil/userAtoms";
 import { FloatEffect } from "../../styles/FloatEffect";
 import FloatingDiv from "../FloatingDiv";
 
+const cupMargin = {
+  1: 56,
+  2: 25,
+  3: 0,
+};
+
 function PersonalViewMain() {
   const fetchBe = useFetchBe();
 
@@ -79,7 +85,9 @@ function PersonalViewMain() {
         <MainMugArea>
           <img src={`/assets/cups/${userData.cup}.png`} />
           <div>
-            <TextDrank>
+            <TextDrank
+              style={{ marginLeft: `${cupMargin[userData.cup] || 0}px` }}
+            >
               <div className="small">TODAY</div>
               <div>
                 <CountUp
@@ -332,6 +340,7 @@ const TextDrank = styled.div`
   /* identical to box height */
   text-align: center;
   text-transform: uppercase;
+  padding-right: 40px;
 
   .small {
     font-size: 33px;
