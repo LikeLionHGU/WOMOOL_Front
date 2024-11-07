@@ -22,14 +22,23 @@ const cupType = [
     title: "Cloudy cup",
     description: "한 컵 마실수록 몽글몽글해지는 컵",
     cupImage: "cups/1.png",
-    topM: -60,
+    topM: -80,
   },
   {
     id: 2,
     title: "Lucky cup",
     description: "한 컵 마실수록 행복해지는 컵",
     cupImage: "cups/2.png",
-    topM: 10,
+    topM: -80,
+    // topM: 10,
+  },
+  {
+    id: 3,
+    title: "Lucky cup",
+    description: "한 컵 마실수록 행복해지는 컵",
+    cupImage: "cups/3.png",
+    topM: -80,
+    // topM: 10,
   },
 ];
 
@@ -293,6 +302,11 @@ const CupItem = {
     ${CupItemData.left} {
       flex-shrink: 0;
       width: 333px;
+      margin-bottom: 0px;
+      @media (max-width: 530px) {
+        margin-bottom: 16px;
+        margin-left: 15px;
+      }
     }
 
     ${CupItemData.right} {
@@ -317,7 +331,7 @@ const CupItem = {
       /* display: block; */
       flex-direction: column;
       justify-content: center;
-      height: ${(props) => (props.$clicked ? "540px" : "0")};
+      height: ${(props) => (props.$clicked ? "450px" : "0")};
       /* height: auto; */
       ${CupItemData.right} {
         margin: 20px;
