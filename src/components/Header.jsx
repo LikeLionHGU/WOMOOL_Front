@@ -49,6 +49,13 @@ function Header({ loggedIn = false, ...props }) {
         />
         <HeaderMenus>
           {/* <HeaderMenuBtn>ABOUT US</HeaderMenuBtn> */}
+          <HeaderMenuBtn
+            onClick={() => {
+              navigate("/aboutus");
+            }}
+          >
+            ABOUT US
+          </HeaderMenuBtn>
           {jwtValue ? (
             <>
               <HeaderMenuBtn
