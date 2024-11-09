@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { convertMlToL } from "src/tools/tool";
 import { nenu, pretendard } from "src/styles/fonts";
+import { HoverImageSpan } from "../../styles/stylePresets";
+
+import copySvg from "../../assets/Mypage-group/copy.svg";
 
 function GroupViewVeryTop({ userData, groupData }) {
   return (
@@ -25,7 +28,32 @@ function GroupViewVeryTop({ userData, groupData }) {
             <img src={groupData.teamImage} />
           </ProfileImageBox>
         </LevelIconBox>
-        <ProfileImageBox>
+        <ProfileImageBox style={{ position: "relative" }}>
+          <StyleOverlay>
+            <div
+              onClick={() => {
+                navigator.clipboard
+                  .writeText(groupData.code)
+                  .then(() => {})
+                  .catch((err) => {});
+              }}
+            >
+              <div>CODE</div>
+              <div>
+                {groupData.code}{" "}
+                <img
+                  style={{
+                    width: 16,
+                    height: 20,
+                    display: "inline-block",
+                    marginLeft: 1,
+                    marginBottom: 2,
+                  }}
+                  src={copySvg}
+                />
+              </div>
+            </div>
+          </StyleOverlay>
           <img src={groupData.teamImage} />
         </ProfileImageBox>
       </TopPart>
@@ -110,6 +138,7 @@ const ProfileImageBox = styled.div`
   border-radius: 10px;
   border: 1px solid black;
   overflow: hidden;
+  & > *,
   img {
     aspect-ratio: 1 / 1;
     height: 100%;
@@ -166,5 +195,31 @@ const LevelIconBox = styled.div`
       display: block;
       border: none;
     }
+  }
+`;
+
+const StyleOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+
+  & > div {
+    visibility: hidden;
+  }
+
+  &:hover > div {
+    flex-direction: column;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 28px;
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.7);
   }
 `;

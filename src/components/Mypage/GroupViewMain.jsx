@@ -89,6 +89,7 @@ const WoomoolCharImg = styled.img`
 const Total = styled.div`
   width: 320px;
   margin: auto;
+  margin-bottom: 32px;
 
   ${pretendard}
   font-style: normal;

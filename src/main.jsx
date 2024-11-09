@@ -57,9 +57,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RecoilRoot>
-      <WebsiteBlocker>
-        <RouterProvider router={router} />
-      </WebsiteBlocker>
+      {/* <WebsiteBlocker> */}
+      <RouterProvider router={router} />
+      {/* </WebsiteBlocker> */}
     </RecoilRoot>
   </React.StrictMode>
 );
