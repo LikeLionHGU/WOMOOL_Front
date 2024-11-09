@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 import FooterLogoImg from "../../assets/footer-logo.svg";
 import { pretendard } from "../../styles/fonts";
+import { Link } from "react-router-dom";
 
-function Footer() {
+function Footer({ noTop = false }) {
   return (
     <FooterComp data-aos="fade-up">
-      <hr />
-      <FooterArea.main>
+      {!noTop && <hr />}
+      <FooterArea.main noTop={noTop}>
         <FooterArea.left>
           <div>
             <img src={FooterLogoImg} />
@@ -20,7 +21,12 @@ function Footer() {
         </FooterArea.left>
         <FooterArea.right>
           <FooterText.right>
-            <div>ABOUT US</div>
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/aboutus"
+            >
+              ABOUT US
+            </Link>
             <div>INSTAGRAM</div>
           </FooterText.right>
         </FooterArea.right>
@@ -39,7 +45,7 @@ const FooterArea = {
   main: styled.div`
     max-width: 640px;
     margin: auto;
-    margin-top: 183px;
+    margin-top: ${({ noTop }) => (!noTop ? "183px" : "0")};
     padding: 24px;
     padding-bottom: 47px;
     display: flex;
