@@ -19,4 +19,5 @@ export const NewContainerInnerScroll = styled(NewContainer)`
   overflow-y: auto;
   height: 100vh;
   overflow-x: hidden;
+  padding-bottom: 85px;
 `;
