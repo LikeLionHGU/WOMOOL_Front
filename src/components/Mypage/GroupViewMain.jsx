@@ -49,7 +49,8 @@ function GroupViewMain({ groupData, groupMembers }) {
           {(groupMembers || [])
             .map((memberData, idx) => ({
               ...memberData,
-              drink: memberData.waterAmount + memberCurrData[idx]?.todayTotal,
+              drink:
+                memberData.waterAmount /* + memberCurrData[idx]?.todayTotal */,
             }))
             .sort((a, b) => b.drink - a.drink)
             .map((memberData) => (
