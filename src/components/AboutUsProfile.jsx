@@ -29,6 +29,10 @@ const TeamMemberContainer = styled.div`
   display: flex;
   position: relative;
   margin-bottom: 50px; /* Adjust spacing between team members */
+  @media (max-width: 405px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 
 const LineOverlay = styled.div`
@@ -72,7 +76,7 @@ const InfoItem = styled.div`
   font-size: 16px;
   font-weight: 600;
   color: black;
-  text-transform: capitalize;
+  text-transform: none;
 `;
 
 const Image = styled.img`
@@ -81,6 +85,10 @@ const Image = styled.img`
   border-radius: 5px;
   border: 1px solid black;
   margin-left: auto;
+  @media (max-width: 405px) {
+    margin-left: 0;
+    margin-bottom: 8px;
+  }
 `;
 
 const AboutUsProfile = () => {
